@@ -107,6 +107,11 @@ router.get('/presImg/:id', checkLogin, async (req, res, next) => {
 
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex.select("*").from("t_presfolders").where({isDeleted:false, eventid:req.params.id}).orderBy("id");
+    var ret=[];
+    r.forEach(rr=>{
+        ret.push({id:rr.id, type:rr.type});
+    })
+    res.json(ret);
 });
 router.delete('/presFolders/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex("t_presfolders").update({isDeleted:true},"*").where({ eventid:req.params.id}).orderBy("id");
