@@ -1,11 +1,11 @@
 .presContainer#presContainer
     .presBody
         .presScroll
-            .presItemWr.presItemBlank(v-if="presFiles.length==0")
+            .presItemWr.presItemBlank(v-if="presFolders.length==0")
                 .presItem
                     div Now any files is not loaded.
                     div Please, use button on the bottom.
-            .presItemWr(v-for="item in presFiles")
+            .presItemWr(v-for="item in presFolders")
                 .presItem(:style="'background-image: url(/api/v1/presImg/'+item.id+')'")
                     .presType {{formatType(item.type)}}
                     .presDelete(v-on:click="deletePres(item)")
