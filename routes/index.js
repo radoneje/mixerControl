@@ -28,13 +28,13 @@ router.get('/logout', function(req, res, next) {
 
 })
 
-router.get('/mixer/:id', function(req, res, next) {
+router.get('/event/:id', function(req, res, next) {
   const user=req.session["user"]
   if(!user)
     return  res.redirect("/");
 
 
-  res.render('mixer', { title: 'Express', mixerId:req.params.id });
+  res.render('event', { title: 'Express', mixerId:req.params.id });
 });
 
 router.get('/showSpk/:id', async (req, res, next)=> {

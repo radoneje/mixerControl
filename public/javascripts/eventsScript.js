@@ -33,7 +33,7 @@ var app = new Vue({
             this.newEventDate = new Date();
         },
         openMixer:async function(item){
-            document.location.href="/mixer/"+item.id;
+            document.location.href="/event/"+item.id;
         }
     },
     mounted: async function () {
