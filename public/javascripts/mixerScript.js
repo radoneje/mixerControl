@@ -43,6 +43,7 @@ var presApp=new Vue({
         },
     },
     mounted:async function () {
+        alert(123)
         this.presFiles=(await axios.get('/api/v1/presFolders/'+mixerId)).data;
         console.log("d",this.presFiles)
     }
