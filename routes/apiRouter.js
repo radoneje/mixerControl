@@ -43,7 +43,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
 
     for (var file of req.files) {
         var ext=path.extname(file.originalname);
-        console.log(ext,file.originalname )
+
         fs.renameSync(file.path, file.path+ext)
         file.path=file.path+ext;
         var r = (await req.knex("t_presfolders").insert({
@@ -58,6 +58,8 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             //TODO: convert images
             var fullpath=config.filePresPath+file.filename+ext;
             var lrvpath=config.fileLRVPath+file.filename+ext;
+
+            console.log(fullpath,lrvpath )
 
             gm(file.path)
                 .resize('1280', '720', '^')
