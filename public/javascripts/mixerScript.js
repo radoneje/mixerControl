@@ -1,7 +1,7 @@
 var presApp=new Vue({
     el:"#presContainer",
     data:{
-        presFiles:[],
+        presFolders:[],
     },
     methods:{
         deletePres:async function(item){
