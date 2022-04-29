@@ -114,7 +114,8 @@ router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
     res.json(ret);
 });
 router.delete('/presFolders/:id', checkLogin, async (req, res, next) => {
-    var r = await req.knex("t_presfolders").update({isDeleted:true},"*").where({ eventid:req.params.id}).orderBy("id");
+    var r = await req.knex("t_presfolders").update({isDeleted:true},"*").where({ id:req.params.id}).orderBy("id");
+
     if(r.length==0)
         return res.sendStatus(404);
     res.json(r[0].id);
