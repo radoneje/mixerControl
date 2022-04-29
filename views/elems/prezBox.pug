@@ -7,7 +7,7 @@
         .presItemWr(v-for="item in presFiles")
             .presItem {{item}}
                 img.presImg(:src="'/api/v1/presimg/'+item.id")
-                .presType {formatType(item.type)}
+                .presType {{formatType(item.type)}}
 
     .presFooter
         .button(v-on:click="addImage()")
