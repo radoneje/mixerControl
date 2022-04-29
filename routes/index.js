@@ -34,7 +34,7 @@ router.get('/event/:id', function(req, res, next) {
     return  res.redirect("/");
 
 
-  res.render('event', { title: 'Express', mixerId:req.params.id });
+  res.render('event', { title: 'Express', mixerId:req.params.id, user:{f:user.name, i:user.suname, id:user.id} });
 });
 
 router.get('/showSpk/:id', async (req, res, next)=> {
