@@ -56,8 +56,8 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
         }, "*"))[0];
         if(file.mimetype.toLowerCase().indexOf('image/')==0){
             //TODO: convert images
-            var fullpath=config.filePresPath+file.filename+ext;
-            var lrvpath=config.fileLRVPath+file.filename+ext;
+            var fullpath=config.filePresPath+file.filename+".png";
+            var lrvpath=config.fileLRVPath+file.filename+".png";
             gm(file.path)
                 .resize('1280', '720', '^')
                 .gravity('Center')
