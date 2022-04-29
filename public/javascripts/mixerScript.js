@@ -4,6 +4,12 @@ var presApp=new Vue({
         presFiles:[],
     },
     methods:{
+        deletePres:async function(item){
+            if(!confirm("Delete this presentation?"))
+                return;
+            var r=(await axios.delete('/api/presFolders/'+item.id)).data;
+            this.presFiles=this.presFiles.filter(rr=>{return rr.id!=r.id});
+        },
         formatType:function(text){
 
             var match=text.match(/^([a-z]+)\//);
