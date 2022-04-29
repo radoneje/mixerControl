@@ -71,7 +71,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                         var stat = fs.statSync(fullpath)
                         var fileRecord=await req.knex("t_presfiles").insert({folderid:r.id,fullpath, fullsize:stat.size}, "*");
 
-                        gm(file.path).resize('1280', '720', '^').gravity('Center').crop('1280', '720').write(lrvpath, async (err)=>{
+                        gm(file.path).resize('320', '180', '^').gravity('Center').crop('320', '180').write(lrvpath, async (err)=>{
                             var stat = fs.statSync(lrvpath);
                             await req.knex("t_presfiles").update({lrvpath, lrvsize:stat.size}).where({id:fileRecord[0].id});
                             await req.knex("t_presfolders").update({image:lrvpath}).where({id:r.id})
