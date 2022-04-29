@@ -1,12 +1,13 @@
 .presContainer#presContainer
     .presBody
-        .presItemWr.presItemBlank(v-if="presFiles.length==0")
-            .presItem
-                div Now any files is not loaded.
-                div Please, use button on the bottom.
-        .presItemWr(v-for="item in presFiles")
-            .presItem(:style="'background-image: url(/api/v1/presImg/'+item.id+')'")
-                .presType {{formatType(item.type)}}
+        .presScroll
+            .presItemWr.presItemBlank(v-if="presFiles.length==0")
+                .presItem
+                    div Now any files is not loaded.
+                    div Please, use button on the bottom.
+            .presItemWr(v-for="item in presFiles")
+                .presItem(:style="'background-image: url(/api/v1/presImg/'+item.id+')'")
+                    .presType {{formatType(item.type)}}
 
     .presFooter
         .button(v-on:click="addImage()")
