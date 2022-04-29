@@ -5,9 +5,9 @@
                 div Now any files is not loaded.
                 div Please, use button on the bottom.
         .presItemWr(v-for="item in presFiles")
-            .presItem
+            .presItem {{item}}
                 img.presImg(:src="'/api/v1/presimg'+item.id")
-                .presType {{formatType(item.type)}}
+                .presType {formatType(item.type)}
 
     .presFooter
         .button(v-on:click="addImage()")
