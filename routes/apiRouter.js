@@ -100,8 +100,21 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
 });
 router.get('/presImg/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex.select("*").from("t_presfolders").where({id: req.params.id});
+    if(r.length==0)
+        return res.sendStatus(404);
     res.sendFile(r[0].image);
 });
+
+router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
+    var r = await req.knex.select("*").from("t_presfolders").where({isDeleted:false, eventid:req.params.id}).orderBy("id");
+});
+router.delete('/presFolders/:id', checkLogin, async (req, res, next) => {
+    var r = await req.knex("t_presfolders").update({isDeleted:true},"*").where({ eventid:req.params.id}).orderBy("id");
+    if(r.length==0)
+        return res.sendStatus(404);
+    res.json(r[0].id);
+});
+
 
 
 
