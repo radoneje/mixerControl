@@ -4,6 +4,10 @@ var presApp=new Vue({
         presFiles:[],
     },
     methods:{
+        formatType:function(text){
+            var match=text.match(/^([a-z]+)\//);
+            console.log(match);
+        },
         addImage:async function(){
             var el=document.createElement("input");
             el.type="file";
