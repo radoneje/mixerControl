@@ -56,13 +56,26 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
         }, "*"))[0];
         if(file.mimetype.toLowerCase().indexOf('image/')==0){
             //TODO: convert images
+            var fullpath=config.filePresPath+file.filename+ext;
+            var lrvpath=config.fileLRVPath+file.filename+ext;
+
             gm(file.path)
                 .resize('1280', '720', '^')
                 .gravity('Center')
                 .crop('1280', '720')
-                .write(config.filePresPath+file.filename, function (err) {
-                    if (!err) console.log(' hooray! ');
-                    console.log(err)
+                .write(fullpath,async function (err) {
+                    if (!err)
+                    {
+                        var stat = fs.statSync(fullpath)
+                        var fileRecord=await req.knex("t_presfiles").insert({folderid:r.id,fullpath, fullsize:stat.size}, "*");
+
+                        gm(file.path).resize('1280', '720', '^').gravity('Center').crop('1280', '720').write(lrvpath, async (err)=>{
+                            var stat = fs.statSync(lrvpath);
+                            await req.knex("t_presfiles").update({lrvpath, lrvsize:stat.size}).where({id:fileRecord[0].id});
+                            await req.knex("t_presfolders").update({image:lrvpath}).where({id:r.id})
+                        });
+                    }
+
                 });
         }
         if(file.mimetype.toLowerCase().indexOf('application/pdf')==0){
