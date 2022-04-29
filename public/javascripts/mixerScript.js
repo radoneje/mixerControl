@@ -8,7 +8,8 @@ var presApp=new Vue({
             if(!confirm("Delete this presentation?"))
                 return;
             var r=(await axios.post('/api/v1/presFoldersDelete/', {id:item.id})).data;
-            this.presFiles=this.presFiles.filter(rr=>{return rr.id!=r.id});
+            console.log(r);
+            this.presFolders=this.presFolders.filter(rr=>{return rr.id!=r.id});
         },
         formatType:function(text){
 
@@ -35,7 +36,7 @@ var presApp=new Vue({
                 request.onreadystatechange = () => {
                     if (request.readyState === 4 && request.status === 200) {
                         //console.log("file UPLOADED", request.response);
-                        this.presFiles.push(JSON.parse(request.response))
+                        this.presFolders.push(JSON.parse(request.response))
                         el.parentNode.removeChild(el);
                     }
                 };
@@ -50,8 +51,8 @@ var presApp=new Vue({
     },
     mounted:async function () {
 
-        this.presFiles=(await axios.get('/api/v1/presFolders/'+mixerId)).data;
-        console.log("d",this.presFiles)
+        this.presFolders=(await axios.get('/api/v1/presFolders/'+mixerId)).data;
+        console.log("d",this.presFolders)
     }
 })
 
