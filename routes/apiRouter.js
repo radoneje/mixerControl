@@ -58,9 +58,6 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             //TODO: convert images
             var fullpath=config.filePresPath+file.filename+ext;
             var lrvpath=config.fileLRVPath+file.filename+ext;
-
-            console.log(fullpath,lrvpath )
-
             gm(file.path)
                 .resize('1280', '720', '^')
                 .gravity('Center')
@@ -72,11 +69,22 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                         var fileRecord=await req.knex("t_presfiles").insert({folderid:r.id,fullpath, fullsize:stat.size}, "*");
 
                         gm(file.path).resize('320', '180', '^').gravity('Center').crop('320', '180').write(lrvpath, async (err)=>{
-                            var stat = fs.statSync(lrvpath);
-                            await req.knex("t_presfiles").update({lrvpath, lrvsize:stat.size}).where({id:fileRecord[0].id});
-                            await req.knex("t_presfolders").update({image:lrvpath}).where({id:r.id})
+                            if(!err) {
+                                var stat = fs.statSync(lrvpath);
+                                await req.knex("t_presfiles").update({
+                                    lrvpath,
+                                    lrvsize: stat.size
+                                }).where({id: fileRecord[0].id});
+                                var rr=await req.knex("t_presfolders").update({image: lrvpath}).where({id: r.id})
+                                delete r.lrvpath;
+                                res.json({r});
+                            }
+                            else
+                                return  res.json({err:true, err});
                         });
                     }
+                    else
+                        return res.json({err:true, err});
 
                 });
         }
@@ -88,7 +96,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
         }
     }
     var mixerid = req.body.mixerid;
-    res.json(1);
+
 });
 
 
