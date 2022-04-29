@@ -1,5 +1,9 @@
 .presContainer#presContainer
     .presBody
+        .presItem.presItemBlank(v-if="presFiles.length==0")
+            div Now any files is not loaded.
+            div Please, use button on the bottom.
+        .presItem(v-for="item in presFiles")
     .presFooter
         .button(v-on:click="addImage()")
             .buttonTextAdd Image, Video or PDF

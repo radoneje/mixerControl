@@ -1,5 +1,8 @@
 var presApp=new Vue({
     el:"#presContainer",
+    data:{
+        presFiles:[],
+    },
     methods:{
         addImage:async function(){
             var el=document.createElement("input");
