@@ -7,7 +7,7 @@ var presApp=new Vue({
         deletePres:async function(item){
             if(!confirm("Delete this presentation?"))
                 return;
-            var r=(await axios.post('/api/presFoldersDelete/', {id:item.id})).data;
+            var r=(await axios.post('/api/v1/presFoldersDelete/', {id:item.id})).data;
             this.presFiles=this.presFiles.filter(rr=>{return rr.id!=r.id});
         },
         formatType:function(text){
