@@ -76,8 +76,8 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                                     lrvsize: stat.size
                                 }).where({id: fileRecord[0].id});
                                 var rr=await req.knex("t_presfolders").update({image: lrvpath}).where({id: r.id})
-                                delete r.lrvpath;
-                                res.json({r});
+
+                                res.json({id:r.id});
                             }
                             else
                                 return  res.json({err:true, err});
