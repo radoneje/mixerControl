@@ -37,6 +37,7 @@ a {
   background: var(--yellow);
   height: ~"calc(100% - 56px)";
   overflow-y: scroll;
+  position:relative;
 }
 .presFooter{
   height:40px;
@@ -259,7 +260,11 @@ a {
   left: 8px;
 }
 .presScroll{
+  position:absolute;
+  top: 0;
+  left:0;
+  width:100%;
   height:100%;
-  overflow:hide;
+  overflow-y: scroll;
 }
 
