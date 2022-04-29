@@ -23,8 +23,8 @@ var presApp=new Vue({
                 request.open("POST", '/api/v1/addPresFiles', true);
                 request.onreadystatechange = () => {
                     if (request.readyState === 4 && request.status === 200) {
-                        console.log("file UPLOADED", request.response);
-
+                        //console.log("file UPLOADED", request.response);
+                        this.presFiles.push(request.response)
                         el.parentNode.removeChild(el);
                     }
                 };

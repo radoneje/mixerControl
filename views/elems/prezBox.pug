@@ -4,7 +4,9 @@
             .presItem
                 div Now any files is not loaded.
                 div Please, use button on the bottom.
-        .presItem(v-for="item in presFiles")
+        .presItemWr(v-for="item in presFiles")
+            .presItem {{item.id}} {{item.type}}
+
     .presFooter
         .button(v-on:click="addImage()")
             .buttonTextAdd Image, Video or PDF
