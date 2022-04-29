@@ -43,9 +43,9 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
 
     for (var file of req.files) {
         var ext=path.extname(file.originalname);
+        console.log(ext,file.originalname )
         fs.renameSync(file.path, file.path+ext)
         file.path=file.path+ext;
-        fs.mm
         var r = (await req.knex("t_presfolders").insert({
             originalname: file.originalname,
             type: file.mimetype,
@@ -84,9 +84,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
         if(file.mimetype.toLowerCase().indexOf('video/')==0){
             //TODO: convert vodeo
         }
-        console.log(r)
     }
-    console.log(req.files, req.body)
     var mixerid = req.body.mixerid;
     res.json(1);
 });
