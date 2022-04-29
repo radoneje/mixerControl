@@ -28,7 +28,7 @@ router.get('/logout', function(req, res, next) {
 
 })
 
-router.get('/event/:id', asyncfunction(req, res, next) {
+router.get('/event/:id', async function(req, res, next) {
   const user=req.session["user"]
   if(!user)
     return  res.redirect("/");
