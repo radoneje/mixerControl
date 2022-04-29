@@ -5,9 +5,9 @@ var presApp=new Vue({
     },
     methods:{
         formatType:function(text){
-            console.log(text)
+
             var match=text.match(/^([a-z]+)\//);
-            console.log(match);
+            return match[1];
         },
         addImage:async function(){
             var el=document.createElement("input");

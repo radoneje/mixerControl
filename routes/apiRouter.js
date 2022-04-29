@@ -98,6 +98,11 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
     var mixerid = req.body.mixerid;
 
 });
+router.get('/presImg/:id', checkLogin, async (req, res, next) => {
+    var r = await req.knex.select("*").from("t_presfolders").where({id: req.params.id});
+    res.sendFile(r[0].image);
+});
+
 
 
 module.exports = router;
