@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  style.
+
+
+  h1 NewsFactory Mixer
+  #loader loading ...
+  #remoteVideo(style="width:320pxpx;height:320pxpx;display:none" )
+
+  .Box
+    .boxSideCol
+      include elems/prezBox
+    .boxCenterCol
+
+      .pgmRow
+        .pgm
+          canvas#pgmCanvas(width="960" height="540")
+      .spkRow#spkRow
+    .boxSideCol
+      include interactiveBox
+
+  script.
+    const mixerId=!{JSON.stringify(mixerId)};
+  script(src="/lib/axios.js")
+  script(src="/lib/flashUtils.js")
+  <script type="text/javascript" src="/lib/flashphoner.js"></script>
+  <script src="/lib/vue.min.js"></script>
+  <script src="/lib/moment.min.js"></script>
+  <script src="/javascripts/mixerScript.js"></script>
+
+
+
+

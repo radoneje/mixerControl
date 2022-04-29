@@ -1,0 +1,12 @@
+{
+  "mixerCore": "http://wowza01.onevent.online/",
+  "pgConnection":  {
+    "host" : "127.0.0.1",
+    "user" : "postgres",
+    "password" : "gbplf13",
+    "database" : "mixer"
+  },
+  "sha256Secret": "bewvw&#bevh**ewfeh",
+  "fileUploadPath": "/Users/denisshevchenko/Downloads/",
+  "filePresPath": "/Users/denisshevchenko/Downloads/full/"
+}
