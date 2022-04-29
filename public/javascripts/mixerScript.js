@@ -5,6 +5,7 @@ var presApp=new Vue({
     },
     methods:{
         formatType:function(text){
+            console.log(text)
             var match=text.match(/^([a-z]+)\//);
             console.log(match);
         },
