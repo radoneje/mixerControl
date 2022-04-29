@@ -6,7 +6,7 @@
                 div Please, use button on the bottom.
         .presItemWr(v-for="item in presFiles")
             .presItem {{item}}
-                img.presImg(:src="'/api/v1/presimg'+item.id")
+                img.presImg(:src="'/api/v1/presimg/'+item.id")
                 .presType {formatType(item.type)}
 
     .presFooter

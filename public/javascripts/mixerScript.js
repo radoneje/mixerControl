@@ -29,7 +29,7 @@ var presApp=new Vue({
                 request.onreadystatechange = () => {
                     if (request.readyState === 4 && request.status === 200) {
                         //console.log("file UPLOADED", request.response);
-                        this.presFiles.push(request.response)
+                        this.presFiles.push(JSON.parse(request.response))
                         el.parentNode.removeChild(el);
                     }
                 };
