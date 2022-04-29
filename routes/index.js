@@ -28,13 +28,15 @@ router.get('/logout', function(req, res, next) {
 
 })
 
-router.get('/event/:id', function(req, res, next) {
+router.get('/event/:id', asyncfunction(req, res, next) {
   const user=req.session["user"]
   if(!user)
     return  res.redirect("/");
 
-
-  res.render('event', { title: 'Express', mixerId:req.params.id, user:{f:user.name, i:user.suname, id:user.id} });
+  var r=await req.knex.select("*").from("t_events").where({isDeleted:false, id:req.params.id});
+  if(r.length==0)
+    return res.sendStatus(404);
+  res.render('event', { title: 'Express', mixerId:req.params.id,title:r[0].title, user:{f:user.name, i:user.suname, id:user.id} });
 });
 
 router.get('/showSpk/:id', async (req, res, next)=> {
