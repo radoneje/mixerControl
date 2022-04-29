@@ -8,8 +8,7 @@ var presApp=new Vue({
             if(!confirm("Delete this presentation?"))
                 return;
             var r=(await axios.post('/api/v1/presFoldersDelete/', {id:item.id})).data;
-            console.log(r);
-            this.presFolders=this.presFolders.filter(rr=>{return rr.id!=r.id});
+            this.presFolders=this.presFolders.filter(rr=>{return rr.id!=r});
         },
         formatType:function(text){
 
