@@ -228,7 +228,7 @@ a {
 
 
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 53.25%; /* 16:9 */
   height: 0;
   width:~" calc(100% - 32px)";
   margin: 16px auto;
@@ -255,8 +255,8 @@ a {
 }
 .presImageBox
 {
-  height: 100%;
   width: max-content;
+  height:~" calc(100% - 2px)";
 }
 .presImage{
   border-radius: 8px;
@@ -266,6 +266,10 @@ a {
 }
 .presImage img{
   height: 100%;
+  box-sizing: border-box;
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid transparent;
 }
 
 .presItem:hover{filter: brightness(0.75);}
