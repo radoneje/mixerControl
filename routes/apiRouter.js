@@ -54,6 +54,8 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             originalpath:file.path,
             originalsize:file.size
         }, "*"))[0];
+        res.json({id:r.id, type:r.type, images:[]});
+
         if(file.mimetype.toLowerCase().indexOf('image/')==0){
             //TODO: convert images
             var fullpath=config.filePresPath+file.filename+".png";
@@ -77,14 +79,14 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                                 }).where({id: fileRecord[0].id});
                                 var rr=await req.knex("t_presfolders").update({image: lrvpath}).where({id: r.id})
 
-                                res.json({id:r.id, type:r.type});
+                               // res.json({id:r.id, type:r.type});
                             }
-                            else
-                                return  res.json({err:true, err});
+                           // else
+                              //  return  res.json({err:true, err});
                         });
                     }
-                    else
-                        return res.json({err:true, err});
+                    //else
+                       // return res.json({err:true, err});
 
                 });
         }
@@ -108,9 +110,10 @@ router.get('/presImg/:id', checkLogin, async (req, res, next) => {
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex.select("*").from("t_presfolders").where({isDeleted:false, eventid:req.params.id}).orderBy("id");
     var ret=[];
-    r.forEach(rr=>{
-        ret.push({id:rr.id, type:rr.type});
-    })
+    for(var rr of r){
+        ret.push({id:rr.id, type:rr.type, images:[]});
+    }
+
     res.json(ret);
 });
 router.post('/presFoldersDelete', checkLogin, async (req, res, next) => {
