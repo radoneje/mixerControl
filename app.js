@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 //////
-
+var WebSocketServer = require('websocket').server;
 var config = require('./config.json')
 var session = require('express-session');
 var knex = require('knex')({
@@ -75,8 +75,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-app.onListen=function(http){
+app.onListen=function(server){
   console.log("app.onListen");
+  wsServer = new WebSocketServer({
+    httpServer: server,
+    autoAcceptConnections: false
+  });
 }
 
 module.exports = app;
