@@ -73,12 +73,12 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                         gm(file.path).resize('320', '180', '^').gravity('Center').crop('320', '180').write(lrvpath, async (err)=>{
                             if(!err) {
                                 var stat = fs.statSync(lrvpath);
-                                await req.knex("t_presfiles").update({
+                                var presfiles = await req.knex("t_presfiles").update({
                                     lrvpath,
                                     lrvsize: stat.size
-                                }).where({id: fileRecord[0].id});
+                                }, "*").where({id: fileRecord[0].id});
                                 var rr=await req.knex("t_presfolders").update({image: lrvpath}).where({id: r.id})
-
+                                req.io.emit("message", JSON.stringify({cmd:"addPresImg", eventid:events[0].id, id:presfiles[0].id, size:presfiles[0].lrvsize}))
                                // res.json({id:r.id, type:r.type});
                             }
                            // else
