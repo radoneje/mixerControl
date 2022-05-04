@@ -45,12 +45,12 @@ router.get('/showSpk/:id/:eventid', async (req, res, next)=> {
     return  res.redirect("/");
   try {
     var r = await axios.get(config.mixerCore + "mixer/activeInput/" + req.params["id"])
-    req.io.emit("message", JSON.stringify({cmd:"activateSpk", eventid, id:req.params["id"]}))
+    req.io.emit("message", JSON.stringify({cmd:"activateSpk", eventid:req.params[eventid], id:req.params["id"]}))
     res.json({ret:r.data, error:false});
-
 
   }
   catch(e) {
+    con
     res.status(500).send(JSON.stringify({ret:e.message, error:true}))
   }
 });
