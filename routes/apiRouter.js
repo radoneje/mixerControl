@@ -111,7 +111,12 @@ router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex.select("*").from("t_presfolders").where({isDeleted:false, eventid:req.params.id}).orderBy("id");
     var ret=[];
     for(var rr of r){
-        ret.push({id:rr.id, type:rr.type, images:[]});
+        var images=[];
+        var i=await req.knex.select("*").from("t_presfiles").where({isDeleted:false,})
+        i.forEach(ii=>{
+            images.push({id:ii.id, size:ii.lrvsize});
+        });
+        ret.push({id:rr.id, type:rr.type, images});
     }
 
     res.json(ret);
