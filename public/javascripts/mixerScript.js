@@ -57,11 +57,11 @@ var presApp=new Vue({
 })
 
 var socket = io();
-io.on('connection', (socket) => {
+socket.on('connection', (socket) => {
     console.log("socket connected")
 
 });
-io.on('message', (m) => {
+socket.on('message', (m) => {
     var msg=JSON.parse(m);
     console.log('socket message: ', m);
 });
