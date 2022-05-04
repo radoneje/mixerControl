@@ -63,7 +63,7 @@ socket.on('connection', (socket) => {
 });
 socket.on('message', (m) => {
     var msg=JSON.parse(m);
-    if(msg.eventId!=eventid)
+    if(msg.eventid!=eventid)
         return
     if(msg.cmd=="activateSpk")
         {activateSpk(msg.id)}
