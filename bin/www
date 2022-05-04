@@ -8,12 +8,15 @@ var app = require('../app');
 var debug = require('debug')('mixercontrol:server');
 var http = require('http');
 
+
+
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+app.http=http;
 
 /**
  * Create HTTP server.
@@ -86,5 +89,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
+  app.onListen(http);
 }
