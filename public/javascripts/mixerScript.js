@@ -59,10 +59,11 @@ var presApp=new Vue({
 var socket = io();
 io.on('connection', (socket) => {
     console.log("socket connected")
-    socket.on('message', (m) => {
-        var msg=JSON.parse(m);
-        console.log('socket message: ', m);
-    });
+
+});
+io.on('message', (m) => {
+    var msg=JSON.parse(m);
+    console.log('socket message: ', m);
 });
 
 var serverUrl = "wss://wowza02.onevent.online:8443";
