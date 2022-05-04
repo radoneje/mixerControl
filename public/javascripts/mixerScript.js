@@ -29,7 +29,7 @@ var presApp=new Vue({
                     form.append("photos", el.files[i], el.files[i].name)
                 }
 
-                form.append("mixerid", mixerId);
+                form.append("eventid", eventid);
                 const request = new XMLHttpRequest();
                 request.open("POST", '/api/v1/addPresFiles', true);
                 request.onreadystatechange = () => {
@@ -50,7 +50,7 @@ var presApp=new Vue({
     },
     mounted:async function () {
 
-        this.presFolders=(await axios.get('/api/v1/presFolders/'+mixerId)).data;
+        this.presFolders=(await axios.get('/api/v1/presFolders/'+eventid)).data;
         console.log("d",this.presFolders);
 
     }
@@ -63,7 +63,11 @@ socket.on('connection', (socket) => {
 });
 socket.on('message', (m) => {
     var msg=JSON.parse(m);
-    console.log('socket message: ', m);
+    if(msg.eventId!=eventid)
+        return
+    if(msg.cmd=="activateSpk")
+        {activateSpk(msg.id)}
+    console.log('socket message: ', msg);
 });
 
 var serverUrl = "wss://wowza02.onevent.online:8443";
@@ -136,14 +140,9 @@ function onVideoPlaying() {
         elem.appendChild(item);
         canvasArr.push(itemCanvas.getContext("2d"));
         item.addEventListener("click",async (e)=>{
-            var r=(await axios.get("/showSpk/"+e.target.getAttribute("textureId"))).data;
+            var r=(await axios.get("/showSpk/"+e.target.getAttribute("textureId")+"/"+eventid)).data;
             if(!r.error){
-                document.querySelectorAll(".spk").forEach(elem=>{
-                    elem.classList.remove("active");
-                    if(elem.getAttribute("textureid")==r.ret){
-                        elem.classList.add("active");
-                    }
-                })
+                ////
             }
         })
     }
@@ -170,6 +169,14 @@ function onVideoPlaying() {
 
         }
         requestAnimationFrame(updateCanvas); // wait for the browser to be ready to present another animation fram.
+    }
+    function activateSpk(spkId){
+        document.querySelectorAll(".spk").forEach(elem=>{
+            elem.classList.remove("active");
+            if(elem.getAttribute("textureid")==spkId){
+                elem.classList.add("active");
+            }
+        })
     }
 
 }

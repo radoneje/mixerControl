@@ -39,12 +39,15 @@ router.get('/event/:id', async function(req, res, next) {
   res.render('event', { title: 'Express', mixerId:req.params.id,title:r[0].title, user:{f:user.name, i:user.suname, id:user.id} });
 });
 
-router.get('/showSpk/:id', async (req, res, next)=> {
+router.get('/showSpk/:id/:eventid', async (req, res, next)=> {
+  const user=req.session["user"]
+  if(!user)
+    return  res.redirect("/");
   try {
     var r = await axios.get(config.mixerCore + "mixer/activeInput/" + req.params["id"])
     res.json({ret:r.data, error:false});
     console.log(req.io);
-    req.io.emit("message", JSON.stringify({cmd:"showSpk", eventid:123}))
+    req.io.emit("message", JSON.stringify({cmd:"activateSpk", eventid, id:req.params["id"]}))
   }
   catch(e) {
     res.status(500).send(JSON.stringify({ret:e.message, error:true}))

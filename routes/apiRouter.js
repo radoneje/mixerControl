@@ -95,7 +95,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             //TODO: convert vodeo
         }
     }
-    var mixerid = req.body.mixerid;
+    var eventid = req.body.eventid;
 
 });
 router.get('/presImg/:id', checkLogin, async (req, res, next) => {
