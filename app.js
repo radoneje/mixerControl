@@ -54,6 +54,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //////////
 app.use(session(sess));
 app.use("/", (req,res, next)=>{req.knex=knex;next();});
+app.use("/", (req,res, next)=>{req.io=io;next();});
 
 //////////
 
