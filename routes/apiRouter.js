@@ -101,10 +101,10 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
 
 });
 router.get('/presImg/:id', checkLogin, async (req, res, next) => {
-    var r = await req.knex.select("*").from("t_presfolders").where({id: req.params.id});
+    var r = await req.knex.select("*").from("t_presfiles").where({id: req.params.id});
     if(r.length==0)
         return res.sendStatus(404);
-    res.sendFile(r[0].image);
+    res.sendFile(r[0].lrvpath);
 });
 
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
