@@ -69,6 +69,14 @@ socket.on('message', (m) => {
         {activateSpk(msg.id)}
     console.log('socket message: ', msg);
 });
+function activateSpk(spkId){
+    document.querySelectorAll(".spk").forEach(elem=>{
+        elem.classList.remove("active");
+        if(elem.getAttribute("textureid")==spkId){
+            elem.classList.add("active");
+        }
+    })
+}
 
 var serverUrl = "wss://wowza02.onevent.online:8443";
 //if(typeof(roomid)!="undefined"  && roomid>90)
@@ -170,14 +178,7 @@ function onVideoPlaying() {
         }
         requestAnimationFrame(updateCanvas); // wait for the browser to be ready to present another animation fram.
     }
-    function activateSpk(spkId){
-        document.querySelectorAll(".spk").forEach(elem=>{
-            elem.classList.remove("active");
-            if(elem.getAttribute("textureid")==spkId){
-                elem.classList.add("active");
-            }
-        })
-    }
+
 
 }
 
