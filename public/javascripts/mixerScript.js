@@ -5,6 +5,7 @@ var presApp=new Vue({
     },
     methods:{
         addImageToFolder:function (folderid, value){
+            console.log("add Image before");
            this.presFolders.forEach(f=>{
                if(f.id==folderid){
                    f.images.push(value);
