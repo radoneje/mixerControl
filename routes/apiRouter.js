@@ -78,6 +78,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                                     lrvsize: stat.size
                                 }, "*").where({id: fileRecord[0].id});
                                 var rr=await req.knex("t_presfolders").update({image: lrvpath}).where({id: r.id})
+                                console.log("req.io.emit",req.io )
                                 req.io.emit("message", JSON.stringify({cmd:"addPresImg", eventid:events[0].id, id:presfiles[0].id, size:presfiles[0].lrvsize}))
                                // res.json({id:r.id, type:r.type});
                             }
