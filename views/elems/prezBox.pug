@@ -11,11 +11,6 @@
                         .presImageBox
                             .presImage(v-for="image in item.images" )
                                 img(:src="'/api/v1/presImg/'+image.id")
-                            .presImage(v-for="image in item.images" )
-                                img(:src="'/api/v1/presImg/'+image.id")
-                            .presImage(v-for="image in item.images" )
-                                img(:src="'/api/v1/presImg/'+image.id")
-
                         //.presImage(v-for="image in item.images" :style="'background-image: url(/api/v1/presImg/'+image.id+')'")
                     .presType {{formatType(item.type)}}
                     .presDelete(v-on:click.stop.prevent="deletePres(item)")
