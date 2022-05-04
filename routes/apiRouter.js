@@ -127,7 +127,9 @@ router.post('/presFoldersDelete', checkLogin, async (req, res, next) => {
 
     if(r.length==0)
         return res.sendStatus(404);
+    req.io.emit("message", JSON.stringify({cmd:"presFoldersDelete", id:r[0].id}))
     res.json(r[0].id);
+
 });
 
 

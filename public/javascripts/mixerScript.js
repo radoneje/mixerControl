@@ -17,7 +17,10 @@ var presApp=new Vue({
             if(!confirm("Delete this presentation?"))
                 return;
             var r=(await axios.post('/api/v1/presFoldersDelete/', {id:item.id})).data;
-            this.presFolders=this.presFolders.filter(rr=>{return rr.id!=r});
+           // this.presFolders=this.presFolders.filter(rr=>{return rr.id!=r});
+        },
+        onPresFoldersDelete:function (id){
+            this.presFolders=this.presFolders.filter(rr=>{return rr.id!=id});
         },
         formatType:function(text){
 
@@ -78,6 +81,9 @@ socket.on('message', (m) => {
         {activateSpk(msg.id)}
     if(msg.cmd=="addPresImg")
     {presApp.addImageToFolder(msg.folderid, msg.value)}
+    if(msg.cmd=="presFoldersDelete")
+    {presApp.onPresFoldersDelete(msg.id)}
+
 
     console.log('socket message: ', msg);
 });
