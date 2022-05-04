@@ -4,6 +4,14 @@ var presApp=new Vue({
         presFolders:[],
     },
     methods:{
+        addImageToFolder:function (folderid, value){
+           this.presFolders.forEach(f=>{
+               if(f.id==folderid){
+                   f.images.push(value);
+                   console.log("add Image", f);
+               }
+           })
+        },
         deletePres:async function(item){
             if(!confirm("Delete this presentation?"))
                 return;
@@ -67,6 +75,9 @@ socket.on('message', (m) => {
         return
     if(msg.cmd=="activateSpk")
         {activateSpk(msg.id)}
+    if(msg.cmd=="addPresImg")
+    {app.addImageToFolder(msg.folderid, msg.value)}
+
     console.log('socket message: ', msg);
 });
 function activateSpk(spkId){
