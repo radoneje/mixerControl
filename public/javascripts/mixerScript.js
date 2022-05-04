@@ -52,9 +52,18 @@ var presApp=new Vue({
 
         this.presFolders=(await axios.get('/api/v1/presFolders/'+mixerId)).data;
         console.log("d",this.presFolders);
-            var socket = io();
+
     }
 })
+
+var socket = io();
+io.on('connection', (socket) => {
+    console.log("socket connected")
+    socket.on('message', (m) => {
+        var msg=JSON.parse(m);
+        console.log('socket message: ', m);
+    });
+});
 
 var serverUrl = "wss://wowza02.onevent.online:8443";
 //if(typeof(roomid)!="undefined"  && roomid>90)
