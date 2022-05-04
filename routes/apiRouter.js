@@ -55,6 +55,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             originalsize:file.size
         }, "*"))[0];
         res.json({id:r.id, type:r.type, images:[]});
+        req.io.emit("message", JSON.stringify({cmd:"addPresFolder", eventid:events[0].id,  value:{id:r.id, type:r.type, images:[]}}));
 
         if(file.mimetype.toLowerCase().indexOf('image/')==0){
             //TODO: convert images

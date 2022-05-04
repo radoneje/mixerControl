@@ -47,7 +47,7 @@ var presApp=new Vue({
                 request.onreadystatechange = () => {
                     if (request.readyState === 4 && request.status === 200) {
                         //console.log("file UPLOADED", request.response);
-                        this.presFolders.push(JSON.parse(request.response))
+                        //this.presFolders.push(JSON.parse(request.response))
                         el.parentNode.removeChild(el);
                     }
                 };
@@ -59,6 +59,9 @@ var presApp=new Vue({
             document.body.appendChild(el)
             el.click();
         },
+        onAddPresFolder:function(value){
+            this.presFolders.push(value)
+        }
     },
     mounted:async function () {
 
@@ -83,6 +86,9 @@ socket.on('message', (m) => {
     {presApp.addImageToFolder(msg.folderid, msg.value)}
     if(msg.cmd=="presFoldersDelete")
     {presApp.onPresFoldersDelete(msg.id)}
+    if(msg.cmd=="addPresFolder")
+    {presApp.onAddPresFolder(msg.value)}
+
 
 
     console.log('socket message: ', msg);
