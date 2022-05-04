@@ -77,7 +77,7 @@ socket.on('message', (m) => {
     if(msg.cmd=="activateSpk")
         {activateSpk(msg.id)}
     if(msg.cmd=="addPresImg")
-    {app.addImageToFolder(msg.folderid, msg.value)}
+    {presApp.addImageToFolder(msg.folderid, msg.value)}
 
     console.log('socket message: ', msg);
 });
