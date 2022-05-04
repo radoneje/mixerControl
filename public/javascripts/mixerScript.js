@@ -51,7 +51,8 @@ var presApp=new Vue({
     mounted:async function () {
 
         this.presFolders=(await axios.get('/api/v1/presFolders/'+mixerId)).data;
-        console.log("d",this.presFolders)
+        console.log("d",this.presFolders);
+            var socket = io();
     }
 })
 
