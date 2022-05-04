@@ -50,7 +50,6 @@ router.get('/showSpk/:id/:eventid', async (req, res, next)=> {
 
   }
   catch(e) {
-    con
     res.status(500).send(JSON.stringify({ret:e.message, error:true}))
   }
 });
