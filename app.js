@@ -82,5 +82,18 @@ app.onListen=function(server){
     autoAcceptConnections: false
   });
 }
+function originIsAllowed(origin) {
+  // put logic here to detect whether the specified origin is allowed.
+  return true;
+}
+wsServer.on('request', function(request) {
+  if (!originIsAllowed(request.origin)) {
+    // Make sure we only accept requests from an allowed origin
+    request.reject();
+    console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
+    return;
+  }
+  console.log((new Date()) + ' Connection from origin ' + request.origin + ' allow.');
+});
 
 module.exports = app;
