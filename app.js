@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
 //////
-var WebSocketServer = require('websocket').server;
+const { Server } = require("socket.io");
+var io;
 var config = require('./config.json')
 var session = require('express-session');
 var knex = require('knex')({
@@ -76,24 +77,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 app.onListen=function(server){
-  console.log("app.onListen");
-  wsServer = new WebSocketServer({
-    httpServer: server,
-    autoAcceptConnections: false
-  });
+  io=new Server(server);
 }
-function originIsAllowed(origin) {
-  // put logic here to detect whether the specified origin is allowed.
-  return true;
-}
-wsServer.on('request', function(request) {
-  if (!originIsAllowed(request.origin)) {
-    // Make sure we only accept requests from an allowed origin
-    request.reject();
-    console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
-    return;
-  }
-  console.log((new Date()) + ' Connection from origin ' + request.origin + ' allow.');
+io.on('connection', (socket) => {
+  console.log('a user connected');
 });
+
+
 
 module.exports = app;
