@@ -29,7 +29,7 @@ app.use('/',async (req,res)=>{
     await handle.writeFile(req.body);
     await handle.close();
     gm(req.body)
-        .command("convert")
+       // .command("convert")
         .quality(75)
         .density(300, 300)
         .resize(1920,1080)
