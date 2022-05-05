@@ -33,7 +33,7 @@ app.use('/',async (req,res)=>{
         .quality(75)
         .density(300, 300)
         .resize(1920,1080)
-        .out("background:transparent")
+       // .out("background:transparent")
         .selectFrame(0).write('/var/www/mixerControl/public/resize.png', function (err) {
         if (!err) console.log('done');
         else console.log(err);
