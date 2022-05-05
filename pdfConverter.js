@@ -25,10 +25,10 @@ app.use(bodyParser.raw({
 app.use('/',async (req,res)=>{
     console.log("readPdf");
     console.log(req.body);
-   // let handle=await fsPromises.open("/tmp/1.pdf", "w+");
-   // await handle.writeFile(req.body);
-   // await handle.close();
-    gm(req.body).selectFrame(0).write('/var/www/mixerControl/public/resize.png', function (err) {
+    let handle=await fsPromises.open("/tmp/1.pdf", "w+");
+    await handle.writeFile(req.body);
+    await handle.close();
+    gm("/tmp/1.pdf").selectFrame(0).write('/var/www/mixerControl/public/resize.png', function (err) {
         if (!err) console.log('done');
         else console.log(err);
     });

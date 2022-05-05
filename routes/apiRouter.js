@@ -112,10 +112,13 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                 await fsPromises.open(file.path, 'r+');
             var data =
                 await filehandle.readFile();
-
-            await axios.post(
-                config.pdfConverterUrl + ":" + config.pdfConverterPort, data/*.toString('base64')*/, {headers: {'content-type': 'application/pdf'}});
-
+try {
+    await axios.post(
+        config.pdfConverterUrl + ":" + config.pdfConverterPort, data/*.toString('base64')*/, {headers: {'content-type': 'application/pdf'}});
+}
+catch (e){
+    console.warn("ERROR:",e )
+}
             await filehandle.close();
         }
         if (file.mimetype.toLowerCase().indexOf('video/') == 0) {
