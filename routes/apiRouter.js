@@ -7,6 +7,7 @@ var path = require('path')
 var fs = require('fs')
 var gm = require('gm');
 const fsPromises = fs.promises;
+var axios = require('axios');
 
 /* GET users listing. */
 function checkLogin(req, res, next) {
