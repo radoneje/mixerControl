@@ -6,6 +6,7 @@ const upload = multer({dest: config.fileUploadPath});
 var path = require('path')
 var fs = require('fs')
 var gm = require('gm');
+const fsPromises = fs.promises;
 
 /* GET users listing. */
 function checkLogin(req, res, next) {
@@ -105,7 +106,12 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
         }
         if (file.mimetype.toLowerCase().indexOf('application/pdf') == 0) {
             //TODO: convert PDF
-            var data = await fs.readFile(file.path)
+            var data = await fs.readFile(file.path, (data, err)=>{})
+            let filehandle =
+                await fsPromises.open(file.path, 'r+');
+            var data =
+                await filehandle.readFile();
+
             await axios.post(
                 config.pdfConverterUrl + ":" + config.pdfConverterPort, data, {headers: {'content-type': 'application/pdf'}});
         }
