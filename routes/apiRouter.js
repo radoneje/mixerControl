@@ -42,59 +42,74 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
         return res.sendStatus(401);//.send("Unauthorized");
 
     for (var file of req.files) {
-        var ext=path.extname(file.originalname);
+        var ext = path.extname(file.originalname);
 
-        fs.renameSync(file.path, file.path+ext)
-        file.path=file.path+ext;
+        fs.renameSync(file.path, file.path + ext)
+        file.path = file.path + ext;
         var r = (await req.knex("t_presfolders").insert({
             originalname: file.originalname,
             type: file.mimetype,
             eventid: events[0].id,
-            originalname:file.originalname,
-            originalpath:file.path,
-            originalsize:file.size
+            originalname: file.originalname,
+            originalpath: file.path,
+            originalsize: file.size
         }, "*"))[0];
-        res.json({id:r.id, type:r.type, images:[]});
-        req.io.emit("message", JSON.stringify({cmd:"addPresFolder", eventid:events[0].id,  value:{id:r.id, type:r.type, images:[]}}));
+        res.json({id: r.id, type: r.type, images: []});
+        req.io.emit("message", JSON.stringify({
+            cmd: "addPresFolder",
+            eventid: events[0].id,
+            value: {id: r.id, type: r.type, images: []}
+        }));
 
-        if(file.mimetype.toLowerCase().indexOf('image/')==0){
+        if (file.mimetype.toLowerCase().indexOf('image/') == 0) {
             //TODO: convert images
-            var fullpath=config.filePresPath+file.filename+".png";
-            var lrvpath=config.fileLRVPath+file.filename+".png";
+            var fullpath = config.filePresPath + file.filename + ".png";
+            var lrvpath = config.fileLRVPath + file.filename + ".png";
             gm(file.path)
                 .resize('1280', '720', '^')
                 .gravity('Center')
                 .crop('1280', '720')
-                .write(fullpath,async function (err) {
-                    if (!err)
-                    {
+                .write(fullpath, async function (err) {
+                    if (!err) {
                         var stat = fs.statSync(fullpath)
-                        var fileRecord=await req.knex("t_presfiles").insert({folderid:r.id,fullpath, fullsize:stat.size}, "*");
+                        var fileRecord = await req.knex("t_presfiles").insert({
+                            folderid: r.id,
+                            fullpath,
+                            fullsize: stat.size
+                        }, "*");
 
-                        gm(file.path).resize('320', '180', '^').gravity('Center').crop('320', '180').write(lrvpath, async (err)=>{
-                            if(!err) {
+                        gm(file.path).resize('320', '180', '^').gravity('Center').crop('320', '180').write(lrvpath, async (err) => {
+                            if (!err) {
                                 var stat = fs.statSync(lrvpath);
                                 var presfiles = await req.knex("t_presfiles").update({
                                     lrvpath,
                                     lrvsize: stat.size
                                 }, "*").where({id: fileRecord[0].id});
-                                var rr=await req.knex("t_presfolders").update({image: lrvpath}).where({id: r.id})
-                                req.io.emit("message", JSON.stringify({cmd:"addPresImg", eventid:events[0].id,  folderid:r.id, value:{id:presfiles[0].id, size:presfiles[0].lrvsize}}))
-                               // res.json({id:r.id, type:r.type});
+                                var rr = await req.knex("t_presfolders").update({image: lrvpath}).where({id: r.id})
+                                req.io.emit("message", JSON.stringify({
+                                    cmd: "addPresImg",
+                                    eventid: events[0].id,
+                                    folderid: r.id,
+                                    value: {id: presfiles[0].id, size: presfiles[0].lrvsize}
+                                }))
+                                // res.json({id:r.id, type:r.type});
                             }
-                           // else
-                              //  return  res.json({err:true, err});
+                            // else
+                            //  return  res.json({err:true, err});
                         });
                     }
                     //else
-                       // return res.json({err:true, err});
+                    // return res.json({err:true, err});
 
                 });
         }
-        if(file.mimetype.toLowerCase().indexOf('application/pdf')==0){
+        if (file.mimetype.toLowerCase().indexOf('application/pdf') == 0) {
             //TODO: convert PDF
+            var data = await fs.readFile(file.path)
+            await axios.post(
+                config.pdfConverterUrl + ":" + config.pdfConverterPort, data, {headers: {'content-type': 'application/pdf'}});
         }
-        if(file.mimetype.toLowerCase().indexOf('video/')==0){
+        if (file.mimetype.toLowerCase().indexOf('video/') == 0) {
             //TODO: convert vodeo
         }
     }
@@ -103,37 +118,38 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
 });
 router.get('/presImg/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex.select("*").from("t_presfiles").where({id: req.params.id});
-    if(r.length==0)
+    if (r.length == 0)
         return res.sendStatus(404);
     res.sendFile(r[0].lrvpath);
 });
 
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
-    var r = await req.knex.select("*").from("t_presfolders").where({isDeleted:false, eventid:req.params.id}).orderBy("datecreate");
-    var ret=[];
-    for(var rr of r){
-        var images=[];
-        var i=await req.knex.select("*").from("t_presfiles").where({isDeleted:false, folderid:rr.id})
-        i.forEach(ii=>{
-            images.push({id:ii.id, size:ii.lrvsize});
+    var r = await req.knex.select("*").from("t_presfolders").where({
+        isDeleted: false,
+        eventid: req.params.id
+    }).orderBy("datecreate");
+    var ret = [];
+    for (var rr of r) {
+        var images = [];
+        var i = await req.knex.select("*").from("t_presfiles").where({isDeleted: false, folderid: rr.id})
+        i.forEach(ii => {
+            images.push({id: ii.id, size: ii.lrvsize});
         });
-        ret.push({id:rr.id, type:rr.type, images});
+        ret.push({id: rr.id, type: rr.type, images});
     }
 
     res.json(ret);
 });
 router.post('/presFoldersDelete', checkLogin, async (req, res, next) => {
     console.log(req.body.id);
-    var r = await req.knex("t_presfolders").update({isDeleted:true},"*").where({ id:req.body.id}).orderBy("id");
+    var r = await req.knex("t_presfolders").update({isDeleted: true}, "*").where({id: req.body.id}).orderBy("id");
 
-    if(r.length==0)
+    if (r.length == 0)
         return res.sendStatus(404);
-    req.io.emit("message", JSON.stringify({cmd:"presFoldersDelete",eventid: req.body.eventid,id:r[0].id}))
+    req.io.emit("message", JSON.stringify({cmd: "presFoldersDelete", eventid: req.body.eventid, id: r[0].id}))
     res.json(r[0].id);
 
 });
-
-
 
 
 module.exports = router;

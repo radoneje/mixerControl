@@ -9,5 +9,9 @@
   "sha256Secret": "bewvw&#bevh**ewfeh",
   "fileUploadPath": "/Users/denisshevchenko/Downloads/",
   "filePresPath": "/Users/denisshevchenko/Downloads/full/",
-  "fileLRVPath": "/Users/denisshevchenko/Downloads/lrv/"
+  "fileLRVPath": "/Users/denisshevchenko/Downloads/lrv/",
+  "port": 3000,
+  "pdfConverterPort": 3001,
+  "pdfConverterUrl": "http://localhost"
+
 }
