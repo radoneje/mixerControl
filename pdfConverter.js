@@ -28,7 +28,13 @@ app.use('/',async (req,res)=>{
     let handle=await fsPromises.open("/tmp/1.pdf", "w+");
     await handle.writeFile(req.body);
     await handle.close();
-    gm(req.body).selectFrame(0).write('/var/www/mixerControl/public/resize.png', function (err) {
+    gm(req.body)
+        .command("convert")
+        .quality(75)
+        .density(300, 300)
+        .resize(1920,1080)
+        .out("background:transparent")
+        .selectFrame(0).write('/var/www/mixerControl/public/resize.png', function (err) {
         if (!err) console.log('done');
         else console.log(err);
     });
