@@ -19,6 +19,7 @@ app.use(bodyParser.raw({
     type: 'application/pdf'
 }));
 
+
 app.use('/',async (req,res)=>{
     console.log("readPdf");
     console.log(req.body);
