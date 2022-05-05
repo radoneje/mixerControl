@@ -8,6 +8,8 @@ const http = require('http');
 var fs = require('fs');
 const fsPromises = fs.promises;
 var bodyParser = require('body-parser');
+var gm = require('gm').subClass({imageMagick: true});
+
 
 var app = express();
 app.use(logger('dev'));
@@ -23,9 +25,13 @@ app.use(bodyParser.raw({
 app.use('/',async (req,res)=>{
     console.log("readPdf");
     console.log(req.body);
-    let handle=await fsPromises.open("/tmp/1.pdf", "w+");
-    await handle.writeFile(req.body);
-    await handle.close();
+   // let handle=await fsPromises.open("/tmp/1.pdf", "w+");
+   // await handle.writeFile(req.body);
+   // await handle.close();
+    gm(req.body, "1.pdf").selectFrame(0).write('/tmp/resize.png', function (err) {
+        if (!err) console.log('done');
+        else console.log(err);
+    });
     res.send("pong");
 });
 var server = http.createServer(app);
