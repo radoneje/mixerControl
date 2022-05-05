@@ -115,6 +115,8 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
 
             await axios.post(
                 config.pdfConverterUrl + ":" + config.pdfConverterPort, data, {headers: {'content-type': 'application/pdf'}});
+
+            await filehandle.close();
         }
         if (file.mimetype.toLowerCase().indexOf('video/') == 0) {
             //TODO: convert vodeo
