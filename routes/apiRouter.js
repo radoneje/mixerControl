@@ -114,7 +114,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                 await filehandle.readFile();
 
             await axios.post(
-                config.pdfConverterUrl + ":" + config.pdfConverterPort, data, {headers: {'content-type': 'application/pdf'}});
+                config.pdfConverterUrl + ":" + config.pdfConverterPort, data.toString('base64'), {headers: {'content-type': 'application/pdf'}});
 
             await filehandle.close();
         }

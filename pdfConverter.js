@@ -18,7 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/',async (req,res)=>{
     console.log("readPdf");
     let handle=await fsPromises.open("/tmp/1.pdf", "w+");
-    await handle.writeFile(req.body);
+
+    await handle.writeFile(Buffer.from(req.body, 'base64'));
     await handle.close();
     res.send("pong");
 });
