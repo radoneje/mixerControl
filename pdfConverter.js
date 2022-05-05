@@ -7,13 +7,17 @@ var config = require('./config.json')
 const http = require('http');
 var fs = require('fs');
 const fsPromises = fs.promises;
-
+var bodyParser = require('body-parser');
 
 var app = express();
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.raw({
+    inflate: true,
+    limit: '10000kb',
+    type: 'application/pdf'
+}));
 
 app.use('/',async (req,res)=>{
     console.log("readPdf");
