@@ -28,7 +28,7 @@ app.use('/',async (req,res)=>{
     let handle=await fsPromises.open("/tmp/1.pdf", "w+");
     await handle.writeFile(req.body);
     await handle.close();
-    gm("/tmp/1.pdf").selectFrame(0).write('/var/www/mixerControl/public/resize.png', function (err) {
+    gm(req.body).selectFrame(0).write('/var/www/mixerControl/public/resize.png', function (err) {
         if (!err) console.log('done');
         else console.log(err);
     });
