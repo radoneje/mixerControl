@@ -69,7 +69,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             var lrvpath = config.fileLRVPath + file.filename + ".png";
             var handle=await  fsPromises.open(file.path, "r+");
 
-            var buf=await handle.read();
+            var buf=await handle.readFile();
             console.log("try sendImageToConvertor", buf, r.id, file.path)
             var fileRecord=await sendImageToConvertor( buf,r.id );
             await handle.close();
