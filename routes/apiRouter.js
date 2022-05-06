@@ -77,7 +77,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                         var fileRecord = await addImageToPresFolder(r.id, fullpath, req);
                         var handle=await fsPromises.open(fullpath, "r+")
                         var buf=await handle.readFile();
-                        await sendImageToLrvConvertor(req.body, buf)
+                        await sendImageToLrvConvertor( buf,fileRecord[0].id )
                         handle.close();
 
                        /* gm(file.path).resize('320', '180', '^').gravity('Center').crop('320', '180').write(lrvpath, async (err) => {
