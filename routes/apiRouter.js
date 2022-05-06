@@ -173,7 +173,7 @@ router.post("/addImageToPresFile/:id/", async (req, res) => {
     console.log(fileRecord);
     await noifyNewPresFile(fileRecord[0], req)
 })
-async function noifyNewPresFile(filerecord, req){
+async function noifyNewPresFile(fileRecord, req){
     var eventid=(await req.knex.select("*").from("t_presfolders").where({id:fileRecord.folderid}))[0].eventid
     req.io.emit("message", JSON.stringify({
         cmd: "addPresImg",
