@@ -3,7 +3,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-var config = require('../config.json')
+//var config = require('../config.json')
 const http = require('http');
 var fs = require('fs');
 const fsPromises = fs.promises;
@@ -60,5 +60,6 @@ app.use('/',async (req,res)=>{
 });
 var server = http.createServer(app);
 server.listen(config.pdfConverterPort, ()=>{
-    console.log("encoder server listen on "+ config.pdfConverterPort)
+    console.log("encoder server listen on "+ config.pdfConverterPort, $PATH)
+
 })
