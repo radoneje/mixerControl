@@ -8,6 +8,10 @@ var presApp=new Vue({
             console.log("activatePresImg", img)
             var r=(await axios.get("/api/v1/activatePresImg/"+img.id+"/"+eventid)).data;
             if(!r.error){
+                if(!r.ret.error)
+                {
+                    var activepresFileId=r.ret.presFileId;
+                }
                 ////
             }
         },
