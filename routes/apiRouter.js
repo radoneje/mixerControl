@@ -139,7 +139,7 @@ async function addImageToPresFolder(folderid, filePath, req){
     var stat = fs.statSync(filePath)
     var fileRecord = await req.knex("t_presfiles").insert({
         folderid: folderid,
-        filePath,
+        fullpath:filePath,
         fullsize: stat.size
     }, "*");
     return fileRecord;
