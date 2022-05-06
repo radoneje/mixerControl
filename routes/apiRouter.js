@@ -74,7 +74,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             var fileRecord=await sendImageToConvertor( buf,r.id );
             await handle.close();
 
-            console.log(fileRecord);
+            console.log("fileRecord", fileRecord);
            /* gm(file.path)
                 .resize('1280', '720', '^')
                 .gravity('Center')
