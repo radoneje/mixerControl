@@ -96,7 +96,7 @@ app.use('/',async (req,res)=>{
        arr.push(i);
     }
     for(var page of arr){
-        convertPDFPage(page);
+        await convertPDFPage(page);
     }
     function convertPDFPage(page){
         return new Promise((resolve, reject)=>{
