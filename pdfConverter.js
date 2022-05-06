@@ -65,7 +65,7 @@ app.use('/lrvImage',async (req,res)=>{
         .resize(320,180)
         .gravity('Center')
         .background('#FFFFFF')
-        .extent(180, 180)
+        .extent(320, 180)
         .flatten()
         .setFormat('png')
         .toBuffer(async (err, buffer)=> {
