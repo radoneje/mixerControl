@@ -137,11 +137,11 @@ router.get('/presImg/:id', checkLogin, async (req, res, next) => {
 });
 router.post("/addImageToPresFolder/:id/:page", (req, res)=>{
     console.log("addImageToPresFolder", config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png");
-    fs.writeFile(config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png", req.body, (err)=>{
+  /*  fs.writeFile(config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png", req.body, (err)=>{
         if(err)
             return console.warn(err);
         console.log(config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png")
-    })
+    })*/
     res.json(1);
 })
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
