@@ -8,6 +8,7 @@ var fs = require('fs')
 var gm = require('gm');
 const fsPromises = fs.promises;
 var axios = require('axios');
+var FormData = require('form-data');
 
 /* GET users listing. */
 function checkLogin(req, res, next) {
