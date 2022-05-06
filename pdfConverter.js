@@ -29,7 +29,7 @@ app.use(bodyParser.raw({
 
 
 app.use('/fullImage',async (req,res)=>{
-    var buf=Buffer.from(req.body)
+    var buf=Buffer.from(req.body, 'base64')
     console.log("readFullImage", buf);
     gm(buf)
         .quality(75)
