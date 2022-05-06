@@ -47,7 +47,7 @@ app.use('/',async (req,res)=>{
                 return  console.warn(err);
             console.log("done", req.headers["x-presid"]);
             try {
-                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPresFolder/" + req.headers["x-presid"]+"/"+page, buffer);
+                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPresFolder/" + req.headers["x-presid"]+"/"+page, buffer.toString('base64'));
             }
             catch (e){
                 console.warn(e);
