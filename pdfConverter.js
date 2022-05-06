@@ -37,6 +37,9 @@ app.use('/fullImage',async (req,res)=>{
         //.extent(1920,1080, "^")
         .resize(1920,1080,"^")
         .gravity('Center')
+        .background('#FFFFFF')
+        .extent(1920, 1080)
+        .flatten()
         //
         .setFormat('png')
         .out('+adjoin')
