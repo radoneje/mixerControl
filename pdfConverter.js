@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.raw({
     inflate: true,
     limit: '10000kb',
-    type: 'application/pdf'
+    type: 'application/*'
 }));
 app.use(bodyParser.raw({
     inflate: true,

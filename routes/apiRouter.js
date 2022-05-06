@@ -135,7 +135,7 @@ async function sendImageToConvertor(data, id){
     console.log("sendImageToConvertor", data)
     await axios.post(
         config.pdfConverterUrl + ":" + config.pdfConverterPort+"/fullImage", data,
-        {headers: {'content-type': 'image/x-png', 'x-folder': id}});
+        {headers: {'content-type': 'application/octet-stream', 'x-folder': id}});
 }
 
 router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
