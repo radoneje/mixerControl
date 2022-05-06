@@ -36,6 +36,7 @@ app.use('/',async (req,res)=>{
         .selectFrame(0)
         .quality(75)
         .density(300, 300)
+        .resize(1920,1080)
         .extent(1920,1080)
         .gravity('Center')
         .out('+adjoin')
