@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.raw({
     inflate: true,
     limit: '10000kb',
-    //type: 'application/pdf'
+    type: '*/*'
 }));
 app.use('/lrvImage',async (req,res)=>{
     console.log("readLrvImage");
