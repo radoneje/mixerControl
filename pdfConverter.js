@@ -29,11 +29,12 @@ app.use('/',async (req,res)=>{
     await handle.writeFile(req.body);
     await handle.close();
     //fs.rmSync("/var/www/mixerControl/public/resize1.png")
+    var page=1;
     gm(req.body)
        // .command("convert")
 
        // .out("background:transparent")
-        .selectFrame(2)
+        .selectFrame(page)
         .quality(75)
         .density(300, 300)
         .resize(1920,1080)
@@ -46,7 +47,7 @@ app.use('/',async (req,res)=>{
                 return  console.warn(err);
             console.log("done", req.headers["x-presid"]);
             try {
-                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPresFolder/" + req.headers["x-presid"], buffer);
+                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPresFolder/" + req.headers["x-presid"]+"/"+page, buffer);
             }
             catch (e){
                 console.warn(e);
