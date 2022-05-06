@@ -75,8 +75,12 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                     if (!err) {
                         var stat = fs.statSync(fullpath)
                         var fileRecord = await addImageToPresFolder(r.id, fullpath, req);
+                        var handle=await fsPromises.open(fullpath, "r+")
+                        var buf=await handle.readFile();
+                        await sendImageToLrvConvertor(req.body, buf)
+                        handle.close();
 
-                        gm(file.path).resize('320', '180', '^').gravity('Center').crop('320', '180').write(lrvpath, async (err) => {
+                       /* gm(file.path).resize('320', '180', '^').gravity('Center').crop('320', '180').write(lrvpath, async (err) => {
                             if (!err) {
                                 var stat = fs.statSync(lrvpath);
                                 var presfiles = await req.knex("t_presfiles").update({
@@ -94,7 +98,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                             }
                             // else
                             //  return  res.json({err:true, err});
-                        });
+                        });*/
                     }
                     //else
                     // return res.json({err:true, err});
@@ -150,7 +154,6 @@ router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
     await filehandle.writeFile(req.body);
     await filehandle.close();
     var fileRecord = await addImageToPresFolder(req.params["id"], filePath, req);
-    console.log("setd to lrv", req.body)
     await sendImageToLrvConvertor(req.body, fileRecord[0].id)
 
 })
