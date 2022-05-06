@@ -140,7 +140,7 @@ router.post("/addImageToPresFolder/:id/:page", async (req, res)=>{
     console.log("addImageToPresFolder",filePath );
 
     var buf = Buffer.from(req.body);
-    console.log(buf);
+    console.log("buf", buf);
     var filehandle=await  fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(buf);
     await filehandle.close();
