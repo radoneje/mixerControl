@@ -31,11 +31,13 @@ app.use('/',async (req,res)=>{
     fs.rmSync("/var/www/mixerControl/public/resize1.png")
     gm(req.body)
        // .command("convert")
+
+       // .out("background:transparent")
+        .selectFrame(0)
         .quality(75)
         .density(300, 300)
         .resize(1920,1080, "!")
-       // .out("background:transparent")
-        .selectFrame(0)
+        .out('+adjoin')
         .write('/var/www/mixerControl/public/resize1.png', function (err) {
         if (!err) console.log('done');
         else console.log(err);
