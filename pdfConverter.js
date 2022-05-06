@@ -8,7 +8,7 @@ const http = require('http');
 var fs = require('fs');
 const fsPromises = fs.promises;
 var bodyParser = require('body-parser');
-var gm = require('gm').subClass({imageMagick: true});
+var gm = require('gm');//.subClass({imageMagick: true});
 
 
 var app = express();
