@@ -90,6 +90,7 @@ app.use('/',async (req,res)=>{
     var pdfData=await pdf(req.body);
     console.log("readPdf", pdfData);
     await convertPDFPage(2);
+    await convertPDFPage(3);
 
     function convertPDFPage(page){
         return new Promise((resolve, reject)=>{
