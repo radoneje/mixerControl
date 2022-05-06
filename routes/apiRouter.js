@@ -243,7 +243,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
         if(!r.data.error){
             req.io.emit("message", JSON.stringify({
                 cmd: "activatePresFile",
-                eventid:eventid,
+                eventid:req.params["eventid"],
                 presFileId: r.data.presFileId,
             }))
         }
