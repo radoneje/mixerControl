@@ -233,7 +233,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
         var buf=await handle.readFile();
         await handle.close();
 
-        var r = await axios.post(config.mixerCore + "mixer/activatePresImg/",buf, {headers: {'content-type': 'image/x-png'}})
+        var r = await axios.post(config.mixerCore + "mixer/activatePresImg",buf, {headers: {'content-type': 'image/x-png'}})
         res.json({ret:r.data, error:false});
     }
     catch(e) {
