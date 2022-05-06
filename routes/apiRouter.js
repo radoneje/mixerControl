@@ -171,6 +171,7 @@ router.post("/addImageLrvToPresFile/:id/", async (req, res) => {
     var fileRecord = await addImageLrvToPresFile(req.params["id"], filePath, req);
 
     var eventid=(await req.knex,select("*").from("t_presfolders").where({id:fileRecord.folderid}))[0].eventid)
+    console.log("eventid",eventid)
     req.io.emit("message", JSON.stringify({
         cmd: "addPresImg",
         eventid:eventid ,
