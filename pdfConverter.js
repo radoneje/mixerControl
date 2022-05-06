@@ -84,7 +84,7 @@ app.use('/lrvImage',async (req,res)=>{
     res.json("ok");
 })
 
-app.use('/',async (req,res)=>{
+app.use('/pdf',async (req,res)=>{
 
     var page=1;
     var pdfData=await pdf(req.body);

@@ -82,7 +82,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             var data = await filehandle.readFile();
             try {
                 await axios.post(
-                    config.pdfConverterUrl + ":" + config.pdfConverterPort, data/*.toString('base64')*/,
+                    config.pdfConverterUrl + ":" + config.pdfConverterPort+"/"+"pdf", data/*.toString('base64')*/,
                     {headers: {'content-type': 'application/pdf', 'x-presid': r.id}});
             } catch (e) {
                 console.warn("ERROR: send to PDF")
