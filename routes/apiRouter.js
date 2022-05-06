@@ -135,7 +135,7 @@ router.get('/presImg/:id', checkLogin, async (req, res, next) => {
         return res.sendStatus(404);
     res.sendFile(r[0].lrvpath);
 });
-async function addImageToPresFolder(folderid, filePath){
+async function addImageToPresFolder(folderid, filePath, req){
     var stat = fs.statSync(filePath)
     var fileRecord = await req.knex("t_presfiles").insert({
         folderid: folderid,
@@ -149,7 +149,7 @@ router.post("/addImageToPresFolder/:id/:page", async (req, res)=>{
     var filehandle=await  fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(req.body);
     await filehandle.close();
-    var fileRecord=await addImageToPresFolder(req.params["id"],filePath);
+    var fileRecord=await addImageToPresFolder(req.params["id"],filePath, req);
     console.log(fileRecord);
 
     res.json(1);
