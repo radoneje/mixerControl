@@ -135,8 +135,12 @@ router.get('/presImg/:id', checkLogin, async (req, res, next) => {
         return res.sendStatus(404);
     res.sendFile(r[0].lrvpath);
 });
-router.post("/addImageToPresFolder/:id/:page", (req, res)=>{
-    console.log("addImageToPresFolder", config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png");
+router.post("/addImageToPresFolder/:id/:page", async (req, res)=>{
+   var filePath=config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png";
+    console.log("addImageToPresFolder",filePath );
+    var filehandle=await  fsPromises.open(ffilePath, 'w+');
+    await filehandle.writeFile(req.body);
+    await filehandle.close();
   /*  fs.writeFile(config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png", req.body, (err)=>{
         if(err)
             return console.warn(err);
