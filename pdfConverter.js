@@ -40,7 +40,7 @@ app.use('/lrvImage',async (req,res)=>{
             if (err)
                 return console.warn(err);
             try{
-            await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageLrvToPresFolder/" + req.headers["x-fileid"], buffer,
+            await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageLrvToPresFile/" + req.headers["x-fileid"], buffer,
                 {headers: {'content-type': 'image/x-png'}})
             }
             catch (e){

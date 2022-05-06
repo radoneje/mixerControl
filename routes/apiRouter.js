@@ -153,7 +153,7 @@ router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
 
 
 })
-async function addImageLRVToPresFolder(fileid, filePath, req) {
+async function addImageLrvToPresFile(fileid, filePath, req) {
     var stat = fs.statSync(filePath)
     var fileRecord = await req.knex("t_presfiles").update({
         lrvpath: filePath,
@@ -161,16 +161,23 @@ async function addImageLRVToPresFolder(fileid, filePath, req) {
     }, "*").where({id:fileid});
     return fileRecord;
 }
-router.post("/addImageLrvToPresFolder/:id/", async (req, res) => {
+router.post("/addImageLrvToPresFile/:id/", async (req, res) => {
     res.json(1);
     console.log("addImageLrvToPresFolder", req.body);
     var filePath = config.fileLRVPath + req.params["id"] +  ".png";
     var filehandle = await fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(req.body);
     await filehandle.close();
-    var fileRecord = await addImageLRVToPresFolder(req.params["id"], filePath, req);
-    console.log(fileRecord);
+    var fileRecord = await addImageLrvToPresFile(req.params["id"], filePath, req);
 
+    req.io.emit("message", JSON.stringify({
+        cmd: "addPresImg",
+        eventid: (await req.knex,select("*").from("t_presfolders").where({id:fileRecord.folderid}))[0].eventid,
+        folderid: fileRecord.folderid,
+        value: {id: fileRecord[0].id, size: fileRecord[0].lrvsize}
+    }))
+
+    console.log(fileRecord);
 
 })
 
