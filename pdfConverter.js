@@ -34,13 +34,11 @@ app.use('/fullImage',async (req,res)=>{
     gm(buf)
         .quality(75)
         .density(300, 300)
-        //.extent(1920,1080, "^")
         .resize(1920,1080)
         .gravity('Center')
         .background('#FFFFFF')
         .extent(1920, 1080)
         .flatten()
-        //
         .setFormat('png')
         .out('+adjoin')
         .toBuffer(async (err, buffer)=> {
@@ -63,9 +61,12 @@ app.use('/lrvImage',async (req,res)=>{
     console.log("readLrvImage");
     gm(req.body)
         .quality(75)
-        .density(300, 300)
+        .density(150, 150)
         .resize(320,180)
-        .out('+adjoin')
+        .gravity('Center')
+        .background('#FFFFFF')
+        .extent(180, 180)
+        .flatten()
         .setFormat('png')
         .toBuffer(async (err, buffer)=> {
             if (err)
