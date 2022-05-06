@@ -88,9 +88,9 @@ app.use('/',async (req,res)=>{
 
     var page=1;
     var pdfData=await pdf(req.body);
-    console.log("readPdf", pdfData);
-    await convertPDFPage(2);
-    await convertPDFPage(3);
+
+    //await convertPDFPage(2);
+    //await convertPDFPage(3);
     var arr=[]
     for(var i=0; i<  pdfData.numpages; i++){
        arr.push(i);
@@ -113,7 +113,7 @@ app.use('/',async (req,res)=>{
                 .toBuffer(async (err, buffer)=>{
                     if(err)
                         return  console.warn(err);
-                    console.log("done", req.headers["x-presid"]);
+
                     try {
                         await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPresFolder/" + req.headers["x-presid"]+"/"+page, buffer,
                             {headers: {'content-type': 'application/pdf'}}

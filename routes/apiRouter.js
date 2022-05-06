@@ -70,24 +70,10 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             var handle=await  fsPromises.open(file.path, "r+");
 
             var buf=await handle.readFile();
-            console.log("try sendImageToConvertor", buf, r.id, file.path)
+
             var fileRecord=await sendImageToConvertor( buf,r.id );
             await handle.close();
-           // console.log("fileRecord", fileRecord);
-           /* gm(file.path)
-                .resize('1280', '720', '^')
-                .gravity('Center')
-                .crop('1280', '720')
-                .write(fullpath, async function (err) {
-                    if (!err) {
-                        var stat = fs.statSync(fullpath)
-                        var fileRecord = await addImageToPresFolder(r.id, fullpath, req);
-                        var handle=await fsPromises.open(fullpath, "r+")
-                        var buf=await handle.readFile();
-                        await sendImageToLrvConvertor( buf,fileRecord[0].id )
-                        handle.close();
-                    }
-                });*/
+
         }
         if (file.mimetype.toLowerCase().indexOf('application/pdf') == 0) {
             //TODO: convert PDF
@@ -170,7 +156,7 @@ async function addImageLrvToPresFile(fileid, filePath, req) {
 
 router.post("/addImageToPresFile/:id/", async (req, res) => {
     res.json(1);
-    console.log("addImageToPresFile", req.body);
+
     var filePath = config.filePresPath + req.params["id"] +  ".png";
     var filehandle = await fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(req.body);
@@ -180,9 +166,7 @@ router.post("/addImageToPresFile/:id/", async (req, res) => {
     var fileRecord = await addImageToPresFolder(req.params["id"], filePath, req);
     await sendImageToLrvConvertor(req.body, fileRecord[0].id)
 
-   /* fileRecord=await addImageLrvToPresFile(fileRecord[0].id,fileRecord[0].fullpath,req);
-    console.log(fileRecord);
-    await noifyNewPresFile(fileRecord[0], req)*/
+
 })
 async function noifyNewPresFile(fileRecord, req){
     var eventid=(await req.knex.select("*").from("t_presfolders").where({id:fileRecord.folderid}))[0].eventid
@@ -195,7 +179,6 @@ async function noifyNewPresFile(fileRecord, req){
 }
 router.post("/addImageLrvToPresFile/:id/", async (req, res) => {
     res.json(1);
-    console.log("addImageLrvToPresFolder", req.body);
     var filePath = config.fileLRVPath + req.params["id"] +  ".png";
     var filehandle = await fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(req.body);
@@ -203,16 +186,8 @@ router.post("/addImageLrvToPresFile/:id/", async (req, res) => {
     var fileRecord = await addImageLrvToPresFile(req.params["id"], filePath, req);
 
     await noifyNewPresFile(fileRecord[0], req);
-  /*  var eventid=(await req.knex.select("*").from("t_presfolders").where({id:fileRecord[0].folderid}))[0].eventid
-    req.io.emit("message", JSON.stringify({
-        cmd: "addPresImg",
-        eventid:eventid ,
-        folderid: fileRecord[0].folderid,
-        value: {id: fileRecord[0].id, size: fileRecord[0].lrvsize}
-    }))*/
 
 
-    console.log(fileRecord);
 })
 
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
@@ -233,7 +208,7 @@ router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
     res.json(ret);
 });
 router.post('/presFoldersDelete', checkLogin, async (req, res, next) => {
-    console.log(req.body.id);
+
     var r = await req.knex("t_presfolders").update({isDeleted: true}, "*").where({id: req.body.id}).orderBy("id");
 
     if (r.length == 0)
