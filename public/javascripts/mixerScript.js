@@ -99,9 +99,19 @@ socket.on('message', (m) => {
     {presApp.onPresFoldersDelete(msg.id)}
     if(msg.cmd=="addPresFolder")
     {presApp.onAddPresFolder(msg.value)}
+    if(msg.cmd=="activatePresFile")
+    {activatePresFile(msg.presFileId)}
 
     console.log('socket message: ', msg);
 });
+function activatePresFile(id){
+    document.querySelectorAll(".mayActive").forEach(elem=>{
+        elem.classList.remove("active");
+        if(elem.getAttribute("textureid")==id){
+            elem.classList.add("active");
+        }
+    })
+}
 function activateSpk(spkId){
     document.querySelectorAll(".mayActive").forEach(elem=>{
         elem.classList.remove("active");
