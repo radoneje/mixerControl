@@ -138,7 +138,11 @@ async function addImageToPresFolder(folderid, filePath, req) {
     }, "*");
     return fileRecord;
 }
-
+async function sendImageToLrvConvertor(data, id){
+    await axios.post(
+        config.pdfConverterUrl + ":" + config.pdfConverterPort+"/lrvImage", data,
+        {headers: {'content-type': 'image/x-png', 'x-fileid': id}});
+}
 router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
     res.json(1);
     var filePath = config.filePresPath + req.params["id"] + "_" + req.params["page"] + ".png";
@@ -147,10 +151,7 @@ router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
     await filehandle.close();
     var fileRecord = await addImageToPresFolder(req.params["id"], filePath, req);
     console.log("setd to lrv", req.body)
-    await axios.post(
-        config.pdfConverterUrl + ":" + config.pdfConverterPort+"/lrvImage", req.body,
-        {headers: {'content-type': 'image/x-png', 'x-fileid': fileRecord[0].id}});
-
+    await sendImageToLrvConvertor(req.body, fileRecord[0].id)
 
 })
 async function addImageLrvToPresFile(fileid, filePath, req) {
