@@ -163,6 +163,7 @@ async function addImageLRVToPresFolder(fileid, filePath, req) {
 }
 router.post("/addImageLrvToPresFolder/:id/", async (req, res) => {
     res.json(1);
+    console.log("addImageLrvToPresFolder", req.body);
     var filePath = config.fileLRVPath + req.params["id"] +  ".png";
     var filehandle = await fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(req.body);
