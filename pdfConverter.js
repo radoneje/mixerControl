@@ -10,6 +10,7 @@ const fsPromises = fs.promises;
 var bodyParser = require('body-parser');
 var gm = require('gm');//.subClass({imageMagick: true});
 var axios=require('axios')
+const pdf = require('pdf-page-counter');
 
 var app = express();
 app.use(logger('dev'));
