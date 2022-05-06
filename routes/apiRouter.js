@@ -99,7 +99,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                     config.pdfConverterUrl + ":" + config.pdfConverterPort, data/*.toString('base64')*/,
                     {headers: {'content-type': 'application/pdf', 'x-presid': r.id}});
             } catch (e) {
-                console.warn("ERROR:", e)
+                console.warn("ERROR: send to PDF")
             }
             await filehandle.close();
         }
@@ -127,15 +127,24 @@ async function addImageToPresFolder(folderid, filePath, req) {
     return fileRecord;
 }
 async function sendImageToLrvConvertor(data, id){
-    await axios.post(
-        config.pdfConverterUrl + ":" + config.pdfConverterPort+"/lrvImage", data,
-        {headers: {'content-type': 'image/x-png', 'x-fileid': id}});
+    try {
+        await axios.post(
+            config.pdfConverterUrl + ":" + config.pdfConverterPort + "/lrvImage", data,
+            {headers: {'content-type': 'image/x-png', 'x-fileid': id}});
+    }
+    catch (e){
+        console.warn("ERROR: sendImageToLrvConvertor")
+    }
 }
 async function sendImageToConvertor(data, id){
-    console.log("sendImageToConvertor", data)//.toString('base64'))
-    await axios.post(
-        config.pdfConverterUrl + ":" + config.pdfConverterPort+"/fullImage", data,
-        {headers: {'content-type': 'application/octet-stream', 'x-folder': id}});
+    try {
+        await axios.post(
+            config.pdfConverterUrl + ":" + config.pdfConverterPort + "/fullImage", data,
+            {headers: {'content-type': 'application/octet-stream', 'x-folder': id}});
+    }
+    catch (e){
+        console.warn("ERROR: sendImageToConvertor")
+    }
 }
 
 router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
