@@ -29,8 +29,9 @@ app.use(bodyParser.raw({
 
 
 app.use('/fullImage',async (req,res)=>{
-    console.log("readFullImage", req.body);
-    gm(req.body)
+    var buf=Buffer.from(req.body)
+    console.log("readFullImage", buf);
+    gm(buf)
         .quality(75)
         .density(300, 300)
         .extent(1920,1080)
