@@ -136,7 +136,7 @@ router.get('/presImg/:id', checkLogin, async (req, res, next) => {
     res.sendFile(r[0].lrvpath);
 });
 router.post("/addImageToPresFolder/:id", (req, res)=>{
-
+    console.log("addImageToPresFolder", req.body);
     res.json(0);
 })
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
