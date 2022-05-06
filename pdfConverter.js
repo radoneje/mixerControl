@@ -60,6 +60,6 @@ app.use('/',async (req,res)=>{
 });
 var server = http.createServer(app);
 server.listen(config.pdfConverterPort, ()=>{
-    console.log("encoder server listen on "+ config.pdfConverterPort, $PATH)
+    console.log("encoder server listen on "+ config.pdfConverterPort)
 
 })
