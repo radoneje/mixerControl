@@ -28,6 +28,7 @@ app.use('/',async (req,res)=>{
     let handle=await fsPromises.open("/tmp/1.pdf", "w+");
     await handle.writeFile(req.body);
     await handle.close();
+    fs.rmSync("/var/www/mixerControl/public/resize1.png")
     gm(req.body)
        // .command("convert")
         .quality(75)
