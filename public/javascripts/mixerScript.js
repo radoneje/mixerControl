@@ -4,6 +4,9 @@ var presApp=new Vue({
         presFolders:[],
     },
     methods:{
+        activetePresImg:async function (img){
+            console.log("activetePresImg", img)
+        },
         addImageToFolder:function (folderid, value){
             console.log("add Image before");
            this.presFolders.forEach(f=>{
