@@ -175,7 +175,7 @@ router.post("/addImageLrvToPresFile/:id/", async (req, res) => {
     req.io.emit("message", JSON.stringify({
         cmd: "addPresImg",
         eventid:eventid ,
-        folderid: fileRecord.folderid,
+        folderid: fileRecord[0].folderid,
         value: {id: fileRecord[0].id, size: fileRecord[0].lrvsize}
     }))
 
