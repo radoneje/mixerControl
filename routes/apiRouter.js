@@ -238,7 +238,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
         var formData= new FormData();
         formData.append('image', fs.createReadStream(fileRecord[0].fullpath), "image.png");
         formData.append('eventid', req.params["eventid"]);
-        var r = await axios.post(config.mixerCore + "mixer/activatePresImg/"+req.params["eventid"],formData, {headers: {"Content-Type": "multipart/form-data"}})
+        var r = await axios.post(config.mixerCore + "mixer/activatePresImg/"+req.params["eventid"]+"/"+req.params["id"],formData, {headers: {"Content-Type": "multipart/form-data"}})
         res.json({ret:r.data, error:false});
     }
     catch(e) {
