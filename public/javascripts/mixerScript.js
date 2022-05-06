@@ -105,6 +105,7 @@ socket.on('message', (m) => {
     console.log('socket message: ', msg);
 });
 function activatePresFile(id){
+    console.log("activatePresFile", id)
     document.querySelectorAll(".mayActive").forEach(elem=>{
         elem.classList.remove("active");
         if(elem.getAttribute("textureid")==id){
