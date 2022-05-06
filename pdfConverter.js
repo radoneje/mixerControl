@@ -89,29 +89,40 @@ app.use('/',async (req,res)=>{
     var page=1;
     var pdfData=await pdf(req.body);
     console.log("readPdf", pdfData);
-    gm(req.body)
-        .selectFrame(page)
-        .quality(75)
-        .density(300, 300)
-        .resize(1920,1080)
-        .gravity('Center')
-        .background('#FFFFFF')
-        .extent(1920, 1080)
-        .flatten()
-        .setFormat('png')
-        .toBuffer(async (err, buffer)=>{
-            if(err)
-                return  console.warn(err);
-            console.log("done", req.headers["x-presid"]);
-            try {
-                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPresFolder/" + req.headers["x-presid"]+"/"+page, buffer,
-                    {headers: {'content-type': 'application/pdf'}}
-                    );
-            }
-            catch (e){
-                console.warn(e);
-            }
+    await convertPDFPage(2);
+
+    function convertPDFPage(page){
+        return new Promise((resolve, reject)=>{
+            gm(req.body)
+                .selectFrame(page)
+                .quality(75)
+                .density(300, 300)
+                .resize(1920,1080)
+                .gravity('Center')
+                .background('#FFFFFF')
+                .extent(1920, 1080)
+                .flatten()
+                .setFormat('png')
+                .toBuffer(async (err, buffer)=>{
+                    if(err)
+                        return  console.warn(err);
+                    console.log("done", req.headers["x-presid"]);
+                    try {
+                        await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPresFolder/" + req.headers["x-presid"]+"/"+page, buffer,
+                            {headers: {'content-type': 'application/pdf'}}
+                        );
+                        resolve();
+                    }
+                    catch (e){
+                        console.warn(e);
+                        reject(e);
+                    }
+                })
+
         })
+    }
+
+
         //.write('/var/www/mixerControl/public/resize1.png', function (err) {
 
 
