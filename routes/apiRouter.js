@@ -146,7 +146,7 @@ router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
     await filehandle.writeFile(req.body);
     await filehandle.close();
     var fileRecord = await addImageToPresFolder(req.params["id"], filePath, req);
-
+    console.log("setd to lrv", req.body)
     await axios.post(
         config.pdfConverterUrl + ":" + config.pdfConverterPort+"/lrvImage", req.body,
         {headers: {'content-type': 'image/x-png', 'x-fileid': fileRecord[0].id}});
