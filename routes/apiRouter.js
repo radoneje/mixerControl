@@ -231,10 +231,11 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
             return res.sendStatus(404);
         var handle=await fsPromises.open(fileRecord[0].fullpath,"r+");
         var buf=await handle.readFile();
+        let arraybuffer = Uint8Array.from(buf).buffer
         await handle.close();
 
         var formData= new FormData();
-        formData.append('image', buf, "image.png");
+        formData.append('image', arraybuffer, "image.png");
 
         var r = await axios.post(config.mixerCore + "mixer/activatePresImg",formData, {headers: {"Content-Type": "multipart/form-data"}})
         res.json({ret:r.data, error:false});
