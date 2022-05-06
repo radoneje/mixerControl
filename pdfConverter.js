@@ -37,8 +37,9 @@ app.use('/fullImage',async (req,res)=>{
         .extent(1920,1080)
         .gravity('Center')
         .resize(1920,1080)
-        .out('+adjoin')
+
         .setFormat('png')
+        .out('+adjoin')
         .toBuffer(async (err, buffer)=> {
             if (err)
                 return console.warn(err);
