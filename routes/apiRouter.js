@@ -138,9 +138,11 @@ router.get('/presImg/:id', checkLogin, async (req, res, next) => {
 router.post("/addImageToPresFolder/:id/:page", async (req, res)=>{
    var filePath=config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png";
     console.log("addImageToPresFolder",filePath );
-    console.log(req.body);
+
+    var buf = Buffer.from(req.body);
+    console.log(buf);
     var filehandle=await  fsPromises.open(filePath, 'w+');
-    await filehandle.writeFile(req.body);
+    await filehandle.writeFile(buf);
     await filehandle.close();
   /*  fs.writeFile(config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png", req.body, (err)=>{
         if(err)
