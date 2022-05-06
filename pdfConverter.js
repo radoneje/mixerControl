@@ -46,7 +46,7 @@ app.use('/',async (req,res)=>{
                 return  console.warn(err);
             console.log("done", req.headers["x-presid"]);
             try {
-                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPres/" + req.headers[x - presid], buffer);
+                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPres/" + req.headers["x-presid"], buffer);
             }
             catch (e){
                 console.warn(e);
