@@ -140,6 +140,7 @@ async function addImageToPresFolder(folderid, filePath, req) {
 }
 
 router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
+    res.json(1);
     var filePath = config.filePresPath + req.params["id"] + "_" + req.params["page"] + ".png";
     var filehandle = await fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(req.body);
@@ -151,8 +152,28 @@ router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
         config.pdfConverterUrl + ":" + config.pdfConverterPort+"/lrvImage", req.body,
         {headers: {'content-type': 'image/x-png', 'x-fileid': fileRecord[0].id}});
 
-    res.json(1);
+
 })
+async function addImageLRVToPresFolder(fileid, filePath, req) {
+    var stat = fs.statSync(filePath)
+    var fileRecord = await req.knex("t_presfiles").update({
+        lrvpath: filePath,
+        lrvsize: stat.size
+    }, "*").where({id:fileid});
+    return fileRecord;
+}
+router.post("/addImageLrvToPresFolder/:id/", async (req, res) => {
+    res.json(1);
+    var filePath = config.fileLRVPath + req.params["id"] +  ".png";
+    var filehandle = await fsPromises.open(filePath, 'w+');
+    await filehandle.writeFile(req.body);
+    await filehandle.close();
+    var fileRecord = await addImageLRVToPresFolder(req.params["id"], filePath, req);
+    console.log(fileRecord);
+
+
+})
+
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex.select("*").from("t_presfolders").where({
         isDeleted: false,

@@ -22,21 +22,31 @@ app.use(bodyParser.raw({
 }));
 app.use('/lrvImage',async (req,res)=>{
     console.log("readLrvImage");
+    gm(req.body)
+        .quality(75)
+        .density(300, 300)
+        .resize(320,180)
+        .out('+adjoin')
+        .setFormat('png')
+        .toBuffer(async (err, buffer)=> {
+            if (err)
+                return console.warn(err);
+            try{
+            await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageLrvToPresFolder/" + req.headers["x-fileid"], buffer,
+                {headers: {'content-type': 'image/x-png'}})
+            }
+            catch (e){
+                console.warn(e)
+            }
+
+        });
     res.json("ok");
 })
 
 app.use('/',async (req,res)=>{
     console.log("readPdf");
-    console.log(req.body);
-    let handle=await fsPromises.open("/tmp/1.pdf", "w+");
-    await handle.writeFile(req.body);
-    await handle.close();
-    //fs.rmSync("/var/www/mixerControl/public/resize1.png")
     var page=1;
     gm(req.body)
-       // .command("convert")
-
-       // .out("background:transparent")
         .selectFrame(page)
         .quality(75)
         .density(300, 300)
