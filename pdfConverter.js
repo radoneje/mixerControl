@@ -44,7 +44,7 @@ app.use('/',async (req,res)=>{
         .toBuffer(async (err, buffer)=>{
             if(err)
                 return  console.warn(err);
-            console.log("done", req.headers[x-presid]);
+            console.log("done", req.headers["x-presid"]);
             try {
                 await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPres/" + req.headers[x - presid], buffer);
             }
