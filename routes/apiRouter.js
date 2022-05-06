@@ -225,7 +225,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
     const user=req.session["user"]
     if(!user)
         return  res.redirect("/");
-    try {
+  //  try {
         var fileRecord=await req.knex.select("*").from("t_presfiles").where({id:req.params["id"]});
         if(fileRecord.length==0)
             return res.sendStatus(404);
@@ -239,10 +239,10 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
 
         var r = await axios.post(config.mixerCore + "mixer/activatePresImg",formData, {headers: {"Content-Type": "multipart/form-data"}})
         res.json({ret:r.data, error:false});
-    }
-    catch(e) {
+   // }
+  //  catch(e) {
         res.status(500).send(JSON.stringify({ret:e.message, error:true}))
-    }
+   // }
 });
 
 module.exports = router;
