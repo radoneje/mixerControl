@@ -59,7 +59,7 @@ app.use(bodyParser.raw({
 app.use(bodyParser.raw({
   inflate: true,
   limit: '10000kb',
-  type: 'image/png'
+  type: 'image/x-png'
 }));
 //////////
 app.use(session(sess));
