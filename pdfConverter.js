@@ -35,7 +35,7 @@ app.use('/fullImage',async (req,res)=>{
         .quality(75)
         .density(300, 300)
         //.extent(1920,1080, "^")
-        .resize(1920,1080,"^")
+        .resize(1920,1080)
         .gravity('Center')
         .background('#FFFFFF')
         .extent(1920, 1080)
