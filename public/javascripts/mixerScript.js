@@ -8,11 +8,11 @@ var presApp=new Vue({
             console.log("activetePresImg", img)
         },
         addImageToFolder:function (folderid, value){
-            console.log("add Image before");
+
            this.presFolders.forEach(f=>{
                if(f.id==folderid){
                    f.images.push(value);
-                   console.log("add Image", f);
+
                }
            })
         },
@@ -37,7 +37,7 @@ var presApp=new Vue({
             el.multiple="multiple"
             el.style.display="none";
             el.onchange=(e)=>{
-                console.log(el.files)
+
 
                 var form = new FormData();
                 for(var i=0; i<el.files.length ;i++){
@@ -56,6 +56,7 @@ var presApp=new Vue({
                 };
                 request.onprogress=(event)=>{
                     console.log("progress event", event)
+                    //TODO: add file progresss
                 }
                 request.send(form);
             }
@@ -69,7 +70,7 @@ var presApp=new Vue({
     mounted:async function () {
 
         this.presFolders=(await axios.get('/api/v1/presFolders/'+eventid)).data;
-        console.log("d",this.presFolders);
+
 
     }
 })
@@ -92,8 +93,6 @@ socket.on('message', (m) => {
     if(msg.cmd=="addPresFolder")
     {presApp.onAddPresFolder(msg.value)}
 
-
-
     console.log('socket message: ', msg);
 });
 function activateSpk(spkId){
@@ -113,19 +112,19 @@ var SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
 var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
 var STREAM_STATUS_INFO = Flashphoner.constants.STREAM_STATUS_INFO;
 initFlashServer((result)=>{
-    console.log(result, event)
+
 }, (event, session)=>{
-    console.log("server Event", event);
+
     if(event=="SESSION_STATUS.ESTABLISHED")
         playStream("mixerCore", session);
 });
 
 function initFlashServer(result, event) {
     Flashphoner.init({flashMediaProviderSwfLocation: '../../../../media-provider.swf'});
-    console.log("SESSION_STATUS.INIT", serverUrl);
+
 
     Flashphoner.createSession({urlServer: serverUrl}).on(SESSION_STATUS.ESTABLISHED, function (session) {
-        console.log("SESSION_STATUS.ESTABLISHED")
+
         event("SESSION_STATUS.ESTABLISHED", session)
         // onConnected(session);
     }).on(SESSION_STATUS.DISCONNECTED, function () {
