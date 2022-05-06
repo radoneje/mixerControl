@@ -91,9 +91,10 @@ app.use('/',async (req,res)=>{
         .quality(75)
         .density(300, 300)
         .resize(1920,1080)
-        .extent(1920,1080)
         .gravity('Center')
-        .out('+adjoin')
+        .background('#FFFFFF')
+        .extent(1920, 1080)
+        .flatten()
         .setFormat('png')
         .toBuffer(async (err, buffer)=>{
             if(err)
