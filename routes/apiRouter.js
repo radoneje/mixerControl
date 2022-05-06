@@ -169,9 +169,11 @@ router.post("/addImageToPresFile/:id/", async (req, res) => {
     ///////
    // await addImageToPresFolder()
     var fileRecord = await addImageToPresFolder(req.params["id"], filePath, req);
-    fileRecord=await addImageLrvToPresFile(fileRecord[0].id,fileRecord[0].fullpath,req);
+    await sendImageToLrvConvertor(req.body, fileRecord[0].id)
+
+   /* fileRecord=await addImageLrvToPresFile(fileRecord[0].id,fileRecord[0].fullpath,req);
     console.log(fileRecord);
-    await noifyNewPresFile(fileRecord[0], req)
+    await noifyNewPresFile(fileRecord[0], req)*/
 })
 async function noifyNewPresFile(fileRecord, req){
     var eventid=(await req.knex.select("*").from("t_presfolders").where({id:fileRecord.folderid}))[0].eventid
