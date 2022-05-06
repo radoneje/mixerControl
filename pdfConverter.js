@@ -28,6 +28,30 @@ app.use(bodyParser.raw({
 }));
 
 
+app.use('/fullImage',async (req,res)=>{
+    console.log("readLrvImage");
+    gm(req.body)
+        .quality(75)
+        .density(300, 300)
+        .extent(1920,1080)
+        .gravity('Center')
+        .resize(1920,1080)
+        .out('+adjoin')
+        .setFormat('png')
+        .toBuffer(async (err, buffer)=> {
+            if (err)
+                return console.warn(err);
+            try{
+                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPresFile/" + req.headers["x-folder"], buffer,
+                    {headers: {'content-type': 'image/x-png'}})
+            }
+            catch (e){
+                console.warn(e)
+            }
+
+        });
+    res.json("ok");
+})
 app.use('/lrvImage',async (req,res)=>{
     console.log("readLrvImage");
     gm(req.body)
