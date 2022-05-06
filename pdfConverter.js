@@ -33,13 +33,12 @@ app.use('/fullImage',async (req,res)=>{
     console.log("readFullImage", buf);
     gm(buf)
         .quality(75)
-        /*.density(300, 300)
+        .density(300, 300)
         .extent(1920,1080)
         .gravity('Center')
         .resize(1920,1080)
-*/
         .setFormat('png')
-       // .out('+adjoin')
+        .out('+adjoin')
         .toBuffer(async (err, buffer)=> {
             if (err) {
 

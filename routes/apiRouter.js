@@ -169,7 +169,7 @@ router.post("/addImageToPresFile/:id/", async (req, res) => {
     ///////
    // await addImageToPresFolder()
     var fileRecord = await addImageToPresFolder(req.params["id"], filePath, req);
-
+    fileRecord=await addImageLrvToPresFile(fileRecord[0].id,fileRecord[0].fullpath,req);
     console.log(fileRecord);
 })
 router.post("/addImageLrvToPresFile/:id/", async (req, res) => {
