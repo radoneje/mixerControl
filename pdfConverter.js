@@ -91,6 +91,9 @@ app.use('/',async (req,res)=>{
     console.log("readPdf", pdfData);
     await convertPDFPage(2);
     await convertPDFPage(3);
+    for(var i of  pdfData.numpages){
+        console.log(i);
+    }
 
     function convertPDFPage(page){
         return new Promise((resolve, reject)=>{
