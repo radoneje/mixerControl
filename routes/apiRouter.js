@@ -226,7 +226,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
     if(!user)
         return  res.redirect("/");
     try {
-        var fileRecord=await req.knex.select("*").from("t_presfiles").where({id:req.params[id]});
+        var fileRecord=await req.knex.select("*").from("t_presfiles").where({id:req.params["id"]});
         if(fileRecord.length==0)
             return res.sendStatus(404);
         var handle=await fsPromises.open(fileRecord[0].fullpath,"r+");
