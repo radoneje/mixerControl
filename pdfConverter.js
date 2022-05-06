@@ -85,8 +85,10 @@ app.use('/lrvImage',async (req,res)=>{
 })
 
 app.use('/',async (req,res)=>{
-    console.log("readPdf");
+
     var page=1;
+    var pdfData=await pdf(req.body);
+    console.log("readPdf", pdfData);
     gm(req.body)
         .selectFrame(page)
         .quality(75)
