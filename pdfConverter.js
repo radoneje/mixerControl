@@ -33,7 +33,7 @@ app.use('/',async (req,res)=>{
        // .command("convert")
 
        // .out("background:transparent")
-        .selectFrame(1)
+        .selectFrame(2)
         .quality(75)
         .density(300, 300)
         .resize(1920,1080)
