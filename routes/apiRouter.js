@@ -70,11 +70,10 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             var handle=await  fsPromises.open(file.path, "r+");
 
             var buf=await handle.read();
-            console.log("sendImageToConvertor", buf, r.id)
+            console.log("try sendImageToConvertor", buf, r.id)
             var fileRecord=await sendImageToConvertor( buf,r.id );
             await handle.close();
-
-            console.log("fileRecord", fileRecord);
+           // console.log("fileRecord", fileRecord);
            /* gm(file.path)
                 .resize('1280', '720', '^')
                 .gravity('Center')
@@ -133,6 +132,7 @@ async function sendImageToLrvConvertor(data, id){
         {headers: {'content-type': 'image/x-png', 'x-fileid': id}});
 }
 async function sendImageToConvertor(data, id){
+    console.log("sendImageToConvertor", data)
     await axios.post(
         config.pdfConverterUrl + ":" + config.pdfConverterPort+"/fullImage", data,
         {headers: {'content-type': 'image/x-png', 'x-folder': id}});
