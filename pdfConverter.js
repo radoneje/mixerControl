@@ -41,8 +41,10 @@ app.use('/fullImage',async (req,res)=>{
         .setFormat('png')
        // .out('+adjoin')
         .toBuffer(async (err, buffer)=> {
-            if (err)
-                return console.warn(err);
+            if (err) {
+
+                return console.warn("this err",err);
+            }
             try{
                 await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPresFile/" + req.headers["x-folder"], buffer,
                     {headers: {'content-type': 'image/x-png'}})
