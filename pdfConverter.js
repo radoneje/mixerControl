@@ -36,7 +36,7 @@ app.use('/',async (req,res)=>{
         .selectFrame(0)
         .quality(75)
         .density(300, 300)
-        .extent((1920,1080)
+        .extent(1920,1080)
         .gravity('Center')
         .out('+adjoin')
         .write('/var/www/mixerControl/public/resize1.png', function (err) {
