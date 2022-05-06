@@ -12,6 +12,7 @@
   "fileLRVPath": "/Users/denisshevchenko/Downloads/lrv/",
   "port": 3000,
   "pdfConverterPort": 3001,
-  "pdfConverterUrl": "http://localhost"
+  "pdfConverterUrl": "http://localhost",
+  "callBackUrl": "http://localhost"
 
 }

@@ -114,7 +114,8 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                 await filehandle.readFile();
 try {
     await axios.post(
-        config.pdfConverterUrl + ":" + config.pdfConverterPort, data/*.toString('base64')*/, {headers: {'content-type': 'application/pdf'}});
+        config.pdfConverterUrl + ":" + config.pdfConverterPort, data/*.toString('base64')*/,
+        {headers: {'content-type': 'application/pdf', 'x-presid':r.id}});
 }
 catch (e){
     console.warn("ERROR:",e )
@@ -134,7 +135,10 @@ router.get('/presImg/:id', checkLogin, async (req, res, next) => {
         return res.sendStatus(404);
     res.sendFile(r[0].lrvpath);
 });
+router.post("/addImageToPres/:id", (req, res)=>{
 
+    res.json(0);
+})
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex.select("*").from("t_presfolders").where({
         isDeleted: false,

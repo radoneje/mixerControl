@@ -9,7 +9,7 @@ var fs = require('fs');
 const fsPromises = fs.promises;
 var bodyParser = require('body-parser');
 var gm = require('gm');//.subClass({imageMagick: true});
-
+var axios=require('axios')
 
 var app = express();
 app.use(logger('dev'));
@@ -40,11 +40,23 @@ app.use('/',async (req,res)=>{
         .extent(1920,1080)
         .gravity('Center')
         .out('+adjoin')
-        .write('/var/www/mixerControl/public/resize1.png', function (err) {
-        if (!err) console.log('done');
-        else console.log(err);
-    });
-    res.send("pong");
+        .setFormat('png')
+        .toBuffer(async (err, buffer)=>{
+            if(err)
+                return  console.warn(err);
+            console.log("done", req.headers[x-presid]);
+            try {
+                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addImageToPres/" + req.headers[x - presid], buffer);
+            }
+            catch (e){
+                console.warn(e);
+            }
+        })
+        //.write('/var/www/mixerControl/public/resize1.png', function (err) {
+
+
+    res.json("ok");
+
 });
 var server = http.createServer(app);
 server.listen(config.pdfConverterPort, ()=>{
