@@ -37,6 +37,7 @@ var sess={
 
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/apiRouter');
+const bodyParser = require("body-parser");
 
 var app = express();
 
@@ -50,7 +51,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(bodyParser.raw({
+  inflate: true,
+  limit: '10000kb',
+  type: 'application/pdf'
+}));
 //////////
 app.use(session(sess));
 app.use("/", (req,res, next)=>{req.knex=knex;next();});

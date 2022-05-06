@@ -142,7 +142,7 @@ router.post("/addImageToPresFolder/:id/:page", (req, res)=>{
             return console.warn(err);
         console.log(config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png")
     })
-    res.json(0);
+    res.json(1);
 })
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex.select("*").from("t_presfolders").where({
