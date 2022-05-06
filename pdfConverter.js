@@ -20,7 +20,10 @@ app.use(bodyParser.raw({
     limit: '10000kb',
     type: 'application/pdf'
 }));
-
+app.use('/lrvImage',async (req,res)=>{
+    console.log("readLrvImage");
+    res.json("ok");
+})
 
 app.use('/',async (req,res)=>{
     console.log("readPdf");

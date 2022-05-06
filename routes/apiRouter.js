@@ -74,7 +74,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                 .write(fullpath, async function (err) {
                     if (!err) {
                         var stat = fs.statSync(fullpath)
-                        var fileRecord =await addImageToPresFolder(r.id,fullpath, req);
+                        var fileRecord = await addImageToPresFolder(r.id, fullpath, req);
 
                         gm(file.path).resize('320', '180', '^').gravity('Center').crop('320', '180').write(lrvpath, async (err) => {
                             if (!err) {
@@ -103,19 +103,16 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
         }
         if (file.mimetype.toLowerCase().indexOf('application/pdf') == 0) {
             //TODO: convert PDF
-            var data = await fs.readFile(file.path, (data, err)=>{})
-            let filehandle =
-                await fsPromises.open(file.path, 'r+');
-            var data =
-                await filehandle.readFile();
-try {
-    await axios.post(
-        config.pdfConverterUrl + ":" + config.pdfConverterPort, data/*.toString('base64')*/,
-        {headers: {'content-type': 'application/pdf', 'x-presid':r.id}});
-}
-catch (e){
-    console.warn("ERROR:",e )
-}
+
+            let filehandle = await fsPromises.open(file.path, 'r+');
+            var data = await filehandle.readFile();
+            try {
+                await axios.post(
+                    config.pdfConverterUrl + ":" + config.pdfConverterPort, data/*.toString('base64')*/,
+                    {headers: {'content-type': 'application/pdf', 'x-presid': r.id}});
+            } catch (e) {
+                console.warn("ERROR:", e)
+            }
             await filehandle.close();
         }
         if (file.mimetype.toLowerCase().indexOf('video/') == 0) {
@@ -131,22 +128,29 @@ router.get('/presImg/:id', checkLogin, async (req, res, next) => {
         return res.sendStatus(404);
     res.sendFile(r[0].lrvpath);
 });
-async function addImageToPresFolder(folderid, filePath, req){
+
+async function addImageToPresFolder(folderid, filePath, req) {
     var stat = fs.statSync(filePath)
     var fileRecord = await req.knex("t_presfiles").insert({
         folderid: folderid,
-        fullpath:filePath,
+        fullpath: filePath,
         fullsize: stat.size
     }, "*");
     return fileRecord;
 }
-router.post("/addImageToPresFolder/:id/:page", async (req, res)=>{
-    var filePath=config.filePresPath+req.params["id"]+"_"+req.params["page"]+".png";
-    var filehandle=await  fsPromises.open(filePath, 'w+');
+
+router.post("/addImageToPresFolder/:id/:page", async (req, res) => {
+    var filePath = config.filePresPath + req.params["id"] + "_" + req.params["page"] + ".png";
+    var filehandle = await fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(req.body);
     await filehandle.close();
-    var fileRecord=await addImageToPresFolder(req.params["id"],filePath, req);
+    var fileRecord = await addImageToPresFolder(req.params["id"], filePath, req);
     console.log(fileRecord);
+
+    await axios.post(
+        config.pdfConverterUrl + ":" + config.pdfConverterPort+"/lrvImage", req.body,
+        {headers: {'content-type': 'image/x-png', 'x-fileid': fileRecord[0].id}});
+
     res.json(1);
 })
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
