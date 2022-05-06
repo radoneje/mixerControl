@@ -56,6 +56,11 @@ app.use(bodyParser.raw({
   limit: '10000kb',
   type: 'application/pdf'
 }));
+app.use(bodyParser.raw({
+  inflate: true,
+  limit: '10000kb',
+  type: 'image/png'
+}));
 //////////
 app.use(session(sess));
 app.use("/", (req,res, next)=>{req.knex=knex;next();});
