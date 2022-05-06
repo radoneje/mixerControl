@@ -132,9 +132,9 @@ async function sendImageToLrvConvertor(data, id){
         {headers: {'content-type': 'image/x-png', 'x-fileid': id}});
 }
 async function sendImageToConvertor(data, id){
-    console.log("sendImageToConvertor", data)
+    console.log("sendImageToConvertor", data.toString('base64'))
     await axios.post(
-        config.pdfConverterUrl + ":" + config.pdfConverterPort+"/fullImage", data,
+        config.pdfConverterUrl + ":" + config.pdfConverterPort+"/fullImage", data.toString('base64'),
         {headers: {'content-type': 'application/octet-stream', 'x-folder': id}});
 }
 
