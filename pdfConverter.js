@@ -29,7 +29,7 @@ app.use(bodyParser.raw({
 
 
 app.use('/fullImage',async (req,res)=>{
-    console.log("readLrvImage");
+    console.log("readFullImage", req.body);
     gm(req.body)
         .quality(75)
         .density(300, 300)
