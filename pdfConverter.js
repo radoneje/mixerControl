@@ -33,7 +33,7 @@ app.use('/',async (req,res)=>{
        // .command("convert")
         .quality(75)
         .density(300, 300)
-        .resize(1920,1080)
+        .resize(1920,1080, "!")
        // .out("background:transparent")
         .selectFrame(0)
         .write('/var/www/mixerControl/public/resize1.png', function (err) {
