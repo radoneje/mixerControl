@@ -103,7 +103,7 @@ socket.on('message', (m) => {
     console.log('socket message: ', msg);
 });
 function activateSpk(spkId){
-    document.querySelectorAll(".spk").forEach(elem=>{
+    document.querySelectorAll(".mayActive").forEach(elem=>{
         elem.classList.remove("active");
         if(elem.getAttribute("textureid")==spkId){
             elem.classList.add("active");
@@ -172,6 +172,7 @@ function onVideoPlaying() {
     for(var i=0; i<6; i++){
         var item=document.createElement("div")
         item.classList.add("spk")
+        item.classList.add("mayActive")
         item.setAttribute("textureId",i)
         var itemCanvas=document.createElement("canvas");
         itemCanvas.setAttribute("textureId",i)
