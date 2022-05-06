@@ -5,14 +5,17 @@ var presApp=new Vue({
     },
     methods:{
         activetePresImg:async function (img){
-            console.log("activetePresImg", img)
+            console.log("activatePresImg", img)
+            var r=(await axios.get("/api/v1/activatePresImg/"+img.id+"/"+eventid)).data;
+            if(!r.error){
+                ////
+            }
         },
         addImageToFolder:function (folderid, value){
 
            this.presFolders.forEach(f=>{
                if(f.id==folderid){
                    f.images.push(value);
-
                }
            })
         },
