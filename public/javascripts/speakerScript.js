@@ -31,4 +31,17 @@ var STREAM_STATUS_INFO = Flashphoner.constants.STREAM_STATUS_INFO;
 
 function activeteWebCam(){
     Flashphoner.init();
+    Flashphoner.createSession({urlServer: serverUrl}).on(SESSION_STATUS.ESTABLISHED, function(session){
+        //session connected, start streaming
+        startStreaming(session);
+    }).on(SESSION_STATUS.DISCONNECTED, function(){
+        console.log("SESSION_STATUS.DISCONNECTED");
+
+    }).on(SESSION_STATUS.FAILED, function(){
+        console.log("SESSION_STATUS.FAILED");
+
+    });
+}
+function startStreaming(session){
+
 }
