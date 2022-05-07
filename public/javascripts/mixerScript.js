@@ -196,7 +196,7 @@ function onVideoPlaying() {
         });
         var openWebCamBtn=document.createElement("div")
         openWebCamBtn.classList.add("webCamBtn");
-        openWebCamBtn.innerHTML="webCam";
+        openWebCamBtn.innerHTML="webCam"+i;
         item.appendChild(openWebCamBtn)
         openWebCamBtn.addEventListener("click",async (e)=>{
             console.log("ddd")
