@@ -57,6 +57,7 @@ function activeteWebCam() {
 function startStreaming(session) {
     console.log("startStreaming");
     var streamName = eventid + "_" + faceid;
+    console.log(streamName);
     var publishStream=session.createStream({
         name: streamName,
         display: localVideo,
@@ -80,33 +81,6 @@ function startStreaming(session) {
     })
     publishStream.publish();
 
-    //.play();
-    /* .on(STREAM_STATUS.PUBLISHING, function(publishStream){
-         console.log("STREAM_STATUS.PUBLISHING");
-         //play preview
-         session.createStream({
-             name: streamName,
-             display: remoteVideo
-         }).on(STREAM_STATUS.PLAYING, function(previewStream){
-             //enable stop button
-             onStarted(publishStream, previewStream);
-         }).on(STREAM_STATUS.STOPPED, function(){
-             publishStream.stop();
-         }).on(STREAM_STATUS.FAILED, function(stream){
-             //preview failed, stop publishStream
-             if (publishStream.status() == STREAM_STATUS.PUBLISHING) {
-                 console.log("STREAM_STATUS.FAILED", stream);
-                 publishStream.stop();
-             }
-         }).play();
-     }).on(STREAM_STATUS.UNPUBLISHED, function(){
-     console.log("STREAM_STATUS.UNPUBLISHED");
-     //enable start button
-     onStopped();
- }).on(STREAM_STATUS.FAILED, function(stream){
-     console.log("STREAM_STATUS.FAILED", stream);
-     //enable start button
-     onStopped();*/
 
 }
 function activatePgm(session){
