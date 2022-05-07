@@ -53,4 +53,13 @@ router.get('/showSpk/:id/:eventid', async (req, res, next)=> {
     res.status(500).send(JSON.stringify({ret:e.message, error:true}))
   }
 });
+router.get('/speaker/:eventid/:faceid', async function(req, res, next) {
+
+
+  var r=await req.knex.select("*").from("t_events").where({isDeleted:false, id:req.params.id});
+  if(r.length==0)
+    return res.sendStatus(404);
+  res.render('speakers/speaker', { title: 'Express', eventid:req.params.id,title:r[0].title, faceid:faceid });
+});
+
 module.exports = router;
