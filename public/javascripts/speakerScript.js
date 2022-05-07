@@ -53,7 +53,11 @@ function startStreaming(session){
         cacheLocalResources: true,
         receiveVideo: false,
         receiveAudio: false
-    }).play();
+    })
+        .on(STREAM_STATUS.PUBLISHING, function(publishStream){
+            console.log("STREAM_STATUS.PUBLISHING");
+        })
+        //.play();
        /* .on(STREAM_STATUS.PUBLISHING, function(publishStream){
             console.log("STREAM_STATUS.PUBLISHING");
             //play preview
