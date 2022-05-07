@@ -59,7 +59,7 @@ router.get('/speaker/:eventid/:faceid', async function(req, res, next) {
   var r=await req.knex.select("*").from("t_events").where({isDeleted:false, id:req.params.eventid});
   if(r.length==0)
     return res.sendStatus(404);
-  res.render('speakers/speaker', { title: 'Express', eventid:req.params.id,title:r[0].title, faceid:req.params.faceid });
+  res.render('speakers/speaker', { title: 'Express', eventid:req.params.eventid,title:r[0].title, faceid:req.params.faceid });
 });
 
 module.exports = router;
