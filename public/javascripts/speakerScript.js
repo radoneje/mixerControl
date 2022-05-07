@@ -11,7 +11,7 @@ var presApp=new Vue({
                 return;
             localStorage.setItem('spkName', this.name||"");
             localStorage.setItem('spkPosition', this.position||"");
-            this.isLogin:true;
+            this.isLogin=true;
         }
     },
     mounted: async function () {

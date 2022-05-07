@@ -4,14 +4,14 @@ block content
 
 
     #app
-        .loginWr
+        .loginWr(v-if!="isLogin")
             .loginBox
                 .loginRow  NewsFactory Mixer
                 .loginRow
-                    input(placeholder="You name" )
+                    input(placeholder="You name" v-model="name" )
                 .loginRow
-                    input( placeholder="You position" )
+                    input( placeholder="You position" v-model="position" )
                 .loginRow
-                    input.button(type="submit" value="Log in")
+                    input.button(v-if="name.length>1" type="submit" value="Log in")
     include ../elems/includeScripts
     script(src="/javascripts/speakerScript.js")
