@@ -199,7 +199,7 @@ function onVideoPlaying() {
         openWebCamBtn.innerHTML="webCam"+i;
         item.appendChild(openWebCamBtn)
         openWebCamBtn.addEventListener("click",async (e)=>{
-            console.log("ddd")
+            console.log(e)
             e.preventDefault();
             e.stopPropagation();
             if(openWebCamBtn.classList.contains("clicked"))
