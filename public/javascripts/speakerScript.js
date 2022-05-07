@@ -1,7 +1,7 @@
 var presApp=new Vue({
     el: "#presContainer",
     data: {
-        name: localStorage.getItem('spkName'),
+        name: "dd",//localStorage.getItem('spkName'),
         position: localStorage.getItem('spkPosition'),
         isLogin:false,
     },
