@@ -197,14 +197,15 @@ function onVideoPlaying() {
         var openWebCamBtn=document.createElement("div")
         openWebCamBtn.classList.add("webCamBtn");
         openWebCamBtn.innerHTML="webCam"+i;
+        openWebCamBtn.setAttribute("faceid",i);
         item.appendChild(openWebCamBtn)
         openWebCamBtn.addEventListener("click",async (e)=>{
-            console.log(e)
+            console.log(e.target.getAttribute("faceid"));
             e.preventDefault();
             e.stopPropagation();
             if(e.target.classList.contains("clicked"))
                 return false;
-            navigator.clipboard.writeText("https://wowza01.onevent.online/speaker/"+eventid+"/"+i);
+            navigator.clipboard.writeText("https://wowza01.onevent.online/speaker/"+eventid+"/"+e.target.getAttribute("faceid"));
             var tmp=e.target.innerHTML;
             e.target.classList.add("clicked");
             e.target.innerHTML="link is copyed";
