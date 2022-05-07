@@ -29,8 +29,9 @@ var serverUrl = "wss://wowza02.onevent.online:8443";
 var SESSION_STATUS = Flashphoner.constants.SESSION_STATUS;
 var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
 var STREAM_STATUS_INFO = Flashphoner.constants.STREAM_STATUS_INFO;
-localVideo = document.getElementById("localVideo");
-remoteVideo = document.getElementById("remoteVideo");
+var localVideo = document.getElementById("localVideo");
+var remoteVideo = document.getElementById("remoteVideo");
+console.log(localVideo, "localVideo")
 
 function activeteWebCam() {
     Flashphoner.init();
