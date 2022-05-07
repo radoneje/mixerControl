@@ -13,7 +13,8 @@ var presApp=new Vue({
             localStorage.setItem('spkName', this.name||"");
             localStorage.setItem('spkPosition', this.position||"");
             this.isLogin=true;
-            activeteWebCam();
+            setTimeout(activeteWebCam, 200);
+
         }
     },
     mounted: async function () {
