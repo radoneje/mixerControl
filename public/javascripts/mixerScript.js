@@ -196,7 +196,7 @@ function onVideoPlaying() {
         });
         var openWebCamBtn=document.createElement("div")
         openWebCamBtn.classList.add("webCamBtn");
-        openWebCamBtn.innerHTML="webCam"+i;
+        openWebCamBtn.innerHTML="webCam"+(i+1);
         openWebCamBtn.setAttribute("faceid",i);
         item.appendChild(openWebCamBtn)
         openWebCamBtn.addEventListener("click",async (e)=>{
