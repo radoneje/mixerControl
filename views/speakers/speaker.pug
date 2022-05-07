@@ -13,5 +13,10 @@ block content
                     input( placeholder="You position" v-model="position" )
                 .loginRow
                     input.button(v-if="name && name.length>1" type="submit" value="Log in" v-on:click="login()")
+        .spkWr(v-else)
+            .myCamera#myCamera
+
     include ../elems/includeScripts
+    script(src="/lib/flashUtils.js")
+    <script type="text/javascript" src="/lib/flashphoner.js"></script>
     script(src="/javascripts/speakerScript.js")
