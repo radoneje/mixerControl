@@ -66,8 +66,9 @@ function startStreaming(session) {
         receiveAudio: false,
         constraints: {audio:true, video:true},
     })
-    .on(STREAM_STATUS.PUBLISHING, function (publishStream) {
+    .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
+            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid});
         })
     .on(STREAM_STATUS.UNPUBLISHED, function () {
             console.log("STREAM_STATUS.UNPUBLISHED");

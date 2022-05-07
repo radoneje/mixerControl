@@ -252,5 +252,14 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
         res.status(500).send(JSON.stringify({ret:e.message, error:true}))
     }
 });
+router.post('/webCamPublished', async (req, res, next)=> {
+
+    var url=config.mixerCore+"mixer/startInput?id="+req.body.faceid+"&url=rtmp://wowza02.onevent.online:1935/live/streamName"
+    console.log("webCamPublished", url);
+    r=await axios.get(config.mixerCore+"mixer/startInput?id="+req.body.faceid+"&url=rtmp://wowza02.onevent.online:1935/live/streamName")
+    res.json(r.data);
+    //http://wowza01.onevent.online:8090/mixer/startInput?id=1&url=rtmp://wowza02.onevent.online:1935/live/test
+});
+
 
 module.exports = router;
