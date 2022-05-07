@@ -49,7 +49,7 @@ function activeteWebCam() {
 function startStreaming(session) {
     console.log("startStreaming");
     var streamName = eventid + "_" + faceid;
-    session.createStream({
+    var publishStream=session.createStream({
         name: streamName,
         display: localVideo,
         cacheLocalResources: true,
@@ -69,7 +69,8 @@ function startStreaming(session) {
         console.log("STREAM_STATUS.FAILED   1", stream);
         //enable start button
 
-    }).publish();
+    })
+    publishStream.publish();
 
     //.play();
     /* .on(STREAM_STATUS.PUBLISHING, function(publishStream){
