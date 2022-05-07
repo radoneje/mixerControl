@@ -15,6 +15,8 @@ var presApp = new Vue({
             this.isLogin = true;
             setTimeout(activeteWebCam, 200);
 
+
+
         }
     },
     mounted: async function () {
@@ -38,9 +40,11 @@ function activeteWebCam() {
      remoteVideo = document.getElementById("remoteVideo");
     console.log(localVideo, "localVideo")
     Flashphoner.init();
+
     Flashphoner.createSession({urlServer: serverUrl}).on(SESSION_STATUS.ESTABLISHED, function (session) {
         //session connected, start streaming
         startStreaming(session);
+        activatePgm(session);
     }).on(SESSION_STATUS.DISCONNECTED, function () {
         console.log("SESSION_STATUS.DISCONNECTED");
 
@@ -104,4 +108,21 @@ function startStreaming(session) {
      //enable start button
      onStopped();*/
 
+}
+function activatePgm(session){
+    var remoteSession=session.createStream({
+        name: "mixerCore",
+        display: remoteVideo
+    })
+        .on(STREAM_STATUS.PLAYING, function(previewStream){
+            //enable stop button
+            //onStarted(publishStream, previewStream);
+            console.log("remote STREAM_STATUS.STOPPED", previewStream);
+        }).on(STREAM_STATUS.STOPPED, function(){
+            console.log("remote STREAM_STATUS.STOPPED");
+        }).on(STREAM_STATUS.FAILED, function(stream){
+            //preview failed, stop publishStream
+            console.log("remote STREAM_STATUS.FAILED", stream);
+        });
+        remoteSession.play()
 }
