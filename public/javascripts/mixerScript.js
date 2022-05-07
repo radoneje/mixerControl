@@ -198,6 +198,20 @@ function onVideoPlaying() {
         openWebCamBtn.classList.add("webCamBtn");
         openWebCamBtn.innerHTML="webCam";
         item.appendChild(openWebCamBtn)
+        openWebCamBtn.addEventListener("click",async (e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            if(openWebCamBtn.classList.contains("clicked"))
+                return false;
+            navigator.clipboard.writeText("https://wowza01.onevent.online/speaker/"+eventid+"/"+i);
+            var tmp=openWebCamBtn.innerHTML;
+            openWebCamBtn.classList.add("clicked");
+            openWebCamBtn.innerHTML="link is copyed";
+            setTimeout(()=>{
+                openWebCamBtn.classList.remove("clicked");
+                openWebCamBtn.innerHTML=tmp;
+            },2000);
+        })
     }
 
     var video=document.getElementById("remoteVideo").querySelector('video');
