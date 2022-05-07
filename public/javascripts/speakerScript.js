@@ -57,7 +57,7 @@ function activeteWebCam() {
 function startStreaming(session) {
     console.log("startStreaming");
     var streamName = eventid + "_" + faceid;
-    console.log(streamName);
+    console.log("streamName",streamName);
     var publishStream=session.createStream({
         name: streamName,
         display: localVideo,
