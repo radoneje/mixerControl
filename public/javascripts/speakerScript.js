@@ -47,6 +47,7 @@ function activeteWebCam() {
 }
 
 function startStreaming(session) {
+    console.log("startStreaming");
     var streamName = eventid + "_" + faceid;
     session.createStream({
         name: streamName,
