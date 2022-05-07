@@ -31,9 +31,12 @@ var STREAM_STATUS = Flashphoner.constants.STREAM_STATUS;
 var STREAM_STATUS_INFO = Flashphoner.constants.STREAM_STATUS_INFO;
 var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
-console.log(localVideo, "localVideo")
+
 
 function activeteWebCam() {
+     localVideo = document.getElementById("localVideo");
+     remoteVideo = document.getElementById("remoteVideo");
+    console.log(localVideo, "localVideo")
     Flashphoner.init();
     Flashphoner.createSession({urlServer: serverUrl}).on(SESSION_STATUS.ESTABLISHED, function (session) {
         //session connected, start streaming
