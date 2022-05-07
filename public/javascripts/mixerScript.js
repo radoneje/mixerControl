@@ -139,15 +139,11 @@ initFlashServer((result)=>{
 
 function initFlashServer(result, event) {
     Flashphoner.init({flashMediaProviderSwfLocation: '../../../../media-provider.swf'});
-
-
     Flashphoner.createSession({urlServer: serverUrl}).on(SESSION_STATUS.ESTABLISHED, function (session) {
-
         event("SESSION_STATUS.ESTABLISHED", session)
         // onConnected(session);
     }).on(SESSION_STATUS.DISCONNECTED, function () {
         event("SESSION_STATUS.DISCONNECTED")
-
     }).on(SESSION_STATUS.FAILED, function () {
         event("SESSION_STATUS.FAILED")
     });
@@ -197,7 +193,11 @@ function onVideoPlaying() {
             if(!r.error){
                 ////
             }
-        })
+        });
+        var openWebCamBtn=document.createElement("div")
+        openWebCamBtn.classList.add("webCamBtn");
+        openWebCamBtn.innerHTML="webCam";
+        item.appendChild(openWebCamBtn)
     }
 
     var video=document.getElementById("remoteVideo").querySelector('video');
