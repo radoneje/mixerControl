@@ -14,7 +14,8 @@ block content
                 .loginRow
                     input.button(v-if="name && name.length>1" type="submit" value="Log in" v-on:click="login()")
         .spkWr(v-else)
-            .myCamera#myCamera
+            #myVideo
+            #mixerVideo
     script.
         var eventid=!{JSON.stringify(eventid)}
         var faceid=!{JSON.stringify(faceid)}
