@@ -1,18 +1,18 @@
-var presApp=new Vue({
+var presApp = new Vue({
     el: "#app",
     data: {
         name: localStorage.getItem('spkName'),
         position: localStorage.getItem('spkPosition'),
-        isLogin:false,
+        isLogin: false,
     },
     methods: {
-        login:async function(){
+        login: async function () {
             console.log("login")
-            if(this.name.length==0)
+            if (this.name.length == 0)
                 return;
-            localStorage.setItem('spkName', this.name||"");
-            localStorage.setItem('spkPosition', this.position||"");
-            this.isLogin=true;
+            localStorage.setItem('spkName', this.name || "");
+            localStorage.setItem('spkPosition', this.position || "");
+            this.isLogin = true;
             setTimeout(activeteWebCam, 200);
 
         }
@@ -32,21 +32,22 @@ var STREAM_STATUS_INFO = Flashphoner.constants.STREAM_STATUS_INFO;
 localVideo = document.getElementById("myVideo");
 remoteVideo = document.getElementById("mixerVideo");
 
-function activeteWebCam(){
+function activeteWebCam() {
     Flashphoner.init();
-    Flashphoner.createSession({urlServer: serverUrl}).on(SESSION_STATUS.ESTABLISHED, function(session){
+    Flashphoner.createSession({urlServer: serverUrl}).on(SESSION_STATUS.ESTABLISHED, function (session) {
         //session connected, start streaming
         startStreaming(session);
-    }).on(SESSION_STATUS.DISCONNECTED, function(){
+    }).on(SESSION_STATUS.DISCONNECTED, function () {
         console.log("SESSION_STATUS.DISCONNECTED");
 
-    }).on(SESSION_STATUS.FAILED, function(){
+    }).on(SESSION_STATUS.FAILED, function () {
         console.log("SESSION_STATUS.FAILED");
 
     });
 }
-function startStreaming(session){
-    var streamName = eventid+"_"+faceid;
+
+function startStreaming(session) {
+    var streamName = eventid + "_" + faceid;
     session.createStream({
         name: streamName,
         display: localVideo,
@@ -54,35 +55,46 @@ function startStreaming(session){
         receiveVideo: false,
         receiveAudio: false
     })
-        .on(STREAM_STATUS.PUBLISHING, function(publishStream){
+    .on(STREAM_STATUS.PUBLISHING, function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
         })
-        //.play();
-       /* .on(STREAM_STATUS.PUBLISHING, function(publishStream){
-            console.log("STREAM_STATUS.PUBLISHING");
-            //play preview
-            session.createStream({
-                name: streamName,
-                display: remoteVideo
-            }).on(STREAM_STATUS.PLAYING, function(previewStream){
-                //enable stop button
-                onStarted(publishStream, previewStream);
-            }).on(STREAM_STATUS.STOPPED, function(){
-                publishStream.stop();
-            }).on(STREAM_STATUS.FAILED, function(stream){
-                //preview failed, stop publishStream
-                if (publishStream.status() == STREAM_STATUS.PUBLISHING) {
-                    console.log("STREAM_STATUS.FAILED", stream);
-                    publishStream.stop();
-                }
-            }).play();
-        }).on(STREAM_STATUS.UNPUBLISHED, function(){
-        console.log("STREAM_STATUS.UNPUBLISHED");
-        //enable start button
-        onStopped();
-    }).on(STREAM_STATUS.FAILED, function(stream){
+    .on(STREAM_STATUS.UNPUBLISHED, function () {
+            console.log("STREAM_STATUS.UNPUBLISHED");
+            //enable start button
+
+        })
+    .on(STREAM_STATUS.FAILED, function (stream) {
         console.log("STREAM_STATUS.FAILED", stream);
         //enable start button
-        onStopped();*/
+
+    }).publish();
+
+    //.play();
+    /* .on(STREAM_STATUS.PUBLISHING, function(publishStream){
+         console.log("STREAM_STATUS.PUBLISHING");
+         //play preview
+         session.createStream({
+             name: streamName,
+             display: remoteVideo
+         }).on(STREAM_STATUS.PLAYING, function(previewStream){
+             //enable stop button
+             onStarted(publishStream, previewStream);
+         }).on(STREAM_STATUS.STOPPED, function(){
+             publishStream.stop();
+         }).on(STREAM_STATUS.FAILED, function(stream){
+             //preview failed, stop publishStream
+             if (publishStream.status() == STREAM_STATUS.PUBLISHING) {
+                 console.log("STREAM_STATUS.FAILED", stream);
+                 publishStream.stop();
+             }
+         }).play();
+     }).on(STREAM_STATUS.UNPUBLISHED, function(){
+     console.log("STREAM_STATUS.UNPUBLISHED");
+     //enable start button
+     onStopped();
+ }).on(STREAM_STATUS.FAILED, function(stream){
+     console.log("STREAM_STATUS.FAILED", stream);
+     //enable start button
+     onStopped();*/
 
 }
