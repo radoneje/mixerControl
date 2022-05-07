@@ -15,5 +15,6 @@ var presApp=new Vue({
         }
     },
     mounted: async function () {
+        console.log("worked")
     }
 });
