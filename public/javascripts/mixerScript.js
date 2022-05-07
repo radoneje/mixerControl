@@ -202,15 +202,15 @@ function onVideoPlaying() {
             console.log(e)
             e.preventDefault();
             e.stopPropagation();
-            if(openWebCamBtn.classList.contains("clicked"))
+            if(e.target.classList.contains("clicked"))
                 return false;
             navigator.clipboard.writeText("https://wowza01.onevent.online/speaker/"+eventid+"/"+i);
-            var tmp=openWebCamBtn.innerHTML;
-            openWebCamBtn.classList.add("clicked");
-            openWebCamBtn.innerHTML="link is copyed";
+            var tmp=e.target.innerHTML;
+            e.target.classList.add("clicked");
+            e.target.innerHTML="link is copyed";
             setTimeout(()=>{
-                openWebCamBtn.classList.remove("clicked");
-                openWebCamBtn.innerHTML=tmp;
+                e.target.classList.remove("clicked");
+                e.target.innerHTML=tmp;
             },2000);
         })
     }
