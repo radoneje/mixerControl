@@ -12,6 +12,6 @@ block content
                 .loginRow
                     input( placeholder="You position" v-model="position" )
                 .loginRow
-                    input.button(v-if="name.length>1" type="submit" value="Log in" v-on:click="login()")
+                    input.button(v-if="name && name.length>1" type="submit" value="Log in" v-on:click="login()")
     include ../elems/includeScripts
     script(src="/javascripts/speakerScript.js")
