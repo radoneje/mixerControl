@@ -54,7 +54,8 @@ function startStreaming(session) {
         display: localVideo,
         cacheLocalResources: true,
         receiveVideo: false,
-        receiveAudio: false
+        receiveAudio: false,
+        constraints: {audio:true, video:true},
     })
     .on(STREAM_STATUS.PUBLISHING, function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
@@ -65,7 +66,7 @@ function startStreaming(session) {
 
         })
     .on(STREAM_STATUS.FAILED, function (stream) {
-        console.log("STREAM_STATUS.FAILED", stream);
+        console.log("STREAM_STATUS.FAILED   1", stream);
         //enable start button
 
     }).publish();
