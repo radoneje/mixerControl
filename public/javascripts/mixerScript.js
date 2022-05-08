@@ -230,12 +230,12 @@ function onVideoPlaying() {
 
         pgmCtx.drawImage(video,0,(video.videoHeight/4),(video.videoWidth/4)*3, (video.videoHeight/4)*3, 0,0,(1280/4)*3,(720/4)*3);
         for(var i=0;i<6;i++){
-            var dx=(1280/4);
-            var dy=(720/4)
+            var dx=(video.videoWidth/4);
+            var dy=(video.videoHeight/4)
             if(i<4)
-                canvasArr[i].drawImage(video,0+i*dx,0,(1280/4), (720/4), 0,0,(1280/4),(720/4));
+                canvasArr[i].drawImage(video,0+i*dx,0,(video.videoWidth/4), (video.videoHeight/4), 0,0,(1280/4),(720/4));
             else
-                canvasArr[i].drawImage(video,0+3*dx,dy+dy*(i-4),(1280/4), (720/4), 0,0,(1280/4),(720/4));
+                canvasArr[i].drawImage(video,0+3*dx,dy+dy*(i-4),(video.videoWidth/4), (video.videoHeight/4), 0,0,(1280/4),(720/4));
 
         }
         requestAnimationFrame(updateCanvas); // wait for the browser to be ready to present another animation fram.
