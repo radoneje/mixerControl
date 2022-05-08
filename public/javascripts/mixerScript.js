@@ -226,9 +226,9 @@ function onVideoPlaying() {
     });
 
     function updateCanvas(){
-        console.log(video.width, video.videoWidth);
+        console.log(video.width, );
 
-        pgmCtx.drawImage(video,0,(720/4),(1280/4)*3, (720/4)*3, 0,0,(1280/4)*3,(720/4)*3);
+        pgmCtx.drawImage(video,0,(720/4),(1280/4)*3, (720/4)*3, 0,0,(video.videoWidth/4)*3,(video.videoHeight/4)*3);
         for(var i=0;i<6;i++){
             var dx=(1280/4);
             var dy=(720/4)
