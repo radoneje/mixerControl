@@ -205,7 +205,7 @@ function onVideoPlaying() {
             e.stopPropagation();
             if(e.target.classList.contains("clicked"))
                 return false;
-            navigator.clipboard.writeText("https://wowza01.onevent.online/speaker/"+eventid+"/"+e.target.getAttribute("faceid"));
+            navigator.clipboard.writeText("https://mixer.rustv.ru/speaker/"+eventid+"/"+e.target.getAttribute("faceid"));
             var tmp=e.target.innerHTML;
             e.target.classList.add("clicked");
             e.target.innerHTML="link is copyed";
