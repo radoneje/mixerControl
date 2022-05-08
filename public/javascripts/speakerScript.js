@@ -64,7 +64,7 @@ function startStreaming(session) {
         cacheLocalResources: true,
         receiveVideo: false,
         receiveAudio: false,
-        constraints: {audio:true, video:true},
+        constraints: {audio:true, video:{ width: 1280, height: 720,  aspectRatio:  1.7777777778}},
     })
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
