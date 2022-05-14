@@ -134,7 +134,7 @@ initFlashServer((result)=>{
 }, (event, session)=>{
 
     if(event=="SESSION_STATUS.ESTABLISHED")
-        playStream("mixerCore", session);
+        playStream(eventid, session);
 });
 
 function initFlashServer(result, event) {
