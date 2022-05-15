@@ -37,7 +37,7 @@ router.get('/event/:id', async function(req, res, next) {
   if(r.length==0)
     return res.sendStatus(404);
   try {
-    var r = await axios.get(config.mixerCore + "mixer/startEvent/" + req.params["id"])
+    await axios.get(config.mixerCore + "mixer/startEvent/" + req.params["id"])
   }
   catch(ex)
   {
