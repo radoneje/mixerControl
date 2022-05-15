@@ -36,6 +36,8 @@ router.get('/event/:id', async function(req, res, next) {
   var r=await req.knex.select("*").from("t_events").where({isDeleted:false, id:req.params.id});
   if(r.length==0)
     return res.sendStatus(404);
+  var r = await axios.get(config.mixerCore + "mixer/startEvent/"+req.params["eventid"])
+
   res.render('event', { title: 'Express', mixerId:req.params.id,title:r[0].title, user:{f:user.name, i:user.suname, id:user.id} });
 });
 
@@ -44,7 +46,7 @@ router.get('/showSpk/:id/:eventid', async (req, res, next)=> {
   if(!user)
     return  res.redirect("/");
   try {
-    var r = await axios.get(config.mixerCore + "mixer/activeInput/" + req.params["id"])
+    var r = await axios.get(config.mixerCore + "mixer/activeInput/"+req.params["eventid"]+"/" + req.params["id"])
     req.io.emit("message", JSON.stringify({cmd:"activateSpk", eventid:req.params["eventid"], id:req.params["id"]}))
     res.json({ret:r.data, error:false});
 
