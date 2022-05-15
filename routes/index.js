@@ -41,7 +41,7 @@ router.get('/event/:id', async function(req, res, next) {
   }
   catch(ex)
   {
-    console.warn("ERORR: cant start event",config.mixerCore + "mixer/startEvent/" + req.params["id"] )
+    console.warn("ERORR: cant start event",config.mixerCore + "mixer/startEvent/" + req.params["id"], ex )
   }
   res.render('event', { title: 'Express', mixerId:req.params.id,title:r[0].title, user:{f:user.name, i:user.suname, id:user.id} });
 });
