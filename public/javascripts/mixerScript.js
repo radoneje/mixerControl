@@ -102,7 +102,7 @@ function onAppStart() {
 
         if (id!= eventid)
             return
-
+        console.log("id=eventid");
 
         if (msg.cmd == "activateSpk") {
             activateSpk(msg.id)
