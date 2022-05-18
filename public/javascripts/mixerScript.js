@@ -94,8 +94,9 @@ function onAppStart() {
         console.log("socket connected")
     });
     socket.on('message', (m) => {
-        console.log('socket message: ', m);
+
         var msg = JSON.parse(m);
+        console.log('socket message: ', msg, eventid);
         if (msg.eventid != eventid)
             return
         if (msg.cmd == "activateSpk") {
