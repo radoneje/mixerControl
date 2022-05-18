@@ -88,12 +88,13 @@ var presApp=new Vue({
 })
 
 function onAppStart() {
-    console.log("on staet")
+    console.log("on start")
     var socket = io();
     socket.on('connection', (socket) => {
         console.log("socket connected")
     });
     socket.on('message', (m) => {
+        console.log('socket message: ', msg);
         var msg = JSON.parse(m);
         if (msg.eventid != eventid)
             return
@@ -113,7 +114,7 @@ function onAppStart() {
             activatePresFile(msg.presFileId)
         }
 
-        console.log('socket message: ', msg);
+
     });
 
     function activatePresFile(id) {
