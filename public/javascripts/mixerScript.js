@@ -76,7 +76,7 @@ var presApp=new Vue({
         event:async function(){
             console.log("event change");
             if(this.event.status==1)
-                onAppStart();
+               setTimeout( onAppStart(), 100);
         }
     },
     mounted:async function () {
@@ -234,7 +234,7 @@ function onAppStart() {
         var video = document.getElementById("remoteVideo").querySelector('video');
         video.controls = false;
         video.muted = false;
-        document.getElementById("loader").style.display = "none"
+       // document.getElementById("loader").style.display = "none"
         video.addEventListener('loadeddata', function () {
 
             updateCanvas(); //Start rendering
