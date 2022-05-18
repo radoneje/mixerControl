@@ -36,13 +36,7 @@ router.get('/event/:id', async function(req, res, next) {
   var r=await req.knex.select("*").from("t_events").where({isDeleted:false, id:req.params.id});
   if(r.length==0)
     return res.sendStatus(404);
-  try {
-    await axios.get(config.mixerCore + "mixer/startEvent/" + req.params["id"])
-  }
-  catch(ex)
-  {
-    console.warn("ERORR: cant start event",config.mixerCore + "mixer/startEvent/" + req.params["id"] )
-  }
+
   res.render('event', { title: 'Express', mixerId:req.params.id,title:r[0].title, user:{f:user.name, i:user.suname, id:user.id} });
 });
 

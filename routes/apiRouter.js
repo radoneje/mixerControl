@@ -271,7 +271,27 @@ router.get('/eventStatus/:eventid', async (req, res, next)=> {
     console.log(r.data);
     res.json({status:r.data.status})
 });
-    router.get('/eventStarted/:eventid', async (req, res, next)=> {
+router.post('/startEvent/:eventid', upload.array('photos', 10), async (req, res, next) => {
+    if (!req.session["user"])
+        return res.sendStatus(401);//.send("Unauthorized");
+
+    var events = await req.knex.select("*").from("t_events").where({
+        ownerid: req.session["user"].id,
+        id: req.params.eventid,
+        isDeleted: false
+    });
+    try {
+        await axios.get(config.mixerCore + "mixer/startEvent/" + req.params.eventid)
+    }
+    catch(ex)
+    {
+        console.warn("ERORR: cant start event",config.mixerCore + "mixer/startEvent/" + req.params["id"] )
+    }
+});
+
+
+
+router.get('/eventStarted/:eventid', async (req, res, next)=> {
 
     await req.knex("t_events").update({status:1}).where({id:req.params.eventid});
     req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:1}));
