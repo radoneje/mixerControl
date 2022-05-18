@@ -75,7 +75,7 @@ var presApp=new Vue({
     watch:{
         event:async function(){
             console.log("event change");
-            if(event.status==1)
+            if(this.event.status==1)
                 onAppStart();
         }
     },
