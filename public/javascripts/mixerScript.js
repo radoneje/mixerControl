@@ -86,8 +86,8 @@ var presApp=new Vue({
         this.event=dt.data
     }
 })
-
 function onAppStart() {
+
     console.log("on start")
     var socket = io();
     socket.on('connection', (socket) => {
@@ -96,7 +96,8 @@ function onAppStart() {
     socket.on('message', (m) => {
 
         var msg = JSON.parse(m);
-        console.log('socket message: ', msg,msg.eventid, eventid);
+
+        console.log('socket message: ', msg,msg.eventid,msg.folderid, eventid);
 
 
         if (msg.eventid != eventid)
