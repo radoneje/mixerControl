@@ -88,6 +88,7 @@ var presApp=new Vue({
 })
 
 function onAppStart() {
+    console.log("on staet")
     var socket = io();
     socket.on('connection', (socket) => {
         console.log("socket connected")
