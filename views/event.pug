@@ -7,21 +7,22 @@ block content
   h1 #{title}
 
   .eventWr#app.hidden(v-bind:class="{block:isLoaded}")
-    .Box
+
       .eventStartSection(v-if="event.status==0")
         #loader Event is starting, wailt a few seconds, plaese.
 
       .eventWorkSection(v-if="event.status==1")
         #remoteVideo(style="width:320pxpx;height:320pxpx;display:none" )
-        .boxSideCol
-          include elems/prezBox
-        .boxCenterCol
-          .pgmRow
-            .pgm
-              canvas#pgmCanvas(width="960" height="540")
-          .spkRow#spkRow
-        .boxSideCol
-          include interactiveBox
+        .Box
+          .boxSideCol
+            include elems/prezBox
+          .boxCenterCol
+            .pgmRow
+              .pgm
+                canvas#pgmCanvas(width="960" height="540")
+            .spkRow#spkRow
+          .boxSideCol
+            include interactiveBox
 
   script.
     const eventid=!{JSON.stringify(mixerId)};
