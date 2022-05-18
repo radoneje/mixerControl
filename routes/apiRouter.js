@@ -261,5 +261,16 @@ router.post('/webCamPublished', async (req, res, next)=> {
     //http://wowza01.onevent.online:8090/mixer/startInput?id=1&url=rtmp://wowza02.onevent.online:1935/live/test
 });
 
+router.get('/eventStarted/:eventid', async (req, res, next)=> {
+    console.log("eventStarted", req.params.eventid);
+    req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:1}));
+});
+router.get('/eventStarted/:eventStopped', async (req, res, next)=> {
+    console.log("eventStopped", req.params.eventid)
+    req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:0}));
+});
+
+
+
 
 module.exports = router;
