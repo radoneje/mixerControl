@@ -100,7 +100,7 @@ function onAppStart() {
         console.log('socket message: ', msg,id, msg.eventid, msg.folderid, eventid);
 
 
-        if (msg.eventid != eventid)
+        if (id!= eventid)
             return
 
 
@@ -119,8 +119,6 @@ function onAppStart() {
         if (msg.cmd == "activatePresFile") {
             activatePresFile(msg.presFileId)
         }
-
-
     });
 
     function activatePresFile(id) {
