@@ -2,7 +2,8 @@ var presApp=new Vue({
     el:"#app",
     data:{
         presFolders:[],
-        event:{status:0}
+        event:{status:0},
+        isLoaded:false
     },
     methods:{
         activetePresImg:async function (img){
@@ -78,6 +79,7 @@ var presApp=new Vue({
     },
     mounted:async function () {
         this.presFolders=(await axios.get('/api/v1/presFolders/'+eventid)).data;
+        this.isLoaded=true;
     }
 })
 

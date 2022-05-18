@@ -6,7 +6,7 @@ block content
       include elems/currUserBox
   h1 #{title}
 
-  .eventWr#app
+  .eventWr#app.hidden(v-bind:class="{block:isLoaded}")
     .Box
       .eventStartSection(v-if="event.status==0")
         #loader Event is starting, wailt a few seconds, plaese.
