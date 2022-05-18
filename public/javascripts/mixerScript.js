@@ -80,6 +80,7 @@ var presApp=new Vue({
     mounted:async function () {
         this.presFolders=(await axios.get('/api/v1/presFolders/'+eventid)).data;
         this.isLoaded=true;
+        await axios.get('/api/v1/eventStatus/'+eventid)
     }
 })
 

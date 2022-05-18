@@ -261,7 +261,11 @@ router.post('/webCamPublished', async (req, res, next)=> {
     //http://wowza01.onevent.online:8090/mixer/startInput?id=1&url=rtmp://wowza02.onevent.online:1935/live/test
 });
 
-router.get('/eventStarted/:eventid', async (req, res, next)=> {
+router.get('/eventStatus/:eventid', async (req, res, next)=> {
+    //r=await axios.get(config.mixerCore+"mixer/events"); //todo: add request ot core
+    res.json({status:1})
+});
+    router.get('/eventStarted/:eventid', async (req, res, next)=> {
 
     await req.knex("t_events").update({status:1}).where({id:req.params.eventid});
     req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:1}));
