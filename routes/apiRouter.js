@@ -266,7 +266,8 @@ router.post('/webCamPublished', async (req, res, next)=> {
 
 router.get('/eventStatus/:eventid', async (req, res, next)=> {
 
-    r=await axios.get(config.mixerCore+"mixer/eventStatus"); //todo: add request ot core
+    console.log()
+    r=await axios.get(config.mixerCore+"mixer/eventStatus/"+req.params.eventid); //todo: add request ot core
     console.log(r.data);
     res.json({status:r.data.status})
 });
