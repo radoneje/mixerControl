@@ -262,12 +262,14 @@ router.post('/webCamPublished', async (req, res, next)=> {
 });
 
 router.get('/eventStarted/:eventid', async (req, res, next)=> {
-    console.log("eventStarted", req.params.eventid);
+
+    await req.knex("t_events").update({status:1}).where({id:req.params.eventid});
     req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:1}));
+
     res.json(true);
 });
 router.get('/eventStopped/:eventid', async (req, res, next)=> {
-    console.log("eventStopped", req.params.eventid)
+    await req.knex("t_events").update({status:0}).where({id:req.params.eventid});
     req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:0}));
     res.json(true);
 });
