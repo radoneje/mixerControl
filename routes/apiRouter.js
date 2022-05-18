@@ -38,7 +38,8 @@ router.get('/events', checkLogin, async (req, res, next) => {
 router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) => {
     if (!req.session["user"])
         return res.sendStatus(401);//.send("Unauthorized");
-    var events = await req.knex.select("*").from("t_events").where({ownerid: req.session["user"].id, isDeleted: false});
+    console.log("req.body.eventid",req.body.eventid )
+    var events = await req.knex.select("*").from("t_events").where({ownerid: req.session["user"].id, id:req.body.eventid, isDeleted: false});
     if (events.length == 0)
         return res.sendStatus(401);//.send("Unauthorized");
     if (events[0].ownerid != req.session["user"].id)
@@ -62,7 +63,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             "addPresFolder",
            events[0].id,
               r.id, r.type)
-        console.log("addPresFiles",eventid )
+
         req.io.emit("message", JSON.stringify({
             cmd: "addPresFolder",
             eventid: events[0].id,
