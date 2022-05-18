@@ -96,8 +96,8 @@ function onAppStart() {
     socket.on('message', (m) => {
 
         var msg = JSON.parse(m);
-
-        console.log('socket message: ', msg,msg.eventid,msg.folderid, eventid);
+        var id= msg.eventid
+        console.log('socket message: ', msg,id, msg.eventid, msg.folderid, eventid);
 
 
         if (msg.eventid != eventid)
