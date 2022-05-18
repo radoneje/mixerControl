@@ -100,7 +100,7 @@ function onAppStart() {
         console.log('socket message: ', msg, id, msg.eventid, msg.folderid, eventid);
 
 
-        if (id!= eventid)
+        if (msg.eventid!= eventid)
             return
         console.log("id=eventid");
 
