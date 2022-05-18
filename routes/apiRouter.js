@@ -62,7 +62,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             "addPresFolder",
            events[0].id,
               r.id, r.type)
-
+        console.log("addPresFiles",eventid )
         req.io.emit("message", JSON.stringify({
             cmd: "addPresFolder",
             eventid: events[0].id,
