@@ -96,13 +96,9 @@ function onAppStart() {
     socket.on('message', (m) => {
 
         var msg = JSON.parse(m);
-        var id= msg.eventid
-        console.log('socket message: ', msg, id, msg.eventid, msg.folderid, eventid);
-
 
         if (msg.eventid!= eventid)
-            return
-        console.log("id=eventid");
+            return;
 
         if (msg.cmd == "activateSpk") {
             activateSpk(msg.id)
