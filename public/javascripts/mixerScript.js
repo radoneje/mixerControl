@@ -94,7 +94,7 @@ function onAppStart() {
         console.log("socket connected")
     });
     socket.on('message', (m) => {
-        console.log('socket message: ', msg);
+        console.log('socket message: ', m);
         var msg = JSON.parse(m);
         if (msg.eventid != eventid)
             return
