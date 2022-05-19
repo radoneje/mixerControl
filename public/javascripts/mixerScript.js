@@ -130,6 +130,7 @@ socket.on('connect', ()=>{
             activatePresFile(msg.presFileId)
         }
         if (msg.cmd == "eventChangeStatus") {
+            console.log("eventChangeStatus",presApp.event.status,msg.status)
             presApp.event.status=msg.status;
         }
         console.log("msg", msg);
