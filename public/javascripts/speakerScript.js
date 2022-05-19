@@ -41,7 +41,7 @@ var presApp = new Vue({
     },
     mounted: async function () {
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
-        this.eventStatus=1;//dt.data.status;
+        this.eventStatus=dt.data.status;
         setTimeout(()=>{  this.name=localStorage.getItem('spkName');},0)
 
     }
