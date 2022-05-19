@@ -108,7 +108,7 @@ app.onListen=function(server){
           event=m;
       });
       if(event){
-        event.timeout=setTimeout(async ()=>{await stopEvent(event.eventid, socket.id)}, 2*1000);
+        event.timeout=setTimeout(async ()=>{await stopEvent(event)}, 2*1000);
 
       }
           //var i = allClients.indexOf(socket);
@@ -118,10 +118,10 @@ app.onListen=function(server){
   });
 
 }
-async function stopEvent(eventid, socketid){
+async function stopEvent(event){
 
   mixers=mixers.filter(m=>{
-    console.log("stopEvent", eventid, m.socketid, m.socketid);
+    console.log("stopEvent", event, m.socket.id, event.socket.id);
     return m.socketid!=socketid});
 
   var mix=mixers.filter(m=>{return m.eventid==eventid});
