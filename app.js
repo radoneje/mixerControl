@@ -30,6 +30,7 @@ var sess={
   store:new pgSession(pgStoreConfig),
 };
 
+let mixers=[];
 //////
 
 
@@ -92,7 +93,15 @@ app.onListen=function(server){
   io.on('connection', (socket) => {
 
     socket.on('message', (m) => {
-      console.log("socket message", m);
+      let msg=JSON.parse(m);
+      if(msg.event=="mixer"){
+        mixers.push({eventid:msg.eventid,status:msg.status, socket:socket});
+      }
+    });
+    socket.on('disconnect', (m) => {
+      console.log("client disconnect", socket.id)
+      //var i = allClients.indexOf(socket);
+     // allClients.splice(i, 1);
     });
     console.log('a user connected');
   });

@@ -75,8 +75,13 @@ var presApp=new Vue({
     watch:{
         event:async function(){
             console.log("event change");
-            if(this.event.status==1)
-               setTimeout( onAppStart(), 100);
+            if(this.event.status==1) {
+                setTimeout(()=>{
+                    socket.emit("message", JSON.stringify({event:"mixer", eventid, status:this.event.status }));
+                    onAppStart();
+                }, 100);
+
+            }
         }
     },
     mounted:async function () {
@@ -86,6 +91,8 @@ var presApp=new Vue({
         this.event=dt.data;
         if(this.event.status==0)
             await axios.post('/api/v1/startEvent/'+eventid)
+
+
     }
 })
 
@@ -93,16 +100,9 @@ var presApp=new Vue({
 function test(){
     socket.emit("message", JSON.stringify({event:"mixer", eventid}));
 }
-    console.log("on start")
+
     var socket = io();
-    setTimeout(()=>{
-        socket.emit("message", JSON.stringify({event:"mixer", eventid}));
-    },0)
-    socket.on('connection', (m) => {
-        console.log("socket connected", m);
 
-
-    });
     socket.on('message', (m) => {
 
         var msg = JSON.parse(m);
