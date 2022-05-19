@@ -39,6 +39,7 @@ let mixers=[];
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/apiRouter');
 const bodyParser = require("body-parser");
+const axios = require("axios");
 
 var app = express();
 
@@ -100,11 +101,34 @@ app.onListen=function(server){
     });
     socket.on('disconnect', (m) => {
       console.log("client disconnect", socket.id)
-      //var i = allClients.indexOf(socket);
+
+      var event=null;
+      mixers.forEach(m=>{
+        if(m.socket.id==socket.id)
+          event=m;
+      });
+      if(event){
+        event.timeout=setTimeout(async ()=>{await stopEvent(event.eventid, socket.id)}, 10*1000);
+
+      }
+          //var i = allClients.indexOf(socket);
      // allClients.splice(i, 1);
     });
     console.log('a user connected');
   });
+
+}
+async function stopEvent(eventid, socketid){
+  console.log("stopEvent", eventid);
+  mixers=mixers.filter(m=>{return m.socketid!=socketid});
+
+  var mix=mixers.filter(m=>{return m.eventid==eventid});
+  if(mix.length==0)
+  {
+    console.log("stop event")
+    var r = await axios.get(config.mixerCore + "mixer/stopEvent/"+eventid);
+  }
+
 
 }
 
