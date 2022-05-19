@@ -3,9 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <iframe width="1280" height="720" src="https://meetup.sberbank.ru/w/w/81a8d50b-fc4d-4313-ac43-47e919981057"></iframe>
+    <link href="https://vjs.zencdn.net/7.18.1/video-js.css" rel="stylesheet" />
 </head>
 <body>
 
+<video
+        id="my-video"
+        class="video-js"
+        controls
+        preload="auto"
+        width="640"
+        height="264"
+        poster="MY_VIDEO_POSTER.jpg"
+        data-setup="{}"
+>
+
+    <source src="https://meetup.sberbank.ru/delivery/0020/video/901e3365-d4a1-49e2-bdb7-a2b513b36aa9/2022-05-19T14_57_19.398__11aa/720pplaylist.m3u8" type="application/x-mpegURL" />
+    <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+        web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank"
+        >supports HTML5 video</a
+        >
+    </p>
+</video>
+
+<script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script>
 </body>
 </html>
