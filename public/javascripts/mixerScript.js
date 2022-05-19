@@ -77,7 +77,7 @@ var presApp=new Vue({
             console.log("event change");
             if(this.event.status==1) {
                 setTimeout(()=>{
-                    socket.emit("message", JSON.stringify({event:"mixer", eventid, status:this.event.status }));
+
                     onAppStart();
                 }, 100);
 
@@ -102,7 +102,10 @@ function test(){
 }
 
     var socket = io();
-
+socket.on('connect', ()=>{
+    socket.emit("message", JSON.stringify({event:"mixer", eventid, status:this.event.status }));
+})
+//
     socket.on('message', (m) => {
 
         var msg = JSON.parse(m);
