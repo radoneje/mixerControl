@@ -132,6 +132,8 @@ socket.on('connect', ()=>{
         if (msg.cmd == "eventChangeStatus") {
             console.log("eventChangeStatus",presApp.event.status,msg.status)
             presApp.event.status=msg.status;
+            if(msg.status==1)
+                onAppStart();
         }
         console.log("msg", msg);
     });
