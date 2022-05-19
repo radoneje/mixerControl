@@ -119,9 +119,9 @@ app.onListen=function(server){
 
 }
 async function stopEvent(eventid, socketid){
-  console.log("stopEvent", eventid);
-  mixers=mixers.filter(m=>{return m.socketid!=socketid});
 
+  mixers=mixers.filter(m=>{return m.socketid!=socketid});
+  console.log("stopEvent", eventid, mixers);
   var mix=mixers.filter(m=>{return m.eventid==eventid});
   if(mix.length==0)
   {
