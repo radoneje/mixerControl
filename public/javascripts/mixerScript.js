@@ -95,11 +95,11 @@ function test(){
 }
     console.log("on start")
     var socket = io();
-    socket.on('connection', (socket) => {
-        console.log("socket connected");
-        setTimeout(()=>{
+    socket.on('connection', (m) => {
+        console.log("socket connected", m);
+        //setTimeout(()=>{
             socket.emit("message", JSON.stringify({event:"mixer", eventid}));
-        },1000)
+       // },1000)
 
     });
     socket.on('message', (m) => {
