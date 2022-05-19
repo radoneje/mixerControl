@@ -290,6 +290,7 @@ router.post('/startEvent/:eventid', upload.array('photos', 10), async (req, res,
     {
         console.warn("ERORR: cant start event",config.mixerCore + "mixer/startEvent/" + req.params["id"] )
     }
+    res.json(true);
 });
 
 
