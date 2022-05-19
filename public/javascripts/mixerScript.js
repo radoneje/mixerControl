@@ -99,7 +99,7 @@ function test(){
         console.log("socket connected");
         setTimeout(()=>{
             socket.emit("message", JSON.stringify({event:"mixer", eventid}));
-        },100)
+        },1000)
 
     });
     socket.on('message', (m) => {
