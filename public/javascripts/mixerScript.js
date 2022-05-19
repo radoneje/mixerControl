@@ -74,10 +74,10 @@ var presApp=new Vue({
     },
     watch:{
         event:async function(){
-            console.log("event change");
+            console.log("event change", this.event.status);
             if(this.event.status==1) {
                 setTimeout(()=>{
-
+                    console.log("onAppStart", this.event.status);
                     onAppStart();
                 }, 500);
 
