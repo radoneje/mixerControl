@@ -7,22 +7,48 @@ block content
         }
 
     #app
-        .loginWr(v-if="!isLogin")
-            .loginBox
-                .loginRow  NewsFactory Mixer
-                .loginRow
-                    input(placeholder="You name" v-model="name" )
-                .loginRow
-                    input( placeholder="You position" v-model="position" )
-                .loginRow
-                    input.button(v-if="name && name.length>1" type="submit" value="Log in" v-on:click="login()")
-        .spkWr(v-else)
-            .spkLocal(style="margin-bottom:24px")
-                #localVideo
-                .spkName {{name}}
-            .spkRemote
-                #remoteVideo
-                    .spkName PGM
+        .checkEvent(v-if="eventStatus==-1")
+            div пожалуйста, подождите
+        div(v-if="eventStatus==0")
+            div Событие не активно, обратитесь к организаторам
+        div(v-if="eventStatus==1")
+            .loginWr(v-if="!isLogin")
+                .loginBox
+                    .loginRow
+                     h4 NewsFactory Mixer
+                    .loginRow
+                        input(placeholder="You name" v-model="name" )
+                    .loginRow
+                        input( placeholder="You position" v-model="position" )
+                    .loginRow
+                        input.button(v-if="name && name.length>1" type="submit" value="Log in" v-on:click="login()")
+                    .loginRow(v-if="name && name.length>1")
+                        .help разрешите доступ к камере и микрофону
+                        .videoWr
+                            video#testVideo(width="720" height="720" )
+                    .loginRow(v-if="name && name.length>1")
+                        .help выбор камеры:
+
+                            select(type="checkbox" onchange="changeCameraType(this)" checked style="width:inherit")
+                                option(value="1" selected) задняя
+                                option(value="" ) передняя
+                        DIV
+                            select#videoselect
+                                option(value="-1" selected) Default
+                        div
+                            select#audioselect
+                                option(value="-1" selected) Default
+
+
+
+
+            .spkWr(v-else)
+                .spkLocal(style="margin-bottom:24px")
+                    #localVideo
+                    .spkName {{name}}
+                .spkRemote
+                    #remoteVideo
+                        .spkName PGM
 
     script.
         var eventid=!{JSON.stringify(eventid)}

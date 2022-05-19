@@ -4,6 +4,7 @@ var presApp = new Vue({
         name: localStorage.getItem('spkName'),
         position: localStorage.getItem('spkPosition'),
         isLogin: false,
+        eventStatus:-1,
     },
     methods: {
         login: async function () {
@@ -19,11 +20,81 @@ var presApp = new Vue({
 
         }
     },
+    watch:{
+        name:async function(){
+            if( this.name && this.name.length>1){
+                setTimeout(()=>{
+                    const video = document.querySelector("#testVideo");
+                    if(!testVideoIsLoaded) {
+                        initVideoDevices()
+                        initTestVideo(video)
+                    }
+                },0)
+
+            }
+        }
+
+    },
     mounted: async function () {
-        console.log("worked")
+        var dt=await axios.get('/api/v1/eventStatus/'+eventid)
+        this.eventStatus=1;//dt.data.status;
     }
 });
+constraints={audio:true, video:{ width:{ ideal:1280, min:1280, max:1280}, height: { ideal:720, min:720, max:720},  aspectRatio:  1.7777777778 ,facingMode: 'user'}}
+testVideoIsLoaded=false;
+async function initTestVideo(){
+    const video = document.querySelector("#testVideo");
+    if(video)
+        testVideoIsLoaded=true
+    var stream = await navigator.mediaDevices.getUserMedia(constraints);
+    video.srcObject = stream;
+    video.muted=true;
+    video.play();
+}
+async function  initVideoDevices(){
+    const devices = await navigator.mediaDevices.enumerateDevices();
 
+    var videoSelect=document.getElementById("videoselect")
+    var audioselect=document.getElementById("audioselect")
+    devices.forEach(d=>{
+        if(d.kind=="videoinput"){
+            var option= document.createElement("option")
+            option.innerHTML=d.label;
+            option.value=d.deviceId;
+            videoSelect.appendChild(option);
+        }
+        if(d.kind=="audioinput"){
+            var option= document.createElement("option")
+            option.innerHTML=d.label;
+            option.value=d.deviceId;
+            audioselect.appendChild(option);
+        }
+
+    });
+    videoSelect.addEventListener("change",async (e)=>{
+        if(videoSelect.value=="-1" && constraints.video.deviceId)
+            delete  constraints.video.deviceId
+        if(videoSelect.value!="-1" )
+            constraints.video.deviceId=videoSelect.value
+        await initTestVideo();
+    })
+    audioselect.addEventListener("change",async (e)=>{
+        if(audioselect.value=="-1" && constraints.audio.deviceId)
+            delete  constraints.video.deviceId
+        if(audioselect.value!="-1" )
+            constraints.audio.deviceId=audioselect.value
+        await initTestVideo();
+    })
+
+
+}
+ async function changeCameraType(e){
+    if (e.value==1)
+        constraints.video.facingMode="environment"
+    else
+        constraints.video.facingMode="user"
+     await initTestVideo();
+}
 var serverUrl = "wss://wowza02.onevent.online:8443";
 //if(typeof(roomid)!="undefined"  && roomid>90)
 //var serverUrl = "wss://phone02.sber.link:8443";
@@ -64,7 +135,8 @@ function startStreaming(session) {
         cacheLocalResources: true,
         receiveVideo: false,
         receiveAudio: false,
-        constraints: {audio:true, video:{ width: 1280, height: 720,  aspectRatio:  1.7777777778}},
+        disableConstraintsNormalization:true,
+        constraints: constraints//{audio:true, video:{ width: 1280, height: 720,  aspectRatio:  1.7777777778}},
     })
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
@@ -86,7 +158,7 @@ function startStreaming(session) {
 }
 function activatePgm(session){
     var remoteSession=session.createStream({
-        name: "mixerCore",
+        name: eventid,
         display: remoteVideo
     })
         .on(STREAM_STATUS.PLAYING, function(previewStream){

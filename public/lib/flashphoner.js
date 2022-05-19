@@ -11855,10 +11855,12 @@
 
                 if (options.constraints && Object.keys(options.constraints).length != 0) {
                     var constraints = options.constraints;
+                    console.log("constraints",constraints)
                 }
 
                 if (options.disableConstraintsNormalization) {
                     var disableConstraintsNormalization = options.disableConstraintsNormalization;
+                    console.log("disableConstraintsNormalization",disableConstraintsNormalization)
                 }
 
                 var mediaConnectionConstraints = options.mediaConnectionConstraints; // Receive media
@@ -12190,6 +12192,7 @@
                                 stripCodecs: stripCodecs
                             });
                         }).then(function (offer) {
+                            logger.info(LOG_PREFIX,"constraints",constraints)
                             logger.debug(LOG_PREFIX, "Offer SDP:\n" + offer.sdp); //publish stream with offer sdp to server
 
                             send("publishStream", {
