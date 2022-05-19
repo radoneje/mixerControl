@@ -1,7 +1,7 @@
 var presApp = new Vue({
     el: "#app",
     data: {
-        name: localStorage.getItem('spkName'),
+        name:"",
         position: localStorage.getItem('spkPosition'),
         isLogin: false,
         eventStatus:-1,
@@ -32,12 +32,18 @@ var presApp = new Vue({
                 },0)
 
             }
+            else
+            {
+                testVideoIsLoaded=false;
+            }
         }
 
     },
     mounted: async function () {
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
         this.eventStatus=1;//dt.data.status;
+        setTimeout(()=>{  this.name=localStorage.getItem('spkName');},0)
+
     }
 });
 constraints={audio:true, video:{ width:{ ideal:1280, min:1280, max:1280}, height: { ideal:720, min:720, max:720},  aspectRatio:  1.7777777778 ,facingMode: 'user'}}
