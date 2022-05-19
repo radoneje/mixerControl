@@ -121,14 +121,14 @@ app.onListen=function(server){
 async function stopEvent(event){
 
   mixers=mixers.filter(m=>{
-    console.log("stopEvent", event, m.socket.id, event.socket.id);
-    return m.socketid!=socketid});
+    console.log("stopEvent",  m.socket.id, event.socket.id);
+    return m.socket.id!=event.socket.id});
 
-  var mix=mixers.filter(m=>{return m.eventid==eventid});
+  var mix=mixers.filter(m=>{return m.eventid==event.eventid});
   if(mix.length==0)
   {
     console.log("stop event request")
-    var r = await axios.get(config.mixerCore + "mixer/stopEvent/"+eventid);
+    var r = await axios.get(config.mixerCore + "mixer/stopEvent/"+event.eventid);
   }
 
 
