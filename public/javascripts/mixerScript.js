@@ -98,7 +98,7 @@ var presApp=new Vue({
     socket.on('message', (m) => {
 
         var msg = JSON.parse(m);
-
+        console.log("msg", msg);
         if (msg.eventid!= eventid)
             return;
 
