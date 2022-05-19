@@ -79,7 +79,7 @@ var presApp=new Vue({
                 setTimeout(()=>{
 
                     onAppStart();
-                }, 100);
+                }, 500);
 
             }
         }
