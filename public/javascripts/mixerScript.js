@@ -103,6 +103,7 @@ function test(){
 
     var socket = io();
 socket.on('connect', ()=>{
+    console.log(socket.id);
     socket.emit("message", JSON.stringify({event:"mixer", eventid, status:this.event.status }));
 })
 //
