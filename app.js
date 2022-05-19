@@ -67,6 +67,14 @@ app.use(bodyParser.raw({
 app.use(session(sess));
 app.use("/", (req,res, next)=>{req.knex=knex;next();});
 app.use("/", (req,res, next)=>{req.io=io;next();});
+app.use("/", (req,res, next)=>{req.sendToMixers= (eventid, msg)=>{
+  mixers.forEach(m=>{
+    if(m.eventid==eventid) {
+      msg.eventid=eventid;
+      m.socket.emit("message", JSON.stringify(msg));
+    }
+  })
+};next();});
 
 //////////
 
@@ -100,28 +108,22 @@ app.onListen=function(server){
       }
     });
     socket.on('disconnect', (m) => {
-      console.log("client disconnect", socket.id)
-
       var event=null;
       mixers.forEach(m=>{
         if(m.socket.id==socket.id)
           event=m;
       });
       if(event){
-        event.timeout=setTimeout(async ()=>{await stopEvent(event)}, 2*1000);
+        event.timeout=setTimeout(async ()=>{await stopEvent(event)}, 10*60*1000);
 
       }
-          //var i = allClients.indexOf(socket);
-     // allClients.splice(i, 1);
     });
     console.log('a user connected');
   });
 
 }
 async function stopEvent(event){
-
   mixers=mixers.filter(m=>{
-    console.log("stopEvent",  m.socket.id, event.socket.id);
     return m.socket.id!=event.socket.id});
 
   var mix=mixers.filter(m=>{return m.eventid==event.eventid});

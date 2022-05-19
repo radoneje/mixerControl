@@ -297,8 +297,8 @@ router.post('/startEvent/:eventid', upload.array('photos', 10), async (req, res,
 router.get('/eventStarted/:eventid', async (req, res, next)=> {
     console.log("eventStarted", req.params.eventid);
     await req.knex("t_events").update({status:1}).where({id:req.params.eventid});
-    req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:1}));
-
+    //req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:1}));
+    req.sendToMixers(req.params.eventid, {cmd: "eventChangeStatus", status:1});
     res.json(true);
 });
 router.get('/eventStopped/:eventid', async (req, res, next)=> {
