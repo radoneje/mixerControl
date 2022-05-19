@@ -88,7 +88,7 @@ var presApp=new Vue({
             await axios.post('/api/v1/startEvent/'+eventid)
     }
 })
-function onAppStart() {
+
 
     console.log("on start")
     var socket = io();
@@ -137,7 +137,7 @@ function onAppStart() {
             }
         })
     }
-
+function onAppStart() {
     var serverUrl = "wss://wowza02.onevent.online:8443";
 //if(typeof(roomid)!="undefined"  && roomid>90)
 //var serverUrl = "wss://phone02.sber.link:8443";
