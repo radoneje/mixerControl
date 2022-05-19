@@ -125,7 +125,7 @@ async function stopEvent(eventid, socketid){
   var mix=mixers.filter(m=>{return m.eventid==eventid});
   if(mix.length==0)
   {
-    console.log("stop event")
+    console.log("stop event request")
     var r = await axios.get(config.mixerCore + "mixer/stopEvent/"+eventid);
   }
 
