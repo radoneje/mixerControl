@@ -98,7 +98,7 @@ var presApp=new Vue({
     socket.on('message', (m) => {
 
         var msg = JSON.parse(m);
-        console.log("msg", msg);
+
         if (msg.eventid!= eventid)
             return;
 
@@ -117,8 +117,16 @@ var presApp=new Vue({
         if (msg.cmd == "activatePresFile") {
             activatePresFile(msg.presFileId)
         }
+        if (msg.cmd == "eventChangeStatus") {
+            presApp.event.status=msg.status;
+        }
+        console.log("msg", msg);
     });
 
+    function eventChangeStatus(id) {
+        console.log("activatePresFile", id)
+
+    }
     function activatePresFile(id) {
         console.log("activatePresFile", id)
         document.querySelectorAll(".mayActive").forEach(elem => {
