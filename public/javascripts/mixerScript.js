@@ -93,7 +93,8 @@ var presApp=new Vue({
     console.log("on start")
     var socket = io();
     socket.on('connection', (socket) => {
-        console.log("socket connected")
+        console.log("socket connected");
+        socket.emit("message", JSON.stringify({event:"mixer", eventid}));
     });
     socket.on('message', (m) => {
 
