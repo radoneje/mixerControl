@@ -84,8 +84,8 @@ var presApp=new Vue({
         this.isLoaded=true;
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
         this.event=dt.data;
-        if(this.event.status==0)
-            await axios.post('/api/v1/startEvent/'+eventid)
+        //if(this.event.status==0)
+         ///   await axios.post('/api/v1/startEvent/'+eventid)
     }
 })
 function onAppStart() {
