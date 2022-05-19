@@ -90,10 +90,11 @@ app.use(function(err, req, res, next) {
 app.onListen=function(server){
   io=new Server(server);
   io.on('connection', (socket) => {
-    console.log('a user connected');
+
     socket.on('message', (m) => {
       console.log("socket message", m);
     });
+    console.log('a user connected');
   });
 
 }
