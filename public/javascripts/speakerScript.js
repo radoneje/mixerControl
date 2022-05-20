@@ -51,7 +51,7 @@ testVideoIsLoaded=false;
 async function initTestVideo(){
     var l=navigator.mediaDevices.getSupportedConstraints();
     console.log(l);
-    document.getElementById("test").innerHTML=constraints.video.facingMode;
+    document.getElementById("test").innerHTML="facingMode"+l.facingMode+"; deviceId: "+l.deviceId;
     const video = document.querySelector("#testVideo");
     if(video)
         testVideoIsLoaded=true
