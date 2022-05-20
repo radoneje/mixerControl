@@ -145,7 +145,7 @@ function startStreaming(session) {
         cacheLocalResources: true,
         receiveVideo: false,
         receiveAudio: false,
-       // disableConstraintsNormalization:true,
+        disableConstraintsNormalization:true,
         constraints: constraints,//{audio:true, video:{ width: 1280, height: 720,  aspectRatio:  1.7777777778}},
         stripCodecs:stripCodecs
     })
