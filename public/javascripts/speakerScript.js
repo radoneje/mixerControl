@@ -154,11 +154,15 @@ function startStreaming(session) {
     })
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
-            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid, needRescale:window.orientation.indexOf("90")<0});
+            var needRescale=false;
+            try{needRescale:window.orientation.indexOf("90")<0}catch (e){}
+            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid, });
         document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
         window.addEventListener("orientationchange", async function() {
-           // await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid, needRescale:window.orientation.indexOf("90")<0});
-       document.getElementById("test").innerHTML=(screen.orientation || {}).type;
+            var needRescale=false;
+            try{needRescale:window.orientation.indexOf("90")<0}catch (e){}
+            await axios.post("/api/v1/webCamOrientation",{streamName, eventid,faceid, needRescale});
+
         }, false);
     })
     .on(STREAM_STATUS.UNPUBLISHED, function () {
