@@ -113,9 +113,9 @@ var remoteVideo = document.getElementById("remoteVideo");
 
 
 function activeteWebCam() {
-    window.addEventListener("orientationchange", function() {
+    window.addEventListener("resize", function() {
         // Announce the new orientation number
-        document.getElementById("test").innerHTML(screen.orientation);
+        document.getElementById("test").innerHTML(window.innerWidth>window.innerWidth);
     }, false);
 
      localVideo = document.getElementById("localVideo");
