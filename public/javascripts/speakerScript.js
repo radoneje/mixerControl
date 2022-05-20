@@ -160,8 +160,8 @@ function startStreaming(session) {
         document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
         window.addEventListener("orientationchange", async function() {
             var needRescale=false;
-            try{needRescale:window.orientation.indexOf("90")<0}catch (e){}
-            await axios.post("/api/v1/webCamOrientation",{streamName, eventid,faceid, needRescale:window.orientation});
+            try{needRescale=window.orientation.indexOf("90")<0}catch (e){}
+            await axios.post("/api/v1/webCamOrientation",{streamName, eventid,faceid, needRescale});
 
         }, false);
     })
