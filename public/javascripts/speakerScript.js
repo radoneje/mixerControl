@@ -161,7 +161,7 @@ function startStreaming(session) {
         window.addEventListener("orientationchange", async function() {
             var needRescale=false;
             try{needRescale:window.orientation.indexOf("90")<0}catch (e){}
-            await axios.post("/api/v1/webCamOrientation",{streamName, eventid,faceid, needRescale});
+            await axios.post("/api/v1/webCamOrientation",{streamName, eventid,faceid, window.orientation});
 
         }, false);
     })

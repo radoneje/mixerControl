@@ -266,7 +266,7 @@ router.post('/webCamPublished', async (req, res, next)=> {
     //http://wowza01.onevent.online:8090/mixer/startInput?id=1&url=rtmp://wowza02.onevent.online:1935/live/test
 });
 router.post('/webCamOrientation', async (req, res, next)=> {
-    console.log("orientation", req.body.needRescale?1:0);
+    console.log("orientation", req.body.needRescale);
    // r=await axios.get(config.mixerCore+"mixer/startInput?eventid="+req.body.eventid+"&id="+req.body.faceid+"&url=rtmp://wowza02.onevent.online:1935/live/"+req.body.streamName)
     res.json(true);
     //http://wowza01.onevent.online:8090/mixer/startInput?id=1&url=rtmp://wowza02.onevent.online:1935/live/test
