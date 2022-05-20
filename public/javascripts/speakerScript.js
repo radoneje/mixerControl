@@ -175,7 +175,8 @@ function activatePgm(session){
         .on(STREAM_STATUS.PLAYING, function(previewStream){
             //enable stop button
             //onStarted(publishStream, previewStream);
-            console.log("remote STREAM_STATUS.STOPPED", previewStream);
+            console.log("remote STREAM_STATUS.PLAYING", previewStream);
+            document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline"));
         }).on(STREAM_STATUS.STOPPED, function(){
             console.log("remote STREAM_STATUS.STOPPED");
         }).on(STREAM_STATUS.FAILED, function(stream){
