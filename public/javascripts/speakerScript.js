@@ -158,7 +158,7 @@ function startStreaming(session) {
         document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
         window.addEventListener("orientationchange", async function() {
            // await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid, needRescale:window.orientation.indexOf("90")<0});
-       document.getElementById("test").innerHTML=screen.orientation;
+       document.getElementById("test").innerHTML=(screen.orientation || {}).type;
         }, false);
     })
     .on(STREAM_STATUS.UNPUBLISHED, function () {
