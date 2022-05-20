@@ -49,9 +49,6 @@ var presApp = new Vue({
 constraints={audio:true, video:{ width:{ ideal:640, max:640}, height: { ideal:360,  max:360},  aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
 testVideoIsLoaded=false;
 async function initTestVideo(){
-    var l=navigator.mediaDevices.getSupportedConstraints();
-    console.log(l);
-    document.getElementById("test").innerHTML="facingMode"+l.facingMode+"; deviceId: "+l.deviceId;
     const video = document.querySelector("#testVideo");
     if(video)
         testVideoIsLoaded=true

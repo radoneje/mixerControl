@@ -27,12 +27,7 @@ block content
                         .videoWr
                             video#testVideo(width="1280" height="720" playsinline)
                     .loginRow(v-if="name && name.length>1")
-                        #test
                         .help выбор камеры:
-
-                            select(type="checkbox" onchange="changeCameraType(this)" checked style="width:inherit")
-                                option(value="1" selected) задняя
-                                option(value="" ) передняя
                         DIV
                             select#videoselect
                                 option(value="-1" selected) Default
