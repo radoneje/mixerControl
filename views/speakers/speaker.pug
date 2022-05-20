@@ -7,11 +7,11 @@ block content
         }
 
     #app
-        .checkEvent(v-if="eventStatus==-1")
+        .checkEvent(v-if="eventStatus==-1" )
             div пожалуйста, подождите
-        div(v-if="eventStatus==0")
+        div.hidden(v-if="eventStatus==0" v-bind:class={block:true} )
             div Событие не активно, обратитесь к организаторам
-        div(v-if="eventStatus==1")
+        div.hidden(v-if="eventStatus==1" v-bind:class={block:true})
             .loginWr(v-if="!isLogin")
                 .loginBox
                     .loginRow
