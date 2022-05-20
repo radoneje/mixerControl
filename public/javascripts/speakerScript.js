@@ -113,10 +113,7 @@ var remoteVideo = document.getElementById("remoteVideo");
 
 
 function activeteWebCam() {
-    window.addEventListener("orientationchange", function() {
-        // Announce the new orientation number
-        document.getElementById("test").innerHTML=(window.orientation);
-    }, false);
+
 
      localVideo = document.getElementById("localVideo");
      remoteVideo = document.getElementById("remoteVideo");
@@ -157,9 +154,13 @@ function startStreaming(session) {
     })
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
-            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid});
+            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid, needRescale:window.orientation.indexOf("90")<0});
         document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
-        })
+        window.addEventListener("orientationchange", async function() {
+           // await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid, needRescale:window.orientation.indexOf("90")<0});
+       document.getElementById("test").innerHTML=screen.orientation;
+        }, false);
+    })
     .on(STREAM_STATUS.UNPUBLISHED, function () {
             console.log("STREAM_STATUS.UNPUBLISHED");
             //enable start button
