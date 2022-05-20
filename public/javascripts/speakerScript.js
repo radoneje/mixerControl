@@ -132,7 +132,11 @@ function activeteWebCam() {
 }
 
 function startStreaming(session) {
-    console.log("startStreaming");
+    var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    stripCodecs=null
+    if(isSafari)
+        stripCodecs: "h264,H264"
+    console.log("startStreaming, stripCodecs:", stripCodecs);
     var streamName = eventid + "_" + faceid;
     console.log("streamName",streamName);
     var publishStream=session.createStream({
@@ -142,7 +146,8 @@ function startStreaming(session) {
         receiveVideo: false,
         receiveAudio: false,
         disableConstraintsNormalization:true,
-        constraints: constraints//{audio:true, video:{ width: 1280, height: 720,  aspectRatio:  1.7777777778}},
+        constraints: constraints,//{audio:true, video:{ width: 1280, height: 720,  aspectRatio:  1.7777777778}},
+        stripCodecs:stripCodecs
     })
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
