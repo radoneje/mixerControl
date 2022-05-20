@@ -155,7 +155,7 @@ function startStreaming(session) {
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
             var needRescale=false;
-            try{needRescale:window.orientation.indexOf("90")<0}catch (e){}
+            try{needRescale=window.orientation.indexOf("90")<0}catch (e){}
             await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid, });
         document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
         window.addEventListener("orientationchange", async function() {
