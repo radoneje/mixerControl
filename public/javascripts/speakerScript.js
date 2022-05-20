@@ -147,7 +147,8 @@ function startStreaming(session) {
         receiveAudio: false,
         disableConstraintsNormalization:true,
         constraints: constraints,//{audio:true, video:{ width: 1280, height: 720,  aspectRatio:  1.7777777778}},
-        stripCodecs:stripCodecs
+        stripCodecs:stripCodecs,
+        cvoExtension: true
     })
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
