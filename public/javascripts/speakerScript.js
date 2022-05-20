@@ -152,6 +152,7 @@ function startStreaming(session) {
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
             await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid});
+        document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
         })
     .on(STREAM_STATUS.UNPUBLISHED, function () {
             console.log("STREAM_STATUS.UNPUBLISHED");
