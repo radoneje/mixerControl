@@ -311,14 +311,14 @@ router.get('/eventStarted/:eventid', async (req, res, next)=> {
 });
 router.get('/inputStart/:eventid/:input/:spkid?', async (req, res, next)=> {
     console.log("inputStart", req.params.eventid, req.params.spkid );
-    if(req.params.spkid!="undefined"){
+    if(req.params.spkid && req.params.spkid!="undefined"){
         await req.knex("t_spklogins").update({date:new Date(),input:req.params.input, isactive:true}, "*").where({id:req.params.spkid})
     }
     res.json(true);
 });
 router.get('/inputStop/:eventid/:input/:spkid?', async (req, res, next)=> {
     console.log("inputStop", req.params.eventid, req.params.spkid);
-    if(req.params.spkid!="undefined"){
+    if(req.params.spkid && req.params.spkid!="undefined"){
         await req.knex("t_spklogins").update({datestop:new Date(), isactive:false}).where({id:req.params.spkid})
     }
     res.json(true);
