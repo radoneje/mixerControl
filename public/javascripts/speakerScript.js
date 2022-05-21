@@ -41,7 +41,7 @@ var presApp = new Vue({
 
     },
     mounted: async function () {
-        try{this.needRescale=window.orientation.indexOf("90")<0;}catch (e){cnsole.warn("error",e)}
+        try{this.needRescale=window.orientation.indexOf("90")<0;}catch (e){console.warn("error",e)}
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
         this.eventStatus=dt.data.status;
         setTimeout(()=>{  this.name=localStorage.getItem('spkName');},0)
