@@ -322,7 +322,7 @@ router.post('/spkLogin/', async (req, res, next)=> {
         r=await req.knex.select("*").from("t_users").where({id:req.body.userid});
     if(r.length==0)
         r=await req.knex("t_users").insert({name:req.body.name, suname:req.body.suname||"", position:req.body.position||""},"*");
-    var rrr=await req.knex("t_spklogins").insert({userid:r[0].id}, "*");
+    var rr=await req.knex("t_spklogins").insert({userid:r[0].id}, "*");
     res.json(r[0].id, rr[0].id);
 });
 
