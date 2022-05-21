@@ -7,7 +7,7 @@ block content
         }
 
     #app
-        .needScaleWr.hidden(v-if="needRescale" v-bind:class={block:true})
+        .needScaleWr.hidden( v-bind:class={block:needRescale})
             .needScale
                 .needScaleText Поверните устройство горизонтально
                 .needScaleImage
