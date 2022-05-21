@@ -5,7 +5,7 @@ var presApp = new Vue({
         position: localStorage.getItem('spkPosition'),
         isLogin: false,
         eventStatus:-1,
-        needRescale:false
+        needRescale:true
     },
     methods: {
         login: async function () {
