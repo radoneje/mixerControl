@@ -323,7 +323,7 @@ router.post('/spkLogin/', async (req, res, next)=> {
     if(r.length==0)
         r=await req.knex("t_users").insert({name:req.body.name, suname:req.body.suname||"", position:req.body.position||""},"*");
     var rr=await req.knex("t_spklogins").insert({userid:r[0].id}, "*");
-    res.json(r[0].id, rr[0].id);
+    res.json({userid:r[0].id, loginid:rr[0].id});
 });
 
 
