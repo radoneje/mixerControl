@@ -55,7 +55,11 @@ block content
                         .spkDisplayCell
                             .pgm
                                 canvas#pgmCanvas(width="960" height="540")
-
+                        .spkDisplayCell
+                            .spkDisplayCellWr
+                                .spkDisplayCellInput(v-for="item in [0,1,2,3,4,5]") {{item}}
+                                    .pgm
+                                        canvas(:id="'canvas'+id" width="320" height="180")
 
 
                     #remoteVideo(style="display:none")

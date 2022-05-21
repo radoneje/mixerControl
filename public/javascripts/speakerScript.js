@@ -150,7 +150,7 @@ function startStreaming(session) {
     console.log("streamName",streamName);
     var publishStream=session.createStream({
         name: streamName,
-       // display: localVideo,
+        display: localVideo,
         cacheLocalResources: true,
         receiveVideo: false,
         receiveAudio: false,
