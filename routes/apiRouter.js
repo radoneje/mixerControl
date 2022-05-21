@@ -260,7 +260,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
 });
 router.post('/webCamPublished', async (req, res, next)=> {
 
-    var spkid=req.body.spkid || "NULL"
+    var spkid=req.body.loginid || "NULL"
     r=await axios.get(config.mixerCore+"mixer/startInput?eventid="+req.body.eventid+"&id="+req.body.faceid+"&url=rtmp://wowza02.onevent.online:1935/live/"+req.body.streamName+"&spkid="+spkid)
     res.json(r.data);
     //http://wowza01.onevent.online:8090/mixer/startInput?id=1&url=rtmp://wowza02.onevent.online:1935/live/test
