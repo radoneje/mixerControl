@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 router.post('/', async function(req, res, next) {
 
-  var r=await req.knex.select("*").from("t_users").where({phone:req.body.phone,pass:req.body.pass, isDeleted:false });
+  var r=await req.knex.select("*").from("t_users").where({phone:req.body.phone,pass:req.body.pass, isDeleted:false , isOwner:true});
   if(r.length==0)
     return res.render('index', { title: 'Express', phone: req.body.phone});
   req.session["user"]=r[0];
