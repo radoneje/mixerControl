@@ -190,6 +190,12 @@ function activatePgm(session){
             //onStarted(publishStream, previewStream);
             console.log("remote STREAM_STATUS.PLAYING", previewStream);
             document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
+
+            var v=remoteVideo.querySelector("video");
+            v.addEventListener('loadeddata', function () {
+                var pgmCtx = document.getElementById("pgmCanvas").getContext("2d");
+                updateCanvas(pgmCtx, pgmCtx); //Start rendering
+            });
         }).on(STREAM_STATUS.STOPPED, function(){
             console.log("remote STREAM_STATUS.STOPPED");
         }).on(STREAM_STATUS.FAILED, function(stream){
@@ -197,4 +203,18 @@ function activatePgm(session){
             console.log("remote STREAM_STATUS.FAILED", stream);
         });
         remoteSession.play()
+}
+function updateCanvas(pgmCtx, video) {
+    // console.log(video.width,);
+    pgmCtx.drawImage(video, 0, (video.videoHeight / 4), (video.videoWidth / 4) * 3, (video.videoHeight / 4) * 3, 0, 0, (1280 / 4) * 3, (720 / 4) * 3);
+   /* for (var i = 0; i < 6; i++) {
+        var dx = (video.videoWidth / 4);
+        var dy = (video.videoHeight / 4)
+        if (i < 4)
+            canvasArr[i].drawImage(video, 0 + i * dx, 0, (video.videoWidth / 4), (video.videoHeight / 4), 0, 0, (1280 / 4), (720 / 4));
+        else
+            canvasArr[i].drawImage(video, 0 + 3 * dx, dy + dy * (i - 4), (video.videoWidth / 4), (video.videoHeight / 4), 0, 0, (1280 / 4), (720 / 4));
+
+    }*/
+    requestAnimationFrame(()=>{updateCanvas(pgmCtx, video)}); // wait for the browser to be ready to present another animation fram.
 }

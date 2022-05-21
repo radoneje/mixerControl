@@ -50,8 +50,9 @@ block content
                 .spkLocal(style="margin-bottom:24px")
                     #localVideo
                     .spkName {{name}}
-                .spkRemote
-                    #remoteVideo
+                .spkRemote()
+                    canvas#pgmCanvas(width="1280" height="720");
+                    #remoteVideo(style="display:none");
                         .spkName PGM
 
     script.
