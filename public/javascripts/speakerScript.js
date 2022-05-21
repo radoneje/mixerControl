@@ -41,10 +41,11 @@ var presApp = new Vue({
 
     },
     mounted: async function () {
+        try{this.needRescale=window.orientation.indexOf("90")<0;}catch (e){}
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
         this.eventStatus=dt.data.status;
         setTimeout(()=>{  this.name=localStorage.getItem('spkName');},0)
-        try{this.needRescale=window.orientation.indexOf("90")<0;}catch (e){}
+
         window.addEventListener("orientationchange", async ()=> {
             try{this.needRescale=window.orientation.indexOf("90")<0}catch (e){}
 
