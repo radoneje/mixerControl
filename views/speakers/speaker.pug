@@ -7,6 +7,12 @@ block content
         }
 
     #app
+        .needScaleWr
+            .needScale
+                .needScaleText Поверните устройство горизонтально
+                .needScaleImage
+                    img(src="/rotate.png" style="width:60px; margin-top:40px")
+
         .checkEvent(v-if="eventStatus==-1" )
             div пожалуйста, подождите
         div.hidden(v-if="eventStatus==0" v-bind:class={block:true} )

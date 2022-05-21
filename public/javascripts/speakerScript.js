@@ -5,6 +5,7 @@ var presApp = new Vue({
         position: localStorage.getItem('spkPosition'),
         isLogin: false,
         eventStatus:-1,
+        needRescale:false
     },
     methods: {
         login: async function () {
@@ -43,6 +44,13 @@ var presApp = new Vue({
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
         this.eventStatus=dt.data.status;
         setTimeout(()=>{  this.name=localStorage.getItem('spkName');},0)
+        try{this.needRescale=window.orientation.indexOf("90")<0;}catch (e){}
+        this.needRescale=true;
+        window.addEventListener("orientationchange", async ()=> {
+            var needRescale=false;
+            try{this.needRescale=window.orientation.indexOf("90")<0}catch (e){}
+
+        }, false);
 
     }
 });
@@ -154,16 +162,10 @@ function startStreaming(session) {
     })
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
-            var needRescale=false;
-            try{needRescale=window.orientation.indexOf("90")<0}catch (e){}
-            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid, });
-        document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
-        window.addEventListener("orientationchange", async function() {
-            var needRescale=window.orientation.indexOf("90");
-            try{ needRescale=window.orientation.indexOf("90")}catch (e){}
-            await axios.post("/api/v1/webCamOrientation",{streamName, eventid,faceid, needRescale});
 
-        }, false);
+            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid });
+        document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
+
     })
     .on(STREAM_STATUS.UNPUBLISHED, function () {
             console.log("STREAM_STATUS.UNPUBLISHED");
