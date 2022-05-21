@@ -317,7 +317,7 @@ router.get('/inputStart/:eventid/:input/:spkid?', async (req, res, next)=> {
     res.json(true);
 });
 router.get('/inputStop/:eventid/:input/:spkid?', async (req, res, next)=> {
-    console.log("inputStop", req.params.eventid);
+    console.log("inputStop", req.params.eventid, req.params.spkid);
     if(req.params.spkid!="undefined"){
         await req.knex("t_spklogins").update({datestop:new Date(), isactive:false}).where({id:req.params.spkid})
     }
