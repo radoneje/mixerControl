@@ -310,7 +310,7 @@ router.get('/eventStarted/:eventid', async (req, res, next)=> {
     res.json(true);
 });
 router.get('/inputStart/:eventid/:input/:spkid?', async (req, res, next)=> {
-    console.log("inputStart", req.params.eventid,spkid );
+    console.log("inputStart", req.params.eventid, req.params.spkid );
     res.json(true);
 });
 router.get('/inputStop/:eventid/:input', async (req, res, next)=> {
