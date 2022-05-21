@@ -14,6 +14,7 @@ var presApp = new Vue({
             console.log("login")
             if (this.name.length == 0)
                 return;
+            console.log(this.userid, "this.userid");
             this.userid=await axios.post("/api/v1/spkLogin",{eventid,name:this.name, suname:this.suname, position:this.position,userid:this.userid})
                 localStorage.setItem('name', this.name || "");
                 localStorage.setItem('suname', this.suname || "");
