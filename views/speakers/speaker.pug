@@ -47,7 +47,7 @@ block content
 
             .spkWr(v-else)
                 #test
-                .spkLocal(style="margin-bottom:24px")
+                .spkLocal.hidden(style="margin-bottom:24px")
                     #localVideo
                     .spkName {{name}}
                 .spkRemote()
@@ -55,6 +55,11 @@ block content
                         .spkDisplayCell
                             .pgm
                                 canvas#pgmCanvas(width="960" height="540")
+                        .spkDisplayCell
+                            .spkDisplayCellWr
+                                .spkDisplayCellInput(v-for="item in [0,1,2,3,4,5]")
+                                    .pgm
+                                        canvas(:id="'canvas'+item" width="320" height="180")
 
 
                     #remoteVideo(style="display:none")
