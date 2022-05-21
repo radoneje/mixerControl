@@ -58,6 +58,9 @@ block content
                         .spkDisplayCell
                             .spkDisplayCellWr
                                 .spkDisplayCellInput(v-for="item in [0,1,2,3,4,5]") {{item}}
+                                    .pgm
+                                        canvas(:id="'canvas'+id" width="320" height="240")
+
 
                     #remoteVideo(style="display:none")
                         .spkName PGM
