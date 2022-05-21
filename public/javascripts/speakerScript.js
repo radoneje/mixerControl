@@ -1,8 +1,10 @@
 var presApp = new Vue({
     el: "#app",
     data: {
-        name:"",
-        position: localStorage.getItem('spkPosition'),
+        name:localStorage.getItem('Name'),
+        suname:localStorage.getItem('suname'),
+        position: localStorage.getItem('position'),
+        userid: localStorage.getItem('userid')|| null,
         isLogin: false,
         eventStatus:-1,
         needRescale:false
@@ -12,8 +14,11 @@ var presApp = new Vue({
             console.log("login")
             if (this.name.length == 0)
                 return;
-            localStorage.setItem('spkName', this.name || "");
-            localStorage.setItem('spkPosition', this.position || "");
+            this.userid=await axios.Post("/api/v1/spkLogin",{eventid,name:this.name, suname:this.suname, position:this.position,userid:this.userid})
+                localStorage.setItem('name', this.name || "");
+                localStorage.setItem('suname', this.suname || "");
+                localStorage.setItem('position', this.position || "");
+                localStorage.setItem('userid', this.userid || "");
             this.isLogin = true;
             setTimeout(activeteWebCam, 200);
 

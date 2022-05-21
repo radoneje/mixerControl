@@ -25,6 +25,8 @@ block content
                     .loginRow
                         input(placeholder="You name" v-model="name" )
                     .loginRow
+                        input(placeholder="You suname" v-model="suname" )
+                    .loginRow
                         input( placeholder="You position" v-model="position" )
                     .loginRow
                         input.button(v-if="name && name.length>1" type="submit" value="Log in" v-on:click="login()")
@@ -49,7 +51,6 @@ block content
                 #test
                 .spkLocal.hidden(style="margin-bottom:24px")
                     #localVideo
-                    .spkName {{name}}
                 .spkRemote()
                     .spkDisplay
                         .spkDisplayCell
