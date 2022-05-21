@@ -5,7 +5,7 @@ block content
   .topMenu
     .topMenuItem
       include elems/currUserBox
-  #app
+  #app.hidden(v-bind:class={block:true})
     .pageTitle You events
       .button(onclick="showAddEventBox()") Create new Event
     .eventsBox
