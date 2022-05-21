@@ -168,7 +168,7 @@ function startStreaming(session) {
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
 
-            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid,userid,loginid });
+            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid,userid:presApp.userid,loginid:presApp.loginid });
         document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
 
     })
