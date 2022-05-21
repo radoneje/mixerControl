@@ -20,9 +20,9 @@ var presApp = new Vue({
                 localStorage.setItem('name', this.name || "");
                 localStorage.setItem('suname', this.suname || "");
                 localStorage.setItem('position', this.position || "");
-                localStorage.setItem('userid', r.userid);
-                this.userid=r.userid;
-                this.loginid=r.loginid;
+                localStorage.setItem('userid', r.data.userid);
+                this.userid=r.data.userid;
+                this.loginid=r.data.loginid;
             this.isLogin = true;
             setTimeout(activeteWebCam, 200);
         }
