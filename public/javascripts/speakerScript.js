@@ -22,7 +22,7 @@ var presApp = new Vue({
                 this.userid=r.data.userid;
                 this.loginid=r.data.loginid;
             this.isLogin = true;
-            setTimeout(activeteWebCam, 200);
+            setTimeout(()=>{activeteWebCam(this.loginid)}, 200);
         }
     },
     watch:{
@@ -123,7 +123,7 @@ var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
 
 
-function activeteWebCam() {
+function activeteWebCam(loginid) {
 
 
      localVideo = document.getElementById("localVideo");
@@ -133,7 +133,7 @@ function activeteWebCam() {
 
     Flashphoner.createSession({urlServer: serverUrl}).on(SESSION_STATUS.ESTABLISHED, function (session) {
         //session connected, start streaming
-        startStreaming(session);
+        startStreaming(session, loginid);
         activatePgm(session);
     }).on(SESSION_STATUS.DISCONNECTED, function () {
         console.log("SESSION_STATUS.DISCONNECTED");
@@ -144,7 +144,7 @@ function activeteWebCam() {
     });
 }
 
-function startStreaming(session) {
+function startStreaming(session, loginid) {
     var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     stripCodecs=null
    // if(isSafari)
@@ -166,7 +166,7 @@ function startStreaming(session) {
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
 
-            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid,userid:presApp.userid,loginid:presApp.loginid });
+            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid,userid:presApp.userid,loginid });
         document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
 
     })
