@@ -192,10 +192,10 @@ function activatePgm(session){
             document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
 
             var v=remoteVideo.querySelector("video");
-            v.addEventListener('loadeddata', function () {
+           // v.addEventListener('loadeddata', function () {
                 var pgmCtx = document.getElementById("pgmCanvas").getContext("2d");
                 updateCanvas(pgmCtx, pgmCtx); //Start rendering
-            });
+            //});
         }).on(STREAM_STATUS.STOPPED, function(){
             console.log("remote STREAM_STATUS.STOPPED");
         }).on(STREAM_STATUS.FAILED, function(stream){
