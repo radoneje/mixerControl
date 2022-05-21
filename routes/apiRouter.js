@@ -311,10 +311,16 @@ router.get('/eventStarted/:eventid', async (req, res, next)=> {
 });
 router.get('/inputStart/:eventid/:input/:spkid?', async (req, res, next)=> {
     console.log("inputStart", req.params.eventid, req.params.spkid );
+    if(req.params.spkid!="undefined"){
+        await req.knex("t_spklogins").update({date:new Date(),input:req.params.input, isactive:true}, "*").where({id:req.params.spkid})
+    }
     res.json(true);
 });
-router.get('/inputStop/:eventid/:input', async (req, res, next)=> {
+router.get('/inputStop/:eventid/:input/:spkid?', async (req, res, next)=> {
     console.log("inputStop", req.params.eventid);
+    if(req.params.spkid!="undefined"){
+        await req.knex("t_spklogins").update({datestop:new Date(), isactive:false}).where({id:req.params.spkid})
+    }
     res.json(true);
 });
 
@@ -331,7 +337,12 @@ router.post('/spkLogin/', async (req, res, next)=> {
         r=await req.knex.select("*").from("t_users").where({id:req.body.userid});
     if(r.length==0)
         r=await req.knex("t_users").insert({name:req.body.name, suname:req.body.suname||"", position:req.body.position||""},"*");
-    var rr=await req.knex("t_spklogins").insert({userid:r[0].id}, "*");
+    var rr=await req.knex("t_spklogins").insert({
+        userid:r[0].id,
+        titlename:req.body.name,
+        titlesuname:req.body.suname||"",
+        titleposition:req.body.position||""
+    }, "*");
     res.json({userid:r[0].id, loginid:rr[0].id});
 });
 
