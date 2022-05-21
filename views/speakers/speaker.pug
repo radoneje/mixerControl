@@ -51,8 +51,14 @@ block content
                     #localVideo
                     .spkName {{name}}
                 .spkRemote()
-                    .pgm
-                        canvas#pgmCanvas(width="960" height="540")
+                    .spkDisplay
+                        .spkDisplayCell
+                            .pgm
+                                canvas#pgmCanvas(width="960" height="540")
+                        .spkDisplayCell
+                            .spkDisplayCellWr
+                                .spkDisplayCellInput(v-for="item in [0,1,2,3,4,5]") {{item}}
+
                     #remoteVideo(style="display:none")
                         .spkName PGM
 
