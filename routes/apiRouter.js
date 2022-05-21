@@ -260,8 +260,8 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
 });
 router.post('/webCamPublished', async (req, res, next)=> {
 
-
-    r=await axios.get(config.mixerCore+"mixer/startInput?eventid="+req.body.eventid+"&id="+req.body.faceid+"&url=rtmp://wowza02.onevent.online:1935/live/"+req.body.streamName)
+    var spkid=req.body.spkid || "NULL"
+    r=await axios.get(config.mixerCore+"mixer/startInput?eventid="+req.body.eventid+"&id="+req.body.faceid+"&url=rtmp://wowza02.onevent.online:1935/live/"+req.body.streamName+"&spkid="+spkid)
     res.json(r.data);
     //http://wowza01.onevent.online:8090/mixer/startInput?id=1&url=rtmp://wowza02.onevent.online:1935/live/test
 });
@@ -309,6 +309,16 @@ router.get('/eventStarted/:eventid', async (req, res, next)=> {
     req.sendToMixers(req.params.eventid, {cmd: "eventChangeStatus", status:1});
     res.json(true);
 });
+router.get('/inputStart/:eventid/:input/:spkid', async (req, res, next)=> {
+    console.log("inputStart", req.params.eventid);
+    res.json(true);
+});
+router.get('/inputStop/:eventid/:input', async (req, res, next)=> {
+    console.log("inputStop", req.params.eventid);
+    res.json(true);
+});
+
+
 router.get('/eventStopped/:eventid', async (req, res, next)=> {
     await req.knex("t_events").update({status:0}).where({id:req.params.eventid});
     req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:0}));
@@ -317,7 +327,6 @@ router.get('/eventStopped/:eventid', async (req, res, next)=> {
 
 router.post('/spkLogin/', async (req, res, next)=> {
     var r=[];
-    console.log(req.body);
     if(req.body.userid && req.body.userid.search(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i)!=-1)
         r=await req.knex.select("*").from("t_users").where({id:req.body.userid});
     if(r.length==0)
