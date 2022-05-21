@@ -194,7 +194,7 @@ function activatePgm(session){
             var v=remoteVideo.querySelector("video");
            // v.addEventListener('loadeddata', function () {
                 var pgmCtx = document.getElementById("pgmCanvas").getContext("2d");
-                updateCanvas(pgmCtx, pgmCtx); //Start rendering
+                updateCanvas(pgmCtx, v); //Start rendering
             //});
         }).on(STREAM_STATUS.STOPPED, function(){
             console.log("remote STREAM_STATUS.STOPPED");
