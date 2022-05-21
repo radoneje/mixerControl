@@ -313,7 +313,7 @@ router.get('/eventStopped/:eventid', async (req, res, next)=> {
     res.json(true);
 });
 
-router.spkLogin('/eventStopped/:eventid', async (req, res, next)=> {
+router.post('/spkLogin/', async (req, res, next)=> {
     var r=[];
     if(req.body.userid)
         r=await req.knex.select("*").from("t_users").where({id:userid});
