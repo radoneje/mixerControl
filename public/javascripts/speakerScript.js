@@ -124,7 +124,7 @@ function activeteWebCam() {
 
      localVideo = document.getElementById("localVideo");
      remoteVideo = document.getElementById("remoteVideo");
-    console.log(localVideo, "localVideo")
+
     Flashphoner.init();
 
     Flashphoner.createSession({urlServer: serverUrl}).on(SESSION_STATUS.ESTABLISHED, function (session) {
@@ -150,7 +150,7 @@ function startStreaming(session) {
     console.log("streamName",streamName);
     var publishStream=session.createStream({
         name: streamName,
-        display: localVideo,
+       // display: localVideo,
         cacheLocalResources: true,
         receiveVideo: false,
         receiveAudio: false,
