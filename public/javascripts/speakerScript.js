@@ -45,9 +45,7 @@ var presApp = new Vue({
         this.eventStatus=dt.data.status;
         setTimeout(()=>{  this.name=localStorage.getItem('spkName');},0)
         try{this.needRescale=window.orientation.indexOf("90")<0;}catch (e){}
-        this.needRescale=true;
         window.addEventListener("orientationchange", async ()=> {
-            var needRescale=false;
             try{this.needRescale=window.orientation.indexOf("90")<0}catch (e){}
 
         }, false);
