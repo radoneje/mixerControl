@@ -309,8 +309,8 @@ router.get('/eventStarted/:eventid', async (req, res, next)=> {
     req.sendToMixers(req.params.eventid, {cmd: "eventChangeStatus", status:1});
     res.json(true);
 });
-router.get('/inputStart/:eventid/:input/:spkid', async (req, res, next)=> {
-    console.log("inputStart", req.params.eventid);
+router.get('/inputStart/:eventid/:input/:spkid?', async (req, res, next)=> {
+    console.log("inputStart", req.params.eventid,spkid );
     res.json(true);
 });
 router.get('/inputStop/:eventid/:input', async (req, res, next)=> {
