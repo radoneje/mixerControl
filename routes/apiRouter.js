@@ -316,7 +316,7 @@ router.get('/eventStopped/:eventid', async (req, res, next)=> {
 router.post('/spkLogin/', async (req, res, next)=> {
     var r=[];
     console.log(req.body);
-    if(req.body.userid)
+    if(req.body.userid && req.body.userid.test(/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i))
         r=await req.knex.select("*").from("t_users").where({id:req.body.userid});
     if(r.length==0)
         r=await req.knex("t_users").insert({name:req.body.name, suname:req.body.suname||"", position:req.body.position||""},"*");
