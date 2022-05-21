@@ -274,10 +274,12 @@ router.post('/webCamOrientation', async (req, res, next)=> {
 
 router.get('/eventStatus/:eventid', async (req, res, next)=> {
 
-    console.log(config.mixerCore+"mixer/eventStatus/"+req.params.eventid);
-    r=await axios.get(config.mixerCore+"mixer/eventStatus/"+req.params.eventid); //todo: add request ot core
-    console.log(r.data);
-    res.json({status:r.data.status})
+ try {
+     var r = await axios.get(config.mixerCore + "mixer/eventStatus/" + req.params.eventid); //todo: add request ot core;
+     res.json({status: r.data.status})
+ }catch (e) {
+     res.status(404);
+ }
 });
 router.post('/startEvent/:eventid', upload.array('photos', 10), async (req, res, next) => {
     if (!req.session["user"])
@@ -320,8 +322,8 @@ router.post('/spkLogin/', async (req, res, next)=> {
         r=await req.knex.select("*").from("t_users").where({id:req.body.userid});
     if(r.length==0)
         r=await req.knex("t_users").insert({name:req.body.name, suname:req.body.suname||"", position:req.body.position||""},"*");
-    await req.knex("t_spklogins").insert({userid:r[0].id});
-    res.json(r[0].id);
+    var rrr=await req.knex("t_spklogins").insert({userid:r[0].id}, "*");
+    res.json(r[0].id, rr[0].id);
 });
 
 

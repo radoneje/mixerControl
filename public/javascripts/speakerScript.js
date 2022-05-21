@@ -5,6 +5,7 @@ var presApp = new Vue({
         suname:localStorage.getItem('suname'),
         position: localStorage.getItem('position'),
         userid: localStorage.getItem('userid')|| null,
+        loginid:null,
         isLogin: false,
         eventStatus:-1,
         needRescale:false
@@ -15,16 +16,15 @@ var presApp = new Vue({
             if (this.name.length == 0)
                 return;
             console.log(this.userid, "this.userid");
-            this.userid=await axios.post("/api/v1/spkLogin",{eventid,name:this.name, suname:this.suname, position:this.position,userid:this.userid})
+            var r=await axios.post("/api/v1/spkLogin",{eventid,name:this.name, suname:this.suname, position:this.position,userid:this.userid})
                 localStorage.setItem('name', this.name || "");
                 localStorage.setItem('suname', this.suname || "");
                 localStorage.setItem('position', this.position || "");
-                localStorage.setItem('userid', this.userid || "");
+                localStorage.setItem('userid', r.userid);
+                this.userid=r.userid;
+                this.loginid=r.loginid;
             this.isLogin = true;
             setTimeout(activeteWebCam, 200);
-
-
-
         }
     },
     watch:{
@@ -168,7 +168,7 @@ function startStreaming(session) {
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
             console.log("STREAM_STATUS.PUBLISHING");
 
-            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid });
+            await axios.post("/api/v1/webCamPublished",{streamName, eventid,faceid,userid,loginid });
         document.querySelectorAll("video").forEach(v=>v.setAttribute("playsinline",""));
 
     })
