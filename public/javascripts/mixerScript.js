@@ -281,7 +281,7 @@ function onAppStart() {
             var openWebCamTitle = document.createElement("div")
             openWebCamTitle.classList.add("webCamBtn");
             openWebCamTitle.classList.add("workInput");
-            openWebCamBtn.classList.add(dt.inputs[i].isActive?"block":"hidden");
+            openWebCamTitle.classList.add(dt.inputs[i].isActive?"block":"hidden");
             openWebCamTitle.setAttribute("faceid", i);
 
             var openWebCamTitleName = document.createElement("div")
