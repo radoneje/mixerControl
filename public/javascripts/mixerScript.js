@@ -293,7 +293,7 @@ function onAppStart() {
             var openWebCamTitlePos = document.createElement("div")
             openWebCamTitlePos.classList.add("openWebCamTitlePos");
             if(dt.inputs[i].title)
-                openWebCamTitleName.innerHTML=dt.inputs[i].title.position
+                openWebCamTitlePos.innerHTML=dt.inputs[i].title.position
             openWebCamTitle.appendChild(openWebCamTitlePos)
 
             item.appendChild(openWebCamTitle)
