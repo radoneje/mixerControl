@@ -276,7 +276,7 @@ router.get('/eventStatus/:eventid', async (req, res, next)=> {
 
  try {
      var r = await axios.get(config.mixerCore + "mixer/eventStatus/" + req.params.eventid); //todo: add request ot core;
-     res.json({status: r.data.status})
+     res.json({status: r.data})
  }catch (e) {
      res.status(404);
  }
