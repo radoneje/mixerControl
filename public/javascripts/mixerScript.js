@@ -135,6 +135,17 @@ socket.on('connect', ()=>{
             if(msg.status==1)
                 onAppStart();
         }
+        if (msg.cmd == "inputChangeStatus") {
+            console.log("inputChangeStatus",msg.status)
+            var box=document.querySelector(".spk[textureid='"+msg.input+"']");
+            console.log(box)
+            if(msg.status==0)
+            {
+
+               // blankInput
+            }
+
+        }
         console.log("msg", msg);
     });
 
@@ -237,6 +248,7 @@ function onAppStart() {
             });
             var openWebCamBtn = document.createElement("div")
             openWebCamBtn.classList.add("webCamBtn");
+            openWebCamBtn.classList.add("blankInput");
             openWebCamBtn.innerHTML = "webCam" + (i + 1);
             openWebCamBtn.setAttribute("faceid", i);
             item.appendChild(openWebCamBtn)
