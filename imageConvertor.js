@@ -144,6 +144,7 @@ app.use('/video', async (req, res) => {
         console.log(data.toString())
     });
     encoder.stderr.addListener('exit', function (data) {
+        console.log("ffmpeg exiit")
         console.log(fs.statSync("/tmp/" + req.body.presid + ".png"))
         gm("/tmp/" + req.body.presid + ".png")
             .quality(75)
