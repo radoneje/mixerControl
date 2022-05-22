@@ -317,6 +317,9 @@ router.get('/eventStarted/:eventid', async (req, res, next)=> {
     console.log("eventStarted", req.params.eventid);
     await req.knex("t_events").update({status:1}).where({id:req.params.eventid});
     //req.io.emit("message", JSON.stringify({cmd: "eventChangeStatus", eventid: req.params.eventid, status:1}));
+
+
+
     req.sendToMixers(req.params.eventid, {cmd: "eventChangeStatus", status:1});
     res.json(true);
 });
@@ -331,6 +334,14 @@ router.get('/inputStart/:eventid/:input/:spkid?', async (req, res, next)=> {
         ret.titleposition=r[0].titleposition;
         ret.userid=ret.userid;
     }
+
+        if(req.params.input.spkid.length>6) {
+            var rr = await req.knex.select("*").from("t_spklogins").where({id: input.spkid});
+            if (rr.length > 0) {
+                req.params.input.title = {name: rr[0].titlename, suname: (rr[0].titlesuname || ""), position: (rr[0].titleposition || "")};
+            }
+        }
+
     req.sendToMixers(req.params.eventid, {cmd: "inputChangeStatus", status:1,input:req.params.input, descr:ret});
     res.json(true);
 });
