@@ -283,6 +283,7 @@ router.get('/eventStatus/:eventid', async (req, res, next)=> {
          if(rr.length>0){
              input.title={name:rr[0].titlename, sumame:rr[0].titlesuname, position:rr[0].titleposition};
          }
+         console.log(input);
      }
      res.json( r.data)
  }catch (e) {
