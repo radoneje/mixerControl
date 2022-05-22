@@ -13,5 +13,6 @@
   "port": 3000,
   "pdfConverterPort": 3001,
   "pdfConverterUrl": "http://localhost",
-  "callBackUrl": "http://localhost"
+  "callBackUrl": "http://localhost",
+  "uploadAlias": "http://localhost/uploads/"
 }
