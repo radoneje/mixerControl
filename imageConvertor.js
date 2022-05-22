@@ -16,8 +16,8 @@ var app = express();
 app.use(logger('dev'));
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.raw({
     inflate: true,
     limit: '10000kb',
@@ -138,7 +138,7 @@ app.use('/pdf',async (req,res)=>{
 
 });
 app.use('/video', async (req,res)=>{
-    console.log("video file ", req.body.url, req.body.presid);
+    console.log("video file ", req.body.url, req.body);
 
     res.json(true)
 });
