@@ -97,9 +97,16 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             await filehandle.close();
         }
         if (file.mimetype.toLowerCase().indexOf('video/') == 0) {
-            console.log(config.uploadAlias+ path.basename(file.path),file.path );
-
-            //TODO: convert vodeo
+            try {
+                await axios.post(
+                    config.pdfConverterUrl + ":" + config.pdfConverterPort+"/"+"video", {
+                        url:config.uploadAlias+ path.basename(file.path),
+                        presid:r.id
+                    }/*.toString('base64')*/,
+                    {headers: {'content-type': 'application/pdf', 'x-presid': r.id}});
+            } catch (e) {
+                console.warn("ERROR: send to VIDEO CONV")
+            } vodeo
         }
     }
     var eventid = req.body.eventid;

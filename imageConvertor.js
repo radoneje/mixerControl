@@ -136,6 +136,11 @@ app.use('/pdf',async (req,res)=>{
     res.json("ok");
 
 });
+app.use('/video', async (req,res)=>{
+    console.log("video file ", req.body.url, req.body.presid);
+
+    res.json(true)
+});
 var server = http.createServer(app);
 server.listen(config.pdfConverterPort, ()=>{
     console.log("encoder server listen on "+ config.pdfConverterPort)
