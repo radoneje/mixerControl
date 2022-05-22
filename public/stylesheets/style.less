@@ -448,13 +448,21 @@ a {
 }
 .openWebCamTitle{
   position: absolute;
-  bottom: 4px;
-  left: 4px;
+  bottom: 7px;
+
   color: var(--white);
   padding: 8px;
   background: rgba(0,0,0,0.5);
-  border-radius: 8px;
+
   cursor: pointer;
+  width: calc(100% - 8px);
+  box-sizing: border-box;
+}
+.openWebCamTitlePos{
+  font-size: 8px;
+}
+.openWebCamTitleName{
+  font-size: 12px;
 }
 
 @media screen and (max-width: 900px) {
