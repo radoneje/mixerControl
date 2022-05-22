@@ -106,7 +106,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                     {headers: {'content-type': 'application/pdf', 'x-presid': r.id}});
             } catch (e) {
                 console.warn("ERROR: send to VIDEO CONV")
-            } vodeo
+            }
         }
     }
     var eventid = req.body.eventid;
