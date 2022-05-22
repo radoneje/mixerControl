@@ -138,7 +138,10 @@ socket.on('connect', ()=>{
         if (msg.cmd == "inputChangeStatus") {
             console.log("inputChangeStatus",msg.status)
             var box=document.querySelector(".spk[textureid='"+msg.input+"']");
-            console.log(box, box.querySelectorAll(".blankInput"))
+            box.querySelectorAll(".blankInput").forEach(e=>{
+                console.log("box", e)
+            })
+
             if(msg.status==0)
             {
 
