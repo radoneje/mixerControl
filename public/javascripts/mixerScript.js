@@ -89,8 +89,9 @@ var presApp=new Vue({
         this.isLoaded=true;
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
         this.event=dt.data;
-        if(this.event.status==0)
-            await axios.post('/api/v1/startEvent/'+eventid)
+        if(this.event.status==0) {
+            await axios.post('/api/v1/startEvent/' + eventid)
+        }
 
 
     }
@@ -144,7 +145,6 @@ socket.on('connect', ()=>{
 
             if(msg.status==0)
             {
-
                 box.querySelectorAll(".blankInput").forEach(e=>{e.classList.remove("hidden"); e.classList.add("block")})
                // blankInput
             }
@@ -217,9 +217,9 @@ function onAppStart() {
         }).on(STREAM_STATUS.PENDING, function (stream) {
 
             console.log("STREAM_STATUS.PENDING");
-        }).on(STREAM_STATUS.PLAYING, function (stream) {
+        }).on(STREAM_STATUS.PLAYING, async (stream) =>{
             console.log("STREAM_STATUS.PLAYING");
-            onVideoPlaying();
+            await onVideoPlaying();
         }).on(STREAM_STATUS.STOPPED, function () {
             console.log("STREAM_STATUS.STOPPED");
 
@@ -231,11 +231,11 @@ function onAppStart() {
         conferenceStream.play();
     }
 
-    function onVideoPlaying() {
+  async  function onVideoPlaying() {
         var pgmCtx = document.getElementById("pgmCanvas").getContext("2d");
         var elem = document.getElementById("spkRow")
         var canvasArr = [];
-
+        var dt=await axios.get('/api/v1/eventStatus/'+eventid).data;
         for (var i = 0; i < 6; i++) {
             var item = document.createElement("div")
             item.classList.add("spk")
@@ -275,11 +275,30 @@ function onAppStart() {
                     e.target.innerHTML = tmp;
                 }, 2000);
             })
+
+            var openWebCamTitle = document.createElement("div")
+            openWebCamTitle.classList.add("webCamBtn");
+            openWebCamTitle.classList.add("workInput");
+            openWebCamTitle.setAttribute("faceid", i);
+
+            var openWebCamTitleName = document.createElement("div")
+            openWebCamTitleName.classList.add("openWebCamTitleName");
+            openWebCamTitle.appendChild(openWebCamTitleName)
+
+            var openWebCamTitlePos = document.createElement("div")
+            openWebCamTitlePos.classList.add("openWebCamTitlePos");
+            openWebCamTitle.appendChild(openWebCamTitlePos)
+
+            item.appendChild(openWebCamTitle)
         }
+
+
+
 
         var video = document.getElementById("remoteVideo").querySelector('video');
         video.controls = false;
         video.muted = false;
+
        // document.getElementById("loader").style.display = "none"
         video.addEventListener('loadeddata', function () {
 
