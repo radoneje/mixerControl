@@ -235,7 +235,7 @@ function onAppStart() {
         var pgmCtx = document.getElementById("pgmCanvas").getContext("2d");
         var elem = document.getElementById("spkRow")
         var canvasArr = [];
-        var dt=await axios.get('/api/v1/eventStatus/'+eventid).data;
+        var dt=(await axios.get('/api/v1/eventStatus/'+eventid)).data;
         for (var i = 0; i < 6; i++) {
             var item = document.createElement("div")
             item.classList.add("spk")
