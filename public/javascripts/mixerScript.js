@@ -257,6 +257,7 @@ function onAppStart() {
             var openWebCamBtn = document.createElement("div")
             openWebCamBtn.classList.add("webCamBtn");
             openWebCamBtn.classList.add("blankInput");
+            openWebCamBtn.classList.add(dt.inputs[i].isActive?"hidden":"block");
             openWebCamBtn.innerHTML = "webCam" + (i + 1);
             openWebCamBtn.setAttribute("faceid", i);
             item.appendChild(openWebCamBtn)
@@ -279,14 +280,19 @@ function onAppStart() {
             var openWebCamTitle = document.createElement("div")
             openWebCamTitle.classList.add("webCamBtn");
             openWebCamTitle.classList.add("workInput");
+            openWebCamBtn.classList.add(dt.inputs[i].isActive?"block":"hidden");
             openWebCamTitle.setAttribute("faceid", i);
 
             var openWebCamTitleName = document.createElement("div")
             openWebCamTitleName.classList.add("openWebCamTitleName");
+            if(dt.inputs[i].title)
+                openWebCamTitleName.innerHTML=dt.inputs[i].title.name +" " +dt.inputs[i].title.suname
             openWebCamTitle.appendChild(openWebCamTitleName)
 
             var openWebCamTitlePos = document.createElement("div")
             openWebCamTitlePos.classList.add("openWebCamTitlePos");
+            if(dt.inputs[i].title)
+                openWebCamTitleName.innerHTML=dt.inputs[i].title.position
             openWebCamTitle.appendChild(openWebCamTitlePos)
 
             item.appendChild(openWebCamTitle)
