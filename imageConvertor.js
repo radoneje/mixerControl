@@ -143,7 +143,7 @@ app.use('/video', async (req, res) => {
     encoder.stderr.addListener('data', function (data) {
         console.log(data.toString())
     });
-    encoder.stderr.addListener('exit', function (data) {
+    encoder.stderr.addListener('close', function (data) {
         console.log("ffmpeg exiit")
         console.log(fs.statSync("/tmp/" + req.body.presid + ".png"))
         gm("/tmp/" + req.body.presid + ".png")
