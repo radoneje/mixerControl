@@ -226,12 +226,12 @@ router.post("/addVideoLrvToPresFile/:id/", async (req, res) => {
     await noifyNewPresFile(fileRecord[0], req);
     var r= await req.knex.select("*").from("v_presfilestofolder").where({id:req.params["id"]})
 
-    var formData = new FormData();
+   /* var formData = new FormData();
     formData.append('fileid',fileRecord[0].id );
     formData.append('fileurl',config.uploadAlias+ path.basename(fileRecord[0].fullpath));
-    formData.append('eventid', r[0].eventid);
+    formData.append('eventid', r[0].eventid);*/
     console.log("mixer/loadPresVideo")
-    var r = await axios.post(config.mixerCore + "mixer/loadPresVideo" , formData, {headers: {"Content-Type": "multipart/form-data"}})
+    var r = await axios.get(config.mixerCore + "mixer/loadPresVideo?eventid="+eventid+"&fileid="+fileRecord[0].id+"&url="+config.uploadAlias+ path.basename(fileRecord[0].fullpath));
    // res.json({ret: r.data, error: false});
     console.log("mixer/loadPresVideo 1")
 
