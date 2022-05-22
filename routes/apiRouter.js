@@ -278,7 +278,7 @@ router.get('/eventStatus/:eventid', async (req, res, next)=> {
      var r = await axios.get(config.mixerCore + "mixer/eventStatus/" + req.params.eventid); //todo: add request ot core;
 
      for(var input of r.data.inputs){
-
+         console.log("rr", input);
          var rr=await req.knex.select("*").from("t_spklogins").where({id:input.spkid});
          if(rr.length>0){
              input.title={name:rr[0].titlename, sumame:rr[0].titlesuname, position:rr[0].titleposition};
