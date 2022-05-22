@@ -276,8 +276,9 @@ router.get('/eventStatus/:eventid', async (req, res, next)=> {
 
  try {
      var r = await axios.get(config.mixerCore + "mixer/eventStatus/" + req.params.eventid); //todo: add request ot core;
-     console.log("rr", r.data);
+
      for(var input of r.data.inputs){
+         console.log("rr", input);
          var rr=req.knex.select("*").from("t_spklogins").where({id:input.spkid});
 
          if(rr.length>0){
