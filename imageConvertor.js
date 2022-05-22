@@ -142,7 +142,7 @@ app.use('/video', async (req,res)=>{
     res.json(true)
     var child_process = require('child_process');
     var encoder = child_process.spawn('ffmpeg',['-i', req.body.url, "-ss", "00:00:01.000", "-vframes", "1", "-y", "/tmp/"+req.body.presid+".png"]);
-    console.log(fs.stat("/tmp/"+req.body.presid+".png"));
+    console.log(fs.statSync("/tmp/"+req.body.presid+".png"));
     gm("/tmp/"+req.body.presid+".png")
         .quality(75)
         .density(150, 150)
