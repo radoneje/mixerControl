@@ -139,28 +139,11 @@ app.use('/pdf',async (req,res)=>{
 });
 app.use('/video', async (req,res)=>{
     console.log("video file ", req.body.url, req.body);
-    gm(req.body.url+"[5]")
-        .quality(75)
-        .density(150, 150)
-        .resize(320,180)
-        .gravity('Center')
-        .background('#FFFFFF')
-        .extent(320, 180)
-        .flatten()
-        .setFormat('png')
-        .toBuffer(async (err, buffer)=> {
-            if (err)
-                return console.warn(err);
-            try {
-                await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addVideoLrvToPresFile/" + req.headers["x-fileid"], buffer,
-                    {headers: {'content-type': 'image/x-png'}})
-            } catch (e) {
-                console.warn(e)
-            }
-        })
-
-
     res.json(true)
+    var child_process = require('child_process');
+    var encoder = child_process.spawn('ffmpeg',['-i', req.body.url, "-ss", "00:00:01.000", "-vframes", "1", "-y", "/tmp/"+req.body.presid+".png"]);
+    console.log("/tmp/"+req.body.presid+".png");
+
 });
 var server = http.createServer(app);
 server.listen(config.pdfConverterPort, ()=>{
