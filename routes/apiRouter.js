@@ -98,10 +98,16 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
         }
         if (file.mimetype.toLowerCase().indexOf('video/') == 0) {
             try {
+                var fileRecord = await req.knex("t_presfiles").insert({
+                    folderid: r.id,
+                    fullpath: filePath,
+                    fullsize: 0
+                }, "*");
+
                 await axios.post(
                     config.pdfConverterUrl + ":" + config.pdfConverterPort+"/"+"video", {
                         url:config.uploadAlias+ path.basename(file.path),
-                        presid:r.id
+                        presid:fileRecord[0].id
                     })
             } catch (e) {
                 console.warn("ERROR: send to VIDEO CONV")
@@ -212,6 +218,8 @@ router.post("/addVideoLrvToPresFile/:id/", async (req, res) => {
     var filehandle = await fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(req.body);
     await filehandle.close();
+
+
     var fileRecord = await addImageLrvToPresFile(req.params["id"], filePath, req);
 
     await noifyNewPresFile(fileRecord[0], req);
