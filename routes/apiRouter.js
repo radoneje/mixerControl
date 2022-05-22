@@ -194,6 +194,7 @@ async function noifyNewPresFile(fileRecord, req){
         value: {id: fileRecord.id, size: fileRecord.lrvsize}
     }))
 }
+
 router.post("/addImageLrvToPresFile/:id/", async (req, res) => {
     res.json(1);
     var filePath = config.fileLRVPath + req.params["id"] +  ".png";
