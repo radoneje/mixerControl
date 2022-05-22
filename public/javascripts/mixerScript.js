@@ -155,9 +155,9 @@ socket.on('connect', ()=>{
                 box.querySelectorAll(".blankInput").forEach(e=>{e.classList.add("hidden"); e.classList.remove("block")})
                 box.querySelectorAll(".workInput").forEach(e=>{e.classList.remove("hidden"); e.classList.add("block")})
 
-                if(msg.input.title) {
-                    box.querySelector(".openWebCamTitleName").innerHTML = (input.title.name||"") + " " +(input.title.suname||"")
-                    box.querySelector(".openWebCamTitlePos").innerHTML = input.title.position||""
+                if(msg.title) {
+                    box.querySelector(".openWebCamTitleName").innerHTML = (msg.title.name||"") + " " +(msg.title.suname||"")
+                    box.querySelector(".openWebCamTitlePos").innerHTML = msg.title.position||""
                 }
             }
 
