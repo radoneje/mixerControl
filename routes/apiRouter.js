@@ -282,7 +282,7 @@ router.get('/eventStatus/:eventid', async (req, res, next)=> {
          if(input.spkid.length>6) {
              var rr = await req.knex.select("*").from("t_spklogins").where({id: input.spkid});
              if (rr.length > 0) {
-                 input.title = {name: rr[0].titlename, suname: rr[0].titlesuname, position: rr[0].titleposition};
+                 input.title = {name: rr[0].titlename, suname: (rr[0].titlesuname || ""), position: (rr[0].titleposition || "")};
              }
          }
 
