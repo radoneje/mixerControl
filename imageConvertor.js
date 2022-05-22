@@ -138,7 +138,7 @@ app.use('/video', async (req, res) => {
     console.log("video file ", req.body.url, req.body);
     res.json(true)
     var child_process = require('child_process');
-    var encoder = child_process.spawn('ffmpeg', ['-i', req.body.url, "-ss", "00:00:01.000", "-vframes", "1", "-y", "/tmp/" + req.body.presid + ".png"]);
+    var encoder = child_process.spawn('ffmpeg', ['-i', req.body.url, "-ss", "00:00:00.100", "-vframes", "1", "-y", "/tmp/" + req.body.presid + ".png"]);
 
     encoder.stderr.addListener('data', function (data) {
         console.log(data.toString())
@@ -159,7 +159,7 @@ app.use('/video', async (req, res) => {
                 if (err)
                     return console.warn(err);
                 try {
-                    fs.rm("/tmp/" + req.body.presid + ".png");
+                    fs.rmSync("/tmp/" + req.body.presid + ".png");
                     await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addVideoLrvToPresFile/" + req.headers["x-fileid"], buffer,
                         {headers: {'content-type': 'image/x-png'}})
                 } catch (e) {
