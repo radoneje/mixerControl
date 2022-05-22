@@ -201,11 +201,23 @@ router.post("/addImageLrvToPresFile/:id/", async (req, res) => {
     await filehandle.writeFile(req.body);
     await filehandle.close();
     var fileRecord = await addImageLrvToPresFile(req.params["id"], filePath, req);
-
     await noifyNewPresFile(fileRecord[0], req);
 
 
 })
+router.post("/addVideoLrvToPresFile/:id/", async (req, res) => {
+    res.json(1);
+    var filePath = config.fileLRVPath + req.params["id"] +  ".png";
+    var filehandle = await fsPromises.open(filePath, 'w+');
+    await filehandle.writeFile(req.body);
+    await filehandle.close();
+   // var fileRecord = await addImageLrvToPresFile(req.params["id"], filePath, req);
+
+   // await noifyNewPresFile(fileRecord[0], req);
+
+
+})
+
 
 router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
     var r = await req.knex.select("*").from("t_presfolders").where({
