@@ -1,6 +1,7 @@
 var presApp = new Vue({
     el: "#app",
     data: {
+    data: {
         name:localStorage.getItem('name'),
         suname:localStorage.getItem('suname'),
         position: localStorage.getItem('position'),
@@ -48,7 +49,6 @@ var presApp = new Vue({
         try{this.needRescale=window.orientation.indexOf("90")<0;}catch (e){console.warn("error",e)}
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
         this.eventStatus=dt.data.status;
-        setTimeout(()=>{  this.name=localStorage.getItem('spkName');},0)
 
         window.addEventListener("orientationchange", async ()=> {
             try{this.needRescale=window.orientation.indexOf("90")<0}catch (e){}
