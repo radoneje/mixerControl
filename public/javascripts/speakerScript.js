@@ -214,7 +214,7 @@ function activatePgm(session){
 }
 function updateCanvas(pgmCtx, video, inputCtx) {
     // console.log(video.width,);
-    return;
+
     pgmCtx.drawImage(video, 0, (video.videoHeight / 4), (video.videoWidth / 4) * 3, (video.videoHeight / 4) * 3, 0, 0, (1280 / 4) * 3, (720 / 4) * 3);
     var i=0;
     inputCtx.forEach(ctx=>{
