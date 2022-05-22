@@ -100,7 +100,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             try {
                 var fileRecord = await req.knex("t_presfiles").insert({
                     folderid: r.id,
-                    fullpath: filePath,
+                    fullpath: file.path,
                     fullsize: 0
                 }, "*");
 
