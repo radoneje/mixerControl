@@ -146,6 +146,7 @@ app.use('/video', async (req,res)=>{
     encoder.stderr.addListener('data', function(data) {
         console.log(data.toString())
     });
+    console.log(fs.statSync("/tmp/"+req.body.presid+".png"))
     gm("/tmp/"+req.body.presid+".png")
         .quality(75)
         .density(150, 150)
