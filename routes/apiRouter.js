@@ -320,7 +320,7 @@ router.get('/inputStart/:eventid/:input/:spkid?', async (req, res, next)=> {
         ret.titleposition=r[0].titleposition;
         ret.userid=ret.userid;
     }
-    req.sendToMixers(req.params.eventid, {cmd: "inputChangeStatus", status:1, descr:ret});
+    req.sendToMixers(req.params.eventid, {cmd: "inputChangeStatus", status:1,input:req.params.input, descr:ret});
     res.json(true);
 });
 router.get('/inputStop/:eventid/:input/:spkid?', async (req, res, next)=> {
@@ -328,7 +328,7 @@ router.get('/inputStop/:eventid/:input/:spkid?', async (req, res, next)=> {
     if(req.params.spkid && req.params.spkid!="undefined"){
         await req.knex("t_spklogins").update({datestop:new Date(), isactive:false}).where({id:req.params.spkid})
     }
-    req.sendToMixers(req.params.eventid, {cmd: "inputChangeStatus", status:0});
+    req.sendToMixers(req.params.eventid, {cmd: "inputChangeStatus", input:req.params.input, status:0});
     res.json(true);
 });
 
