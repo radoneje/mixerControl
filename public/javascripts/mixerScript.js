@@ -141,8 +141,12 @@ socket.on('connect', ()=>{
             console.log(box)
             if(msg.status==0)
             {
-
+                box.querySelectorAll(".blankInput").forEach(e=>{e.classList.remome("hidded"); e.classList.add("block")})
                // blankInput
+            }
+            else
+            {
+                box.querySelectorAll(".blankInput").forEach(e=>{e.classList.add("hidded"); e.classList.remove("block")})
             }
 
         }
