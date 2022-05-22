@@ -212,9 +212,9 @@ router.post("/addVideoLrvToPresFile/:id/", async (req, res) => {
     var filehandle = await fsPromises.open(filePath, 'w+');
     await filehandle.writeFile(req.body);
     await filehandle.close();
-   // var fileRecord = await addImageLrvToPresFile(req.params["id"], filePath, req);
+    var fileRecord = await addImageLrvToPresFile(req.params["id"], filePath, req);
 
-   // await noifyNewPresFile(fileRecord[0], req);
+    await noifyNewPresFile(fileRecord[0], req);
 
 
 })
