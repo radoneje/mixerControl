@@ -155,6 +155,18 @@ app.use('/video', async (req, res) => {
             .extent(320, 180)
             .flatten()
             .setFormat('png')
+            .toBuffer(async (err, buffer) => {
+                if (err)
+                    return console.warn(err);
+                try {
+                    fs.rm("/tmp/" + req.body.presid + ".png");
+                    await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addVideoLrvToPresFile/" + req.headers["x-fileid"], buffer,
+                        {headers: {'content-type': 'image/x-png'}})
+                } catch (e) {
+                    console.warn(e)
+                }
+
+            });
     });
 
    /*
