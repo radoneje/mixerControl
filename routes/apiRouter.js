@@ -97,6 +97,8 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
             await filehandle.close();
         }
         if (file.mimetype.toLowerCase().indexOf('video/') == 0) {
+            console.log(file.path+ext);
+
             //TODO: convert vodeo
         }
     }
