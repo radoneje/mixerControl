@@ -228,7 +228,7 @@ router.post("/addVideoLrvToPresFile/:id/", async (req, res) => {
     var formData = new FormData();
     formData.append('fileid',fileRecord[0].id );
     formData.append('fileurl',config.uploadAlias+ path.basename(fileRecord[0].fullpath));
-    formData.append('eventid', req.params["eventid"]);
+    formData.append('eventid', req.params["id"]);
     var r = await axios.post(config.mixerCore + "mixer/loadPresVideo" , formData, {headers: {"Content-Type": "multipart/form-data"}})
     res.json({ret: r.data, error: false});
     if (!r.data.error) {
