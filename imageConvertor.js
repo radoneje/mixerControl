@@ -160,7 +160,7 @@ app.use('/video', async (req, res) => {
                     return console.warn(err);
                 try {
                     fs.rmSync("/tmp/" + req.body.presid + ".png");
-                    await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addVideoLrvToPresFile/" + req.headers["x-fileid"], buffer,
+                    await axios.post(config.callBackUrl + ":" + config.port + "/api/v1/addVideoLrvToPresFile/" + req.body.presid, buffer,
                         {headers: {'content-type': 'image/x-png'}})
                 } catch (e) {
                     console.warn(e)
