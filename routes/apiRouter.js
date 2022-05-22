@@ -110,7 +110,7 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
                         presid:fileRecord[0].id
                     })
             } catch (e) {
-                console.warn("ERROR: send to VIDEO CONV")
+                console.warn("ERROR: send to VIDEO CONV",e )
             }
         }
     }
