@@ -98,10 +98,11 @@ router.post('/addPresFiles', upload.array('photos', 10), async (req, res, next) 
         }
         if (file.mimetype.toLowerCase().indexOf('video/') == 0) {
             try {
+                var stat=fs.statSync(file.path);
                 var fileRecord = await req.knex("t_presfiles").insert({
                     folderid: r.id,
                     fullpath: file.path,
-                    fullsize: 0
+                    fullsize: stat.size
                 }, "*");
 
                 await axios.post(
@@ -224,6 +225,21 @@ router.post("/addVideoLrvToPresFile/:id/", async (req, res) => {
 
     await noifyNewPresFile(fileRecord[0], req);
 
+    var formData = new FormData();
+    formData.append('fileid',fileRecord[0].id );
+    formData.append('fileurl',config.uploadAlias+ path.basename(fileRecord[0].fullpath));
+    formData.append('eventid', req.params["eventid"]);
+    var r = await axios.post(config.mixerCore + "mixer/loadPresVideo" , formData, {headers: {"Content-Type": "multipart/form-data"}})
+    res.json({ret: r.data, error: false});
+    if (!r.data.error) {
+        req.io.emit("message", JSON.stringify({
+            cmd: "activatePresFile",
+            eventid: req.params["eventid"],
+            presFileId: r.data.presFileId,
+        }))
+    }
+
+
 
 })
 
@@ -262,26 +278,39 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
     if(!user)
         return  res.redirect("/");
     try {
-        var fileRecord=await req.knex.select("*").from("t_presfiles").where({id:req.params["id"]});
+        var fileRecord=await req.knex.select("*").from("v_presfilestofolder").where({id:req.params["id"]});
         if(fileRecord.length==0)
             return res.sendStatus(404);
-       /* var handle=await fsPromises.open(fileRecord[0].fullpath,"r+");
-        var buf=await handle.readFile();
-        let arraybuffer = Uint8Array.from(buf).buffer
-        await handle.close();*/
+       if(fileRecord[0].type.indexOf("image")>=0) {
+           var formData = new FormData();
+           formData.append('image', fs.createReadStream(fileRecord[0].fullpath), "image.png");
+           formData.append('eventid', req.params["eventid"]);
+           var r = await axios.post(config.mixerCore + "mixer/activatePresImg/" + req.params["eventid"] + "/" + req.params["id"], formData, {headers: {"Content-Type": "multipart/form-data"}})
+           res.json({ret: r.data, error: false});
+           if (!r.data.error) {
+               req.io.emit("message", JSON.stringify({
+                   cmd: "activatePresFile",
+                   eventid: req.params["eventid"],
+                   presFileId: r.data.presFileId,
+               }))
+           }
+       }
+       else {
+           var formData = new FormData();
+           formData.append('fileid',fileRecord[0].id );
+           formData.append('fileurl',config.uploadAlias+ path.basename(fileRecord[0].fullpath));
+           formData.append('eventid', req.params["eventid"]);
+           var r = await axios.post(config.mixerCore + "mixer/activatePresVideo/" + req.params["eventid"] + "/" + req.params["id"], formData, {headers: {"Content-Type": "multipart/form-data"}})
+           res.json({ret: r.data, error: false});
+           if (!r.data.error) {
+               req.io.emit("message", JSON.stringify({
+                   cmd: "activatePresFile",
+                   eventid: req.params["eventid"],
+                   presFileId: r.data.presFileId,
+               }))
+           }
 
-        var formData= new FormData();
-        formData.append('image', fs.createReadStream(fileRecord[0].fullpath), "image.png");
-        formData.append('eventid', req.params["eventid"]);
-        var r = await axios.post(config.mixerCore + "mixer/activatePresImg/"+req.params["eventid"]+"/"+req.params["id"],formData, {headers: {"Content-Type": "multipart/form-data"}})
-        res.json({ret:r.data, error:false});
-        if(!r.data.error){
-            req.io.emit("message", JSON.stringify({
-                cmd: "activatePresFile",
-                eventid:req.params["eventid"],
-                presFileId: r.data.presFileId,
-            }))
-        }
+       }
     }
     catch(e) {
         res.status(500).send(JSON.stringify({ret:e.message, error:true}))
