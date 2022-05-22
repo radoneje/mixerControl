@@ -326,23 +326,23 @@ router.get('/eventStarted/:eventid', async (req, res, next)=> {
 router.get('/inputStart/:eventid/:input/:spkid?', async (req, res, next)=> {
     console.log("inputStart", req.params.eventid, req.params.spkid );
     var ret={}
-    if(req.params.spkid && req.params.spkid!="undefined"){
+   /* if(req.params.spkid && req.params.spkid!="undefined"){
         var r=await req.knex("t_spklogins").update({date:new Date(),input:req.params.input, isactive:true}, "*").where({id:req.params.spkid})
         ret.spkid=r[0].spkid;
         ret.titlename=r[0].titlename;
         ret.titlesuname=r[0].titlesuname;
         ret.titleposition=r[0].titleposition;
         ret.userid=ret.userid;
-    }
+    }*/
 
         if(req.params.spkid.length>6) {
             var rr = await req.knex.select("*").from("t_spklogins").where({id: req.params.spkid});
             if (rr.length > 0) {
-                req.params.input.title = {name: rr[0].titlename, suname: (rr[0].titlesuname || ""), position: (rr[0].titleposition || "")};
+                ret = {name: rr[0].titlename, suname: (rr[0].titlesuname || ""), position: (rr[0].titleposition || "")};
             }
         }
 
-    req.sendToMixers(req.params.eventid, {cmd: "inputChangeStatus", status:1,input:req.params.input, descr:ret});
+    req.sendToMixers(req.params.eventid, {cmd: "inputChangeStatus", status:1,input:req.params.input, title:ret});
     res.json(true);
 });
 router.get('/inputStop/:eventid/:input/:spkid?', async (req, res, next)=> {
