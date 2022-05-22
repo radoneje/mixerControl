@@ -147,7 +147,7 @@ function startStreaming(session, loginid) {
     var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     stripCodecs=null
    // if(isSafari)
-        stripCodecs: "h264,H264"
+    //    stripCodecs: "h264,H264"
     console.log("startStreaming, stripCodecs:", stripCodecs);
     var streamName = eventid + "_" + faceid;
     console.log("streamName",streamName);
@@ -157,7 +157,7 @@ function startStreaming(session, loginid) {
         cacheLocalResources: true,
         receiveVideo: false,
         receiveAudio: false,
-       // disableConstraintsNormalization:true,
+        disableConstraintsNormalization:true,
         constraints: constraints,//{audio:true, video:{ width: 1280, height: 720,  aspectRatio:  1.7777777778}},
         stripCodecs:stripCodecs,
        // cvoExtension: true
