@@ -257,6 +257,7 @@ function onAppStart() {
             var openWebCamBtn = document.createElement("div")
             openWebCamBtn.classList.add("webCamBtn");
             openWebCamBtn.classList.add("blankInput");
+            console.log(dt);
             openWebCamBtn.classList.add(dt.inputs[i].isActive?"hidden":"block");
             openWebCamBtn.innerHTML = "webCam" + (i + 1);
             openWebCamBtn.setAttribute("faceid", i);
