@@ -335,7 +335,7 @@ router.get('/inputStart/:eventid/:input/:spkid?', async (req, res, next)=> {
         ret.userid=ret.userid;
     }*/
 
-        if(req.params.spkid.length>6) {
+        if(req.params.spkid && req.params.spkid.length>6) {
             var rr = await req.knex.select("*").from("t_spklogins").where({id: req.params.spkid});
             if (rr.length > 0) {
                 ret = {name: rr[0].titlename, suname: (rr[0].titlesuname || ""), position: (rr[0].titleposition || "")};
