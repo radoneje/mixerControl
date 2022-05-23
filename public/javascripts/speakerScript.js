@@ -64,8 +64,8 @@ var presApp = new Vue({
 
     }
 });
-//constraints={audio:true, video:{ minBitrate:900,maxBitrate:1200,width:{ ideal:640, max:640, min:640}, height: { ideal:360,  max:360, min:360},  aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
-constraints={audio:true, video:{ minBitrate:900,maxBitrate:1200,width:{ ideal:1280, max:1280, min:1280}, height: { ideal:720,  max:720, min:720},  aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
+constraints={audio:true, video:{ minBitrate:900,maxBitrate:1200,width:{ ideal:640, max:640, min:640}, height: { ideal:360,  max:360, min:360},  aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
+//constraints={audio:true, video:{ minBitrate:900,maxBitrate:1200,width:{ ideal:1280, max:1280, min:1280}, height: { ideal:720,  max:720, min:720},  aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
 
 testVideoIsLoaded=false;
 async function initTestVideo(){
