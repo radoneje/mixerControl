@@ -175,7 +175,6 @@ socket.on('connect', ()=>{
                     })
                 }
             })
-
         }
         console.log("msg", msg);
     });
