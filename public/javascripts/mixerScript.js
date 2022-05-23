@@ -169,10 +169,12 @@ socket.on('connect', ()=>{
         }
         if (msg.cmd == "videoFileLoopChange") {
             console.log(presApp.presFolders, msg.folderid);
-            var folders=presApp.presFolders.filter(f=>{f.id==msg.folderid})
-            if(folders.length>0){
-                console.log("folders", folders);
-            }
+            presApp.presFolders.forEach(folder=>{
+                if(folder.id==msg.folderid){
+                    console.log("folders", folder);
+                }
+            })
+
         }
         console.log("msg", msg);
     });
