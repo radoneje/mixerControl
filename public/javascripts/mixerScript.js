@@ -5,6 +5,7 @@ var presApp=new Vue({
         event:{status:0},
         isLoaded:false
     },
+
     methods:{
         videoFileLoopChange:async function (item){
             console.log("videoFileLoopChange", item)
