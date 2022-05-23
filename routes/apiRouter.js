@@ -440,7 +440,7 @@ router.get('/eventVideos/:eventid', async (req, res, next)=> {
     r=r.filter(t=>{return t.type.indexOf("video")>=0});
     var ret=[]
     r.forEach(t=>{
-        t.url=t.filepath.replace(config.fileUploadPath,config.uploadAlias);
+        t.url=t.fullpath.replace(config.fileUploadPath,config.uploadAlias);
         ret.push({fileid:t.id, urL:t.url});
     })
     res.json(ret);
