@@ -52,7 +52,7 @@ var presApp = new Vue({
 
         window.addEventListener("orientationchange", async ()=> {
             try{this.needRescale=window.orientation.indexOf("90")<0}catch (e){}
-
+            console.log("needRescale", this.needRescale);
         }, false);
 
     }
