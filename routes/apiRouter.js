@@ -251,7 +251,7 @@ router.get('/presFolders/:id', checkLogin, async (req, res, next) => {
         var images = [];
         var i = await req.knex.select("*").from("t_presfiles").where({isDeleted: false, folderid: rr.id})
         i.forEach(ii => {
-            images.push({id: ii.id, size: ii.lrvsize});
+            images.push({id: ii.id, size: ii.lrvsize, islooped:ll.islooped});
         });
         ret.push({id: rr.id, type: rr.type, images});
     }
