@@ -172,6 +172,10 @@ socket.on('connect', ()=>{
             presApp.presFolders.forEach(folder=>{
                 if(folder.id==msg.folderid){
                     console.log("folders", folder);
+                    folder.images.forEach(image=>{
+                        if(image.id==msg.fileid)
+                            image.islooped=msg.islooped
+                    })
                 }
             })
 

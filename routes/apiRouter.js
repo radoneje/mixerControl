@@ -457,7 +457,7 @@ router.post('/videoFileLoopChange/:eventid', async (req, res, next)=> {
         return res.sendStatus(401);//.send("Unauthorized");
 
     await req.knex("t_presfiles").update({islooped:req.body.images[0].islooped}).where({id:req.body.images[0].id})
-    req.sendToMixers(req.params.eventid, {cmd: "videoFileLoopChange", fileid:req.body.images[0].id, folderid:req.body.id});
+    req.sendToMixers(req.params.eventid, {cmd: "videoFileLoopChange", fileid:req.body.images[0].id, folderid:req.body.id, islooped:req.body.images[0].islooped});
     res.json(true);
 });
 
