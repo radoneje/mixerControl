@@ -171,7 +171,7 @@ socket.on('connect', ()=>{
             console.log(presApp.presFolders, msg.folderid);
             var folders=presApp.presFolders.filter(f=>{f.id==msg.folderid})
             if(folders.length>0){
-                console.log(folders);
+                console.log("folders", folders);
             }
         }
         console.log("msg", msg);
