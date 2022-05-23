@@ -52,8 +52,8 @@ var presApp = new Vue({
 
         window.addEventListener("orientationchange", async ()=> {
             try{this.needRescale=window.orientation.indexOf("90")<0}catch (e){}
-            var d=window.orientation.indexOf("90")
-            alert(d+( d>=0));
+            var d=window.orientation==90 || window.orientation==-90
+            alert(d);
         }, false);
 
     }
