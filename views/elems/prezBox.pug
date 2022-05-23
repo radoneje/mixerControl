@@ -16,7 +16,7 @@
 
                         //.presImage(v-for="image in item.images" :style="'background-image: url(/api/v1/presImg/'+image.id+')'")
                     .presType {{formatType(item.type)}}
-                    .pressLooped(v-if="item.type.indexOf('video')>=0" v-on:click.stop.prevent=";;")
+                    .pressLooped(v-if="item.type.indexOf('video')>=0" v-on:click.prevent=";;")
                         label loop:
                         input(type="checkbox" v-model="image.islooped" v-on:change="videoFileLoopChange(item)" v-for="image in item.images")
                     .presDelete(v-on:click.stop.prevent="deletePres(item)")
