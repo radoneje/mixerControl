@@ -457,6 +457,15 @@ router.post('/videoFileLoopChange/:eventid', async (req, res, next)=> {
         return res.sendStatus(401);//.send("Unauthorized");
     await req.knex("t_presfiles").update({islooped:req.body.images[0].islooped}).where({id:req.body.images[0].id})
     req.sendToMixers(req.params.eventid, {cmd: "videoFileLoopChange", fileid:req.body.images[0].id, folderid:req.body.id, islooped:req.body.images[0].islooped});
+
+    try {
+        await axios.get(config.mixerCore + "mixer/videoFileLooped?eventid=" +req.params.eventid+"&fileid="+req.body.images[0].id+"&islooped="+req.body.images[0].islooped )
+    }
+    catch(ex)
+    {
+        console.warn("ERORR: cant start event",config.mixerCore + "mixer/startEvent/" + req.params["id"] )
+    }
+
     res.json(true);
 });
 
