@@ -18,7 +18,7 @@
                     .presType {{formatType(item.type)}}
                     .pressLooped(v-if="item.type.indexOf('video')>=0")
                         label loop:
-                        input(type="checkbox" v=model="image.islooped" v-on:change="videoFileLoopChange(item)" v-for="image in item.images")
+                        input(type="checkbox" v-model="image.islooped" v-on:change="videoFileLoopChange(item)" v-for="image in item.images")
                     .presDelete(v-on:click.stop.prevent="deletePres(item)")
                         .inlineImage
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve" style="fill: red;">
