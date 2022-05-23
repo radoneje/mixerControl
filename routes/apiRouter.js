@@ -452,9 +452,12 @@ router.get('/eventVideos/:eventid', async (req, res, next)=> {
 });
 
 
-router.post('/videoFileLoopChange/', async (req, res, next)=> {
-console.log(req.body);
+router.post('/videoFileLoopChange/:eventid', async (req, res, next)=> {
+    if (!req.session["user"])
+        return res.sendStatus(401);//.send("Unauthorized");
 
+    await req.knex("t_presfiles").update({islooped:req.body.images[0].islooped}).where({id:req.body.images[0].id})
+    req.sendToMixers(req.params.eventid, {cmd: "videoFileLoopChange", fileid:req.body.images[0].id, folderid:req.body.id});
     res.json(true);
 });
 

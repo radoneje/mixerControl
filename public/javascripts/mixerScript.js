@@ -9,7 +9,7 @@ var presApp=new Vue({
     methods:{
         videoFileLoopChange:async function (item){
             console.log("videoFileLoopChange", item)
-            var r=(await axios.post("/api/v1/videoFileLoopChange/",item)).data;
+            var r=(await axios.post("/api/v1/videoFileLoopChange/"+eventid,item)).data;
         },
         activetePresImg:async function (img){
             console.log("activatePresImg", img)
@@ -166,6 +166,12 @@ socket.on('connect', ()=>{
                 }
             }
 
+        }
+        if (msg.cmd == "videoFileLoopChange") {
+            var folders=presApp.presFolders.filter(f=>{f.id==msg.id})
+            if(folders.length>0){
+                console.log(folders);
+            }
         }
         console.log("msg", msg);
     });
