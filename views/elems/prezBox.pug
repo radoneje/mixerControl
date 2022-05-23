@@ -16,7 +16,8 @@
                         //.presImage(v-for="image in item.images" :style="'background-image: url(/api/v1/presImg/'+image.id+')'")
                     .presType {{formatType(item.type)}}
                     .pressLooped(v-if="item.type.indexOf('video')>=0")
-                        input(type="chekbox" v=model="item.islooped")
+                        label loop:
+                        input(type="checkbox" v=model="item.islooped")
                     .presDelete(v-on:click.stop.prevent="deletePres(item)")
                         .inlineImage
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve" style="fill: red;">
