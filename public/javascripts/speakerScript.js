@@ -45,15 +45,15 @@ var presApp = new Vue({
 
     },
     mounted: async function () {
-        try{this.needRescale=window.orientation.indexOf("90")<0;}catch (e){console.warn("error",e)}
-        console.log(this.needRescale);
+        var d=window.orientation==90 || window.orientation==-90
+        this.needRescale=!d;
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
         this.eventStatus=dt.data.status;
 
         window.addEventListener("orientationchange", async ()=> {
             try{this.needRescale=window.orientation.indexOf("90")<0}catch (e){}
             var d=window.orientation==90 || window.orientation==-90
-            alert(d);
+            this.needRescale=!d;
         }, false);
 
     }
