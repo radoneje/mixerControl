@@ -8,7 +8,6 @@ var presApp=new Vue({
 
     methods:{
         videoFileLoopChange:async function (item){
-            console.log("videoFileLoopChange", item)
             var r=(await axios.post("/api/v1/videoFileLoopChange/"+eventid,item)).data;
         },
         activetePresImg:async function (img){
@@ -168,10 +167,8 @@ socket.on('connect', ()=>{
 
         }
         if (msg.cmd == "videoFileLoopChange") {
-            console.log(presApp.presFolders, msg.folderid);
             presApp.presFolders.forEach(folder=>{
                 if(folder.id==msg.folderid){
-                    console.log("folders", folder);
                     folder.images.forEach(image=>{
                         if(image.id==msg.fileid)
                             image.islooped=msg.islooped
