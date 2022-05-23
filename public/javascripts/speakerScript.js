@@ -46,6 +46,7 @@ var presApp = new Vue({
     },
     mounted: async function () {
         try{this.needRescale=window.orientation.indexOf("90")<0;}catch (e){console.warn("error",e)}
+        console.log(this.needRescale);
         var dt=await axios.get('/api/v1/eventStatus/'+eventid)
         this.eventStatus=dt.data.status;
 
