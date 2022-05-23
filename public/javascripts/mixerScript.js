@@ -6,6 +6,10 @@ var presApp=new Vue({
         isLoaded:false
     },
     methods:{
+        videoFileLoopChange:async function (item){
+            console.log("videoFileLoopChange", item)
+            var r=(await axios.post("/api/v1/videoFileLoopChange/",item)).data;
+        },
         activetePresImg:async function (img){
             console.log("activatePresImg", img)
             var r=(await axios.get("/api/v1/activatePresImg/"+img.id+"/"+eventid)).data;

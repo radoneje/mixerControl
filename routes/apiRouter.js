@@ -453,5 +453,10 @@ router.get('/eventVideos/:eventid', async (req, res, next)=> {
 });
 
 
+router.post('/videoFileLoopChange/', async (req, res, next)=> {
+console.log(req.body);
+
+    res.json(true);
+});
 
 module.exports = router;
