@@ -409,6 +409,12 @@ router.get('/inputStop/:eventid/:input/:spkid?', async (req, res, next)=> {
     res.json(true);
 });
 
+router.get('/videoFilePause/:eventid/:fileid/:isPause', async (req, res, next)=> {
+    console.log("videoFilePause", req.params.eventid, req.params.fileid, req.params.isPause);
+
+    req.sendToMixers(req.params.eventid, {cmd: "videoFilePause", fileid:req.params.fileid, isPause:req.params.isPause});
+    res.json(true);
+});
 
 router.get('/eventStopped/:eventid', async (req, res, next)=> {
     await req.knex("t_events").update({status:0}).where({id:req.params.eventid});
