@@ -230,11 +230,11 @@ router.post("/addVideoLrvToPresFile/:id/", async (req, res) => {
     formData.append('fileid',fileRecord[0].id );
     formData.append('fileurl',config.uploadAlias+ path.basename(fileRecord[0].fullpath));
     formData.append('eventid', r[0].eventid);*/
-    console.log("mixer/loadPresVideo",r)
+ //   console.log("mixer/loadPresVideo",r)
     var rr = await axios.get(config.mixerCore + "mixer/loadPresVideo?eventid="+r[0].eventid+"&fileid="+fileRecord[0].id+"&url="+config.uploadAlias+ path.basename(fileRecord[0].fullpath));
 
     // res.json({ret: r.data, error: false});
-    console.log("mixer/loadPresVideo 1", config.mixerCore + "mixer/loadPresVideo?eventid="+r[0].eventid+"&fileid="+fileRecord[0].id+"&url="+config.uploadAlias+ path.basename(fileRecord[0].fullpath))
+ //   console.log("mixer/loadPresVideo 1", config.mixerCore + "mixer/loadPresVideo?eventid="+r[0].eventid+"&fileid="+fileRecord[0].id+"&url="+config.uploadAlias+ path.basename(fileRecord[0].fullpath))
 
 
 
@@ -333,7 +333,7 @@ router.get('/eventStatus/:eventid', async (req, res, next)=> {
      var r = await axios.get(config.mixerCore + "mixer/eventStatus/" + req.params.eventid); //todo: add request ot core;
 
      for(var input of r.data.inputs){
-         console.log("rr", input);
+        // console.log("rr", input);
          if(input.spkid && input.spkid.length>6) {
              var rr = await req.knex.select("*").from("t_spklogins").where({id: input.spkid});
              if (rr.length > 0) {
