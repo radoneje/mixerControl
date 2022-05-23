@@ -297,7 +297,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
            formData.append('fileid',fileRecord[0].id );
            formData.append('fileurl',config.uploadAlias+ path.basename(fileRecord[0].fullpath));
            formData.append('eventid', req.params["eventid"]);
-           var r = await axios.post(config.mixerCore + "mixer/activatePresVideo/" + req.params["eventid"] + "/" + req.params["id"], formData, {headers: {"Content-Type": "multipart/form-data"}})
+           var r = await axios.get(config.mixerCore + "mixer/activatePresVideo?eventid=" + req.params["eventid"] + "&fileid=" + fileRecord[0].id)
            res.json({ret: r.data, error: false});
            if (!r.data.error) {
                req.io.emit("message", JSON.stringify({
