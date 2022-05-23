@@ -122,7 +122,7 @@ async function  initVideoDevices(){
      await initTestVideo();
 }
 var serverUrl = "wss://wowza02.onevent.online:8443";
-serverUrl = "wss://demo.flashphoner.com";
+//serverUrl = "wss://demo.flashphoner.com";
 //if(typeof(roomid)!="undefined"  && roomid>90)
 //var serverUrl = "wss://phone02.sber.link:8443";
 
