@@ -64,7 +64,7 @@ var presApp = new Vue({
 
     }
 });
-constraints={audio:true, video:{ width:{ ideal:640, max:640}, height: { ideal:360,  max:360},  aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
+constraints={audio:true, video:{ width:{ ideal:1280, max:1280}, height: { ideal:720,  max:720},  aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
 testVideoIsLoaded=false;
 async function initTestVideo(){
     const video = document.querySelector("#testVideo");
