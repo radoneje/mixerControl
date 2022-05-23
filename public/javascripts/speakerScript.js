@@ -8,7 +8,7 @@ var presApp = new Vue({
         loginid:null,
         isLogin: false,
         eventStatus:-1,
-        needRescale:true,
+        needRescale:false,
     },
     methods: {
         login: async function () {
