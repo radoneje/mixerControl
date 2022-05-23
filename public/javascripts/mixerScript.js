@@ -168,8 +168,8 @@ socket.on('connect', ()=>{
 
         }
         if (msg.cmd == "videoFileLoopChange") {
-            console.log(presApp.presFolders, msg.id);
-            var folders=presApp.presFolders.filter(f=>{f.id==msg.id})
+            console.log(presApp.presFolders, msg.folderid);
+            var folders=presApp.presFolders.filter(f=>{f.id==msg.folderid})
             if(folders.length>0){
                 console.log(folders);
             }
