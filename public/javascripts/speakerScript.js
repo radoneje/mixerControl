@@ -171,7 +171,8 @@ function startStreaming(session, loginid) {
         disableConstraintsNormalization:true,
         constraints: constraints,//{audio:true, video:{ width: 1280, height: 720,  aspectRatio:  1.7777777778}},
         stripCodecs:stripCodecs,
-        transport: "TCP"
+        transport: "TCP",
+        videoContentHint:"detail"
        // cvoExtension: true
     })
     .on(STREAM_STATUS.PUBLISHING, async function (publishStream) {
