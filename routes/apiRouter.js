@@ -278,7 +278,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
         var fileRecord=await req.knex.select("*").from("v_presfilestofolder").where({id:req.params["id"]});
         if(fileRecord.length==0)
             return res.sendStatus(404);
-       if(fileRecord[0].type.indexOf("image")>=0) {
+       if(fileRecord[0].type.indexOf("image")>=0 ||fileRecord[0].type.indexOf("pdf")>=0 ) {
            var formData = new FormData();
            formData.append('image', fs.createReadStream(fileRecord[0].fullpath), "image.png");
            formData.append('eventid', req.params["eventid"]);
@@ -292,7 +292,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
                }))
            }
        }
-       else if(fileRecord[0].type.indexOf("video")) {
+       else if(fileRecord[0].type.indexOf("video")>=0) {
            var formData = new FormData();
            formData.append('fileid',fileRecord[0].id );
            formData.append('fileurl',config.uploadAlias+ path.basename(fileRecord[0].fullpath));
