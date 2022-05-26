@@ -333,6 +333,7 @@ router.post('/webCamOrientation', async (req, res, next)=> {
 router.get('/eventStatus/:eventid', async (req, res, next)=> {
 
  try {
+     console.log(config.mixerCore + "mixer/eventStatus/" + req.params.eventid);
      var r = await axios.get(config.mixerCore + "mixer/eventStatus/" + req.params.eventid); //todo: add request ot core;
 
      for(var input of r.data.inputs){
