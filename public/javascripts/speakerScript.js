@@ -70,7 +70,9 @@ constraints={audio:true,
         minBitrate: 720000,
         width:{ ideal:1280, max:1280, min:640},
         height: { ideal:720,  max:720, min:360},
-        aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
+        aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}
+        frameRate:{ideal:30}
+}
 //constraints={audio:true, video:{ minBitrate:900,maxBitrate:1200,width:{ ideal:1280, max:1280, min:1280}, height: { ideal:720,  max:720, min:720},  aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
 
 testVideoIsLoaded=false;
