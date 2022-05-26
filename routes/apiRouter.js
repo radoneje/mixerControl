@@ -292,7 +292,7 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
                }))
            }
        }
-       else {
+       else if(fileRecord[0].type.indexOf("video")) {
            var formData = new FormData();
            formData.append('fileid',fileRecord[0].id );
            formData.append('fileurl',config.uploadAlias+ path.basename(fileRecord[0].fullpath));
@@ -308,6 +308,9 @@ router.get('/activatePresImg/:id/:eventid', async (req, res, next)=> {
            }
 
        }
+       else {
+           res.sendStatus(404);
+        }
     }
     catch(e) {
         res.status(500).send(JSON.stringify({ret:e.message, error:true}))
