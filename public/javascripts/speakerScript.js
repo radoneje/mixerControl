@@ -30,11 +30,11 @@ var presApp = new Vue({
             if( this.name && this.name.length>1){
                 setTimeout(()=>{
                     const video = document.querySelector("#testVideo");
-                    if(!testVideoIsLoaded) {
+                   // if(!testVideoIsLoaded) {
                         initVideoDevices()
                         initTestVideo(video)
-                    }
-                },0)
+                  //  }
+                },10)
 
             }
             else
