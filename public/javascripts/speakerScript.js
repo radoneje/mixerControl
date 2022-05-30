@@ -30,10 +30,10 @@ var presApp = new Vue({
             if( this.name && this.name.length>1){
                 setTimeout(()=>{
                     const video = document.querySelector("#testVideo");
-                   // if(!testVideoIsLoaded) {
+                    if(!testVideoIsLoaded) {
                         initVideoDevices()
                         initTestVideo(video)
-                  //  }
+                    }
                 },10)
 
             }
@@ -65,26 +65,26 @@ var presApp = new Vue({
     }
 });
 constraints={audio:true,
-    video:true//{
+    video:{
 
-     //   maxBitrate: 1024000,
-    //    minBitrate: 720000,
-      //  width:{ ideal:1280, max:1280, min:640},
-      //  height: { ideal:720,  max:720, min:360},
-       // aspectRatio:  1.7777777778 /*,facingMode: 'user'*/},
-      //  frameRate:{ideal:30}
-//}
+        maxBitrate: 1024000,
+        minBitrate: 720000,
+        width:{ ideal:1280, max:1280, min:640},
+        height: { ideal:720,  max:720, min:360},
+        aspectRatio:  1.7777777778, /*,facingMode: 'user'*/
+        frameRate:{ideal:30}
+}
 }
 //constraints={audio:true, video:{ minBitrate:900,maxBitrate:1200,width:{ ideal:1280, max:1280, min:1280}, height: { ideal:720,  max:720, min:720},  aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}}
 
 testVideoIsLoaded=false;
 async function initTestVideo(){
-    console.log("initTestVideo");
+
     const video = document.querySelector("#testVideo");
     if(video)
         testVideoIsLoaded=true
     var stream = await navigator.mediaDevices.getUserMedia(constraints);
-    console.log(stream);
+
     video.srcObject = stream;
     video.muted=true;
     video.play();
