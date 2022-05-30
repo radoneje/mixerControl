@@ -79,6 +79,7 @@ constraints={audio:true,
 
 testVideoIsLoaded=false;
 async function initTestVideo(){
+    console.log("initTestVideo");
     const video = document.querySelector("#testVideo");
     if(video)
         testVideoIsLoaded=true
