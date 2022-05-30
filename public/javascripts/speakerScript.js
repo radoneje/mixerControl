@@ -83,6 +83,7 @@ async function initTestVideo(){
     if(video)
         testVideoIsLoaded=true
     var stream = await navigator.mediaDevices.getUserMedia(constraints);
+    console.log(stream);
     video.srcObject = stream;
     video.muted=true;
     video.play();
