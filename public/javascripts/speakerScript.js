@@ -66,8 +66,8 @@ var presApp = new Vue({
 });
 constraints={audio:true,
     video:{
-        maxBitrate: 1024000,
-        minBitrate: 720000,
+     //   maxBitrate: 1024000,
+    //    minBitrate: 720000,
         width:{ ideal:1280, max:1280, min:640},
         height: { ideal:720,  max:720, min:360},
         aspectRatio:  1.7777777778 /*,facingMode: 'user'*/}
