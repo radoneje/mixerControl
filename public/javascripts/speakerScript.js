@@ -88,6 +88,7 @@ async function initTestVideo(){
     video.play();
 }
 async function  initVideoDevices(){
+    return;
     const devices = await navigator.mediaDevices.enumerateDevices();
 
     var videoSelect=document.getElementById("videoselect")
